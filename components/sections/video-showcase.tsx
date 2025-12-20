@@ -31,13 +31,13 @@ export function VideoShowcase({ lang }: { lang: Language }) {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-bottom scale-110"
         >
           <source src="/images/videos/sea-video.mp4" type="video/mp4" />
         </video>
         {/* Gradient Overlay - More aggressive top and bottom */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-secondary" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-transparent via-transparent to-secondary/95" />
+        <div className="absolute inset-0 bg-linear-to-b from-background/60 via-transparent to-secondary/60" />
+        <div className="absolute inset-0 bg-linear-to-b from-background/70 via-transparent to-secondary/70" />
       </div>
 
       {/* Content */}

@@ -116,7 +116,7 @@ export function ValuesCarousel({ lang }: { lang: Language }) {
                 className="object-cover"
                 priority={currentIndex === 0}
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary/75 to-secondary/90" />
+              <div className="absolute inset-0 bg-linear-to-br from-primary/85 via-primary/75 to-secondary/90" />
             </div>
 
             {/* Content - Improved Layout */}

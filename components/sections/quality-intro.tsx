@@ -52,7 +52,7 @@ export function QualityIntro({ lang }: { lang: Language }) {
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-br from-primary/20 via-primary/10 to-transparent" />
           </motion.div>
         </div>
       </div>
