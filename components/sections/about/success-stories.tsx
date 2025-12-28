@@ -209,7 +209,7 @@ const successContent = {
 }
 
 export function SuccessStories({ lang }: { lang: Language }) {
-  const t = successContent[lang]
+  const t = successContent[lang as keyof typeof successContent] || successContent.en
   const [activeCat, setActiveCat] = useState(0)
   const [activeCase, setActiveCase] = useState(0)
 
@@ -286,7 +286,7 @@ export function SuccessStories({ lang }: { lang: Language }) {
               <span className="text-accent text-sm tracking-widest uppercase font-medium">
                 {t.subtitle}
               </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mt-2 tracking-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-hero font-bold text-white mt-2 tracking-tight">
                 {t.title}
               </h2>
             </motion.div>

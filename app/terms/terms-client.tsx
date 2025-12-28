@@ -11,18 +11,18 @@ export function TermsClient() {
   const t = content[lang].legal.terms
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen">
       {/* Header */}
       <section className="relative h-[30dvh] flex items-center justify-center overflow-hidden bg-primary pt-16">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-primary/80" />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/60 via-transparent to-primary/80" />
+          <div className="absolute inset-0 bg-linear-gradient(to bottom, var(--color-primary-60), transparent, var(--color-primary-80))" />
         </div>
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-bold font-sans mb-4 text-white drop-shadow-lg uppercase tracking-tight"
+            className="text-4xl md:text-5xl font-bold font-hero mb-4 text-white drop-shadow-lg uppercase tracking-tight"
           >
             {t.title}
           </motion.h1>

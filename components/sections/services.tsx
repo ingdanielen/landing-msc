@@ -26,10 +26,10 @@ export function Services({ lang }: { lang: Language }) {
   const t = content[lang].services
 
   return (
-    <section id="services" className="py-24 bg-white relative">
+    <section id="services" className="py-24 relative">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-20">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-4 font-sans uppercase tracking-tight">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-4 font-hero uppercase tracking-tight">
             {t.title}
           </h2>
           <p className="text-slate-600 text-lg max-w-2xl">{t.subtitle}</p>
@@ -74,7 +74,7 @@ export function Services({ lang }: { lang: Language }) {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-3xl font-bold text-white font-sans uppercase tracking-tight leading-tight group-hover:text-accent transition-colors duration-300 drop-shadow-lg">
+                      <h3 className="text-3xl font-bold text-white font-hero uppercase tracking-tight leading-tight group-hover:text-accent transition-colors duration-300 drop-shadow-lg">
                         {item.title}
                       </h3>
                     </div>
@@ -88,7 +88,7 @@ export function Services({ lang }: { lang: Language }) {
                     
                     {/* CTA - Appears on hover below description */}
                     <div className="flex items-center justify-center text-accent font-bold text-sm uppercase tracking-wider gap-2 mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200 transform translate-y-4 group-hover:translate-y-0">
-                      <span>{lang === "es" ? "Ver más" : "Learn more"}</span>
+                      <span>{lang === "es" ? "Ver más" : lang === "zh" ? "了解更多" : "Learn more"}</span>
                       <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>

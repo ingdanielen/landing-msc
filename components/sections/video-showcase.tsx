@@ -14,16 +14,21 @@ const videoShowcaseContent = {
   },
   en: {
     quote:
-      "Genuine passion for maritime excellence, undeniable legacy of technical integrity, and an unfaltering commitment to safety, transparency, and our clients' trust.",
+      "Genuine passion for maritime excellence, undeniable legacy of technical integrity, and an unfaltering commitment to safety, transparency, and our clients trust.",
     cta: "Request your inspection",
+  },
+  zh: {
+    quote:
+      "对海事卓越的真诚热情，技术诚信的不可否认的传承，以及对安全、透明和客户信任的坚定承诺。",
+    cta: "申请检验",
   },
 }
 
 export function VideoShowcase({ lang }: { lang: Language }) {
-  const t = videoShowcaseContent[lang]
+  const t = videoShowcaseContent[lang as keyof typeof videoShowcaseContent] as { quote: string; cta: string }
 
   return (
-    <section id="video" className="relative w-full h-[70vh] min-h-[600px] overflow-hidden -mb-12">
+    <section id="video" className="relative w-full h-[70vh] min-h-[600px] overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0">
         <video
@@ -35,9 +40,8 @@ export function VideoShowcase({ lang }: { lang: Language }) {
         >
           <source src="/images/videos/sea-video.mp4" type="video/mp4" />
         </video>
-        {/* Gradient Overlay - More aggressive top and bottom */}
-        <div className="absolute inset-0 bg-linear-to-b from-background/60 via-transparent to-secondary/60" />
-        <div className="absolute inset-0 bg-linear-to-b from-background/70 via-transparent to-secondary/70" />
+        {/* Clean gradient overlay */}
+        <div className="absolute inset-0 bg-primary/40" />
       </div>
 
       {/* Content */}
@@ -50,26 +54,21 @@ export function VideoShowcase({ lang }: { lang: Language }) {
             transition={{ duration: 0.8 }}
             className="max-w-5xl mx-auto text-center"
           >
-            <div className="inline-block mb-6">
-            </div>
-            <p className="text-2xl md:text-4xl lg:text-5xl text-white mb-8 font-sans font-normal tracking-normal leading-[1.1] drop-shadow-lg">
+            <p className="text-2xl md:text-4xl lg:text-5xl text-white mb-8 font-hero font-light tracking-wide leading-[1.2] drop-shadow-lg">
               {t.quote}
             </p>
             <div className="w-24 h-1 bg-accent mx-auto"></div>
 
             <div className="mt-10">
-                
               <Link href="/contact">
                 <Button
                   size="lg"
-                  className="bg-accent hover:bg-accent/90 text-white font-semibold text-base px-8 py-6 rounded-lg transition-all duration-300 group shadow-lg"
+                  className="bg-accent hover:bg-accent/90 text-white font-semibold text-base px-8 py-6 rounded-lg transition-all duration-300 group shadow-xl hover:shadow-2xl"
                 >
                   {t.cta}
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-            </div>
-            <div className="inline-block mt-8">
             </div>
           </motion.div>
         </div>

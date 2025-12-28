@@ -71,19 +71,19 @@ const qualityControlData = {
 }
 
 export function QualityControl({ lang }: { lang: Language }) {
-  const data = qualityControlData[lang]
+  const data = qualityControlData[lang as keyof typeof qualityControlData]
 
   return (
-    <div className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-8 md:p-12 border border-slate-200">
+    <div className="card-ocean-solid rounded-2xl p-8 md:p-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="text-center mb-12"
       >
-        <h3 className="text-3xl font-bold text-primary mb-4 font-sans uppercase tracking-tight">{data.title}</h3>
+        <h3 className="text-3xl font-bold text-primary mb-4 font-hero uppercase tracking-tight">{data.title}</h3>
         <div className="w-24 h-1 bg-accent mx-auto mb-6"></div>
-        <p className="text-lg text-slate-700 max-w-3xl mx-auto leading-relaxed">{data.description}</p>
+        <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">{data.description}</p>
       </motion.div>
 
       <div className="grid md:grid-cols-2 gap-6">
@@ -96,9 +96,9 @@ export function QualityControl({ lang }: { lang: Language }) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="bg-white p-6 rounded-xl border border-slate-200 flex items-start gap-4 hover:shadow-lg transition-all group"
+              className="card-ocean p-6 rounded-xl flex items-start gap-4 group"
             >
-              <div className="h-14 w-14 bg-primary/5 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
+              <div className="h-14 w-14 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
                 <Icon className="h-7 w-7 text-primary group-hover:text-white transition-colors" strokeWidth={1.5} />
               </div>
               <div className="flex-1">

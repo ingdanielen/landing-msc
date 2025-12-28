@@ -18,10 +18,10 @@ const qualityIntroData = {
 }
 
 export function QualityIntro({ lang }: { lang: Language }) {
-  const data = qualityIntroData[lang]
+  const data = qualityIntroData[lang as keyof typeof qualityIntroData]
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
@@ -31,7 +31,7 @@ export function QualityIntro({ lang }: { lang: Language }) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-sans uppercase tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-hero uppercase tracking-tight">
               {data.title}
             </h2>
             <div className="w-24 h-1 bg-accent mb-6"></div>

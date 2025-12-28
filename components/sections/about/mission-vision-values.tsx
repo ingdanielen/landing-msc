@@ -155,8 +155,8 @@ const missionVisionContent = {
 }
 
 export function MissionVisionValues({ lang }: { lang: Language }) {
-  const t = missionVisionContent[lang]
-  const [activeValue, setActiveValue] = useState(0)
+    const t = missionVisionContent[lang as keyof typeof missionVisionContent] || missionVisionContent.en
+    const [activeValue, setActiveValue] = useState(0)
 
   const currentValue = t.values[activeValue]
   const CurrentIcon = currentValue.icon
@@ -175,7 +175,7 @@ export function MissionVisionValues({ lang }: { lang: Language }) {
   return (
     <section className="relative overflow-hidden">
       {/* Mission & Vision Section */}
-      <div className="bg-white py-16 md:py-20 lg:py-24 relative">
+      <div className="py-16 md:py-20 lg:py-24 relative">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 md:w-96 h-80 md:h-96 bg-accent/5 rounded-full blur-3xl" />
           <div className="absolute -bottom-40 -left-40 w-80 md:w-96 h-80 md:h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -188,7 +188,7 @@ export function MissionVisionValues({ lang }: { lang: Language }) {
             viewport={{ once: true }}
             className="text-center mb-12 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-primary mb-6 tracking-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-hero font-bold text-primary mb-6 tracking-tight">
               {t.sectionTitle}
             </h2>
             <div className="w-20 md:w-24 h-1 bg-accent mx-auto" />
@@ -263,7 +263,7 @@ export function MissionVisionValues({ lang }: { lang: Language }) {
               priority
             />
             <div className="absolute inset-0 bg-slate-950/75" />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/50 to-transparent" />
+            <div className="absolute inset-0 bg-linear-gradient(to right, var(--color-slate-950), var(--color-slate-950-50), transparent)" />
           </motion.div>
         </AnimatePresence>
 
@@ -280,7 +280,7 @@ export function MissionVisionValues({ lang }: { lang: Language }) {
               <span className="text-accent text-xs md:text-sm tracking-widest uppercase font-medium">
                 {t.valuesSubtitle}
               </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mt-2 tracking-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-hero font-bold text-white mt-2 tracking-tight">
                 {t.valuesTitle}
               </h2>
             </motion.div>

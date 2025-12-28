@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Search, X } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { type Language } from "@/lib/content"
 import Link from "next/link"
 
@@ -31,35 +31,45 @@ interface SearchBarProps {
 export function SearchBar({ lang, isOpen, setIsOpen }: SearchBarProps) {
   const [searchQuery, setSearchQuery] = useState("")
   const [results, setResults] = useState<SearchResult[]>([])
-  const searchRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  // Detectar mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024)
+    }
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  // Focus input when opening
   useEffect(() => {
     if (isOpen) {
-      inputRef.current?.focus()
+      const timer = setTimeout(() => {
+        inputRef.current?.focus()
+      }, 150)
+      return () => clearTimeout(timer)
     } else {
       setSearchQuery("")
       setResults([])
     }
   }, [isOpen])
 
+  // Handle escape key
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
         setIsOpen(false)
-        setSearchQuery("")
       }
     }
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
+    
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
   }, [isOpen, setIsOpen])
 
+  // Filter results
   useEffect(() => {
     if (searchQuery.trim() === "") {
       setResults([])
@@ -76,82 +86,161 @@ export function SearchBar({ lang, isOpen, setIsOpen }: SearchBarProps) {
     setSearchQuery("")
   }
 
-  return (
-    <div className="relative">
-      {/* Search Button - Hidden when search is open */}
-      {!isOpen && (
+  const closeSearch = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setIsOpen(false)
+    setSearchQuery("")
+  }
+
+  // Mobile: Solo mostrar el botón de búsqueda, el modal se muestra como overlay
+  if (isMobile) {
+    return (
+      <>
         <button
           onClick={() => setIsOpen(true)}
-          className="text-white hover:text-accent transition-colors p-2"
+          className="p-2 text-white hover:text-accent transition-colors rounded-lg hover:bg-white/10"
           aria-label={lang === "es" ? "Buscar" : "Search"}
         >
           <Search className="h-5 w-5" />
         </button>
-      )}
 
-      {/* Search Input Overlay - Absolute positioned, doesn't affect layout */}
-      {isOpen && (
-        <div 
-          ref={searchRef} 
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-50"
-        >
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.2 }}
-            className="relative w-80"
-          >
-            {/* Search Input */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/70" />
-              <input
-                ref={inputRef}
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={lang === "es" ? "Buscar..." : "Search..."}
-                className="w-full pl-10 pr-10 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-md text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent shadow-lg transition-all duration-300"
-              />
-              <button
-                onClick={() => {
-                  setIsOpen(false)
-                  setSearchQuery("")
-                }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-
-            {/* Results Dropdown - Below Input */}
-            {searchQuery && (
-              <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden">
-                {results.length > 0 ? (
-                  <div className="py-2 max-h-64 overflow-y-auto">
-                    {results.map((result, idx) => (
-                      <Link
-                        key={idx}
-                        href={result.href}
-                        onClick={handleResultClick}
-                        className="block px-4 py-3 hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-b-0"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="h-2 w-2 rounded-full bg-primary"></div>
-                          <span className="text-sm text-slate-700">{result.title}</span>
-                        </div>
-                      </Link>
-                    ))}
+        {/* Mobile Search Overlay */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[100] bg-primary/98 backdrop-blur-xl"
+            >
+              <div className="container mx-auto px-4 pt-4">
+                {/* Header */}
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="flex-1 flex items-center bg-white/10 rounded-lg border border-white/20 overflow-hidden">
+                    <div className="pl-4 text-white/60">
+                      <Search className="h-5 w-5" />
+                    </div>
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder={lang === "es" ? "Buscar..." : lang === "zh" ? "搜索..." : "Search..."}
+                      className="flex-1 px-3 py-4 bg-transparent text-white placeholder:text-white/50 focus:outline-none w-full"
+                    />
                   </div>
-                ) : (
-                  <div className="px-4 py-8 text-center text-sm text-slate-500">
-                    {lang === "es" ? "No se encontraron resultados" : "No results found"}
+                  <button
+                    onClick={closeSearch}
+                    className="p-3 text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10"
+                    type="button"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+
+                {/* Results */}
+                {searchQuery && (
+                  <div className="bg-white rounded-xl overflow-hidden shadow-xl">
+                    {results.length > 0 ? (
+                      <div className="divide-y divide-slate-100">
+                        {results.map((result, idx) => (
+                          <Link
+                            key={idx}
+                            href={result.href}
+                            onClick={handleResultClick}
+                            className="flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-colors"
+                          >
+                            <div className="h-2 w-2 rounded-full bg-accent" />
+                            <span className="text-base text-slate-700">{result.title}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="px-5 py-8 text-center text-slate-500">
+                        {lang === "es" ? "Sin resultados" : lang === "zh" ? "无结果" : "No results"}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
-            )}
-          </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </>
+    )
+  }
+
+  // Desktop version
+  if (!isOpen) {
+    return (
+      <button
+        onClick={() => setIsOpen(true)}
+        className="p-2 text-white hover:text-accent transition-colors rounded-lg hover:bg-white/10"
+        aria-label={lang === "es" ? "Buscar" : "Search"}
+      >
+        <Search className="h-5 w-5" />
+      </button>
+    )
+  }
+
+  return (
+    <motion.div
+      initial={{ width: 40, opacity: 0.5 }}
+      animate={{ width: 220, opacity: 1 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className="relative"
+    >
+      <div className="flex items-center bg-white/15 backdrop-blur-sm rounded-lg border border-white/20 overflow-hidden">
+        <div className="pl-3 text-white/60">
+          <Search className="h-4 w-4" />
         </div>
+        <input
+          ref={inputRef}
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder={lang === "es" ? "Buscar..." : lang === "zh" ? "搜索..." : "Search..."}
+          className="flex-1 px-2 py-2 bg-transparent text-white text-sm placeholder:text-white/50 focus:outline-none w-full"
+        />
+        <button
+          onClick={closeSearch}
+          className="p-2 text-white/60 hover:text-white transition-colors"
+          type="button"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+
+      {/* Results Dropdown */}
+      {searchQuery && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.15 }}
+          className="absolute left-0 right-0 top-full mt-2 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden z-50"
+        >
+          {results.length > 0 ? (
+            <div className="py-1 max-h-64 overflow-y-auto">
+              {results.map((result, idx) => (
+                <Link
+                  key={idx}
+                  href={result.href}
+                  onClick={handleResultClick}
+                  className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 transition-colors"
+                >
+                  <div className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  <span className="text-sm text-slate-700">{result.title}</span>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="px-4 py-6 text-center text-sm text-slate-500">
+              {lang === "es" ? "Sin resultados" : lang === "zh" ? "无结果" : "No results"}
+            </div>
+          )}
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }

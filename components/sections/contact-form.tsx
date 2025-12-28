@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent } from "@/components/ui/card"
 import { MapPin, Phone, Mail, AlertCircle } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
-import { GoogleMap } from "@/components/sections/google-map"
+import { MSCMap } from "@/components/ui/msc-map"
 
 export function ContactForm({ lang }: { lang: Language }) {
   const t = content[lang].contact
@@ -45,7 +45,7 @@ export function ContactForm({ lang }: { lang: Language }) {
             className="space-y-8"
           >
             <div>
-              <h2 className="text-3xl font-bold text-primary font-sans uppercase mb-2">{t.title}</h2>
+              <h2 className="text-3xl font-bold text-primary font-hero uppercase mb-2">{t.title}</h2>
               <p className="text-accent text-lg">{t.subtitle}</p>
             </div>
 
@@ -84,8 +84,8 @@ export function ContactForm({ lang }: { lang: Language }) {
               </Card>
             </div>
 
-            {/* Google Map */}
-            <GoogleMap height="200px" />
+            {/* Leaflet Map */}
+            <MSCMap lang={lang} height="200px" />
           </motion.div>
 
           {/* Form */}

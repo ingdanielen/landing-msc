@@ -101,13 +101,60 @@ const introContent = {
       ],
     },
   },
+  zh: {
+    title: "关于我们",
+    subtitle: "公司简介",
+    description: [
+      "Marine Surveyors and Consultants 是一家专业从事船舶、货物和海事基础设施综合检验的独立组织。凭借多年的行业经验，我们确保在整个海事物流链中提供准确的报告、法规合规性和运营安全。",
+      "我们拥有一支由高素质检验员、船舶建筑师和海事顾问组成的团队，为船舶、货物、港口和海事结构提供符合国际标准的客观、准确评估。",
+    ],
+    commitment: {
+      title: "我们的承诺",
+      text: "通过提供透明、公正和技术可靠的评估，支持安全航行、保护货物完整性、确保法规合规并保护海洋环境，让客户能够依赖这些评估做出关键决策。",
+    },
+    dataPoints: [
+      {
+        icon: Calendar,
+        label: "成立年份",
+        value: "2019",
+        highlight: true,
+      },
+      {
+        icon: Users,
+        label: "团队经验",
+        value: "+25年",
+        sublabel: "综合经验",
+      },
+      {
+        icon: MapPin,
+        label: "运营覆盖",
+        value: "港口、码头",
+        sublabel: "和锚地",
+      },
+      {
+        icon: FileSearch,
+        label: "方法",
+        value: "预防性、技术性",
+        sublabel: "和文件性",
+      },
+    ],
+    clientTypes: {
+      title: "客户类型",
+      list: [
+        "船东",
+        "海事运营商",
+        "保险公司",
+        "物流和国际贸易公司",
+      ],
+    },
+  },
 }
 
 export function CompanyIntro({ lang }: { lang: Language }) {
   const t = introContent[lang]
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
+    <section className="py-16 md:py-20 lg:py-24 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         {/* Main Grid */}
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -161,7 +208,7 @@ export function CompanyIntro({ lang }: { lang: Language }) {
               <span className="text-accent text-sm tracking-widest uppercase font-medium">
                 {t.subtitle}
               </span>
-              <h2 className="text-3xl md:text-4xl font-black text-primary mt-2 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-hero font-bold text-primary mt-2 tracking-tight">
                 {t.title}
               </h2>
             </div>
@@ -190,7 +237,7 @@ export function CompanyIntro({ lang }: { lang: Language }) {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-12 md:mt-16"
         >
-          <div className="bg-slate-50 rounded-lg p-4 md:p-6">
+          <div className="card-ocean-solid rounded-lg p-4 md:p-6">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               {t.dataPoints.map((point, idx) => {
                 const Icon = point.icon
@@ -202,8 +249,8 @@ export function CompanyIntro({ lang }: { lang: Language }) {
                     <div className={`
                       flex flex-col h-full p-4 rounded-lg transition-all duration-300
                       ${point.highlight 
-                        ? "bg-primary text-white" 
-                        : "bg-white border border-slate-200 hover:border-accent/50 hover:shadow-md"
+                        ? "bg-accent text-white" 
+                        : "card-ocean"
                       }
                     `}>
                       {/* Icon */}

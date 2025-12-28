@@ -28,7 +28,7 @@ export function ServicesPreview({ lang }: { lang: Language }) {
   return (
     <section id="services" className="bg-primary relative">
       {/* Header */}
-      <div className="bg-white py-12 md:py-16 lg:py-20">
+      <div className="py-12 md:py-16 lg:py-20">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -38,17 +38,17 @@ export function ServicesPreview({ lang }: { lang: Language }) {
           >
             <div className="max-w-2xl">
               <span className="text-accent font-bold text-sm uppercase tracking-[0.2em] mb-3 block">
-                {lang === "es" ? "Servicios Especializados" : "Specialized Services"}
+                {lang === "es" ? "Servicios Especializados" : lang === "zh" ? "专业服务" : "Specialized Services"}
               </span>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-black text-primary tracking-tight leading-[1.1]">
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-hero font-bold text-white tracking-tight leading-[1.1]">
                 {t.title}
               </h2>
             </div>
             <div className="lg:text-right">
-              <p className="text-slate-500 md:text-lg max-w-md mb-4 lg:mb-6">{t.subtitle}</p>
+              <p className="text-white/70 md:text-lg max-w-md mb-4 lg:mb-6">{t.subtitle}</p>
               <Link href="/services" className="hidden lg:inline-block">
-                <Button variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold group">
-                  {lang === "es" ? "Explorar Todos" : "Explore All"}
+                <Button variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary font-bold group">
+                  {lang === "es" ? "Explorar Todos" : lang === "zh" ? "探索全部" : "Explore All"}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
@@ -126,7 +126,7 @@ export function ServicesPreview({ lang }: { lang: Language }) {
         <div className="bg-primary px-5 py-8">
           <Link href="/services" className="block">
             <Button className="w-full bg-accent hover:bg-accent/90 text-white font-bold py-6 text-base group">
-              {lang === "es" ? "Ver Todos los Servicios" : "View All Services"}
+              {lang === "es" ? "Ver Todos los Servicios" : lang === "zh" ? "查看所有服务" : "View All Services"}
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
@@ -176,12 +176,12 @@ export function ServicesPreview({ lang }: { lang: Language }) {
                   {/* Category Label - Appears on hover */}
                   <div className="mb-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                     <span className="text-accent text-sm font-bold uppercase tracking-widest">
-                      {lang === "es" ? "Servicio" : "Service"} {String(idx + 1).padStart(2, "0")}
+                      {lang === "es" ? "Servicio" : lang === "zh" ? "服务" : "Service"} {String(idx + 1).padStart(2, "0")}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-3xl xl:text-4xl font-black text-white mb-4 tracking-tight leading-tight transform group-hover:-translate-y-2 transition-transform duration-500">
+                  <h3 className="text-3xl xl:text-4xl font-hero font-bold text-white mb-4 tracking-tight leading-tight transform group-hover:-translate-y-2 transition-transform duration-500">
                     {item.title}
                   </h3>
                   
@@ -195,7 +195,7 @@ export function ServicesPreview({ lang }: { lang: Language }) {
                   {/* CTA Button */}
                   <div className="opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200 transform translate-y-6 group-hover:translate-y-0">
                     <div className="inline-flex items-center gap-3 bg-accent hover:bg-accent/90 text-white font-bold px-6 py-3 rounded-lg transition-colors">
-                      <span>{lang === "es" ? "Explorar Servicio" : "Explore Service"}</span>
+                      <span>{lang === "es" ? "Explorar Servicio" : lang === "zh" ? "探索服务" : "Explore Service"}</span>
                       <ArrowRight className="h-5 w-5" />
                     </div>
                   </div>

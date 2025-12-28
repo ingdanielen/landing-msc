@@ -1,8 +1,4 @@
 import type { Metadata } from "next"
-import { Hero } from "@/components/sections/hero"
-import { ServicesPreview } from "@/components/sections/services-preview"
-import { AboutPreview } from "@/components/sections/about-preview"
-import { GoogleMap } from "@/components/sections/google-map"
 import { HomeClient } from "./home-client"
 import { WebPageSchema } from "@/components/seo/schema-org"
 
@@ -56,7 +52,7 @@ export default function Home() {
         description="Marine Surveyors & Consultants (MSC) - Realizamos inspecciones independientes, encuestas de carga, evaluaciones de buques y consultoría técnica para armadores, fletadores, aseguradoras y operadores portuarios en todo el mundo."
         url={siteUrl}
       />
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen">
         <HomeClient />
       </main>
     </>

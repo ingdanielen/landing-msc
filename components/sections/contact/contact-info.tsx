@@ -101,7 +101,7 @@ const infoContent = {
 }
 
 export function ContactInfo({ lang }: { lang: Language }) {
-  const t = infoContent[lang]
+  const t = infoContent[lang as keyof typeof infoContent]
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [activeChannel, setActiveChannel] = useState<string>("office")
 
@@ -114,7 +114,7 @@ export function ContactInfo({ lang }: { lang: Language }) {
   const currentChannel = t.channels.find((c) => c.id === activeChannel)
 
   return (
-    <section className="relative py-16 md:py-20 bg-white overflow-hidden">
+    <section className="relative py-16 md:py-20 overflow-hidden">
       {/* Subtle background pattern */}
       <div 
         className="absolute inset-0 opacity-[0.02]"
@@ -132,7 +132,7 @@ export function ContactInfo({ lang }: { lang: Language }) {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-black text-primary mb-2 tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-hero font-bold text-primary mb-2 tracking-tight">
               {t.title}
             </h2>
             <p className="text-slate-500">{t.subtitle}</p>

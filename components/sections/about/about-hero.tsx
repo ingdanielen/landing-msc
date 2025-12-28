@@ -21,10 +21,18 @@ const heroContent = {
     tagline: "Care at Sea. Trust on Land.",
     founded: "Founded in 2019",
   },
+  zh: {
+    title: "关于我们",
+    subtitle: "海事测量师与顾问",
+    description:
+      "专业从事海事检验、技术监督、咨询和独立验证的公司，致力于提供可靠、公正、符合国际标准的技术判断。",
+    tagline: "海上关怀，陆上信任。",
+    founded: "成立于2019年",
+  },
 }
 
 export function AboutHero({ lang }: { lang: Language }) {
-  const t = heroContent[lang]
+  const t = heroContent[lang as keyof typeof heroContent] || heroContent.en
 
   const scrollToContent = () => {
     const element = document.getElementById("company-intro")
@@ -34,7 +42,7 @@ export function AboutHero({ lang }: { lang: Language }) {
   return (
     <section
       id="hero"
-      className="relative min-h-[85dvh] flex items-center justify-center overflow-hidden bg-primary"
+      className="relative min-h-[70dvh] flex items-center justify-center overflow-hidden"
     >
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
@@ -47,51 +55,53 @@ export function AboutHero({ lang }: { lang: Language }) {
         >
           <source src="/images/videos/hero-1.mp4" type="video/mp4" />
         </video>
-        {/* Overlays */}
-        <div className="absolute inset-0 bg-primary/70" />
-        <div className="absolute inset-0 bg-linear-to-b from-primary/50 via-transparent to-primary/80" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent opacity-60" />
-        {/* Animated grid pattern */}
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }} />
-        </div>
+        <div className="absolute inset-0 bg-linear-to-b from-primary/80 via-primary/60 to-primary/40" />
+      </div>
+      
+      {/* Animated Waves */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 md:h-32 overflow-hidden z-5">
+        <svg className="absolute bottom-0 left-0 w-[200%] h-full animate-wave-slow" viewBox="0 0 2880 100" preserveAspectRatio="none">
+          <path fill="rgba(255,255,255,0.2)" d="M0,50 C360,30 720,70 1080,50 C1440,30 1800,70 2160,50 C2520,30 2880,70 2880,50 L2880,100 L0,100 Z"/>
+        </svg>
+        <svg className="absolute bottom-0 left-0 w-[200%] h-full animate-wave-medium" viewBox="0 0 2880 100" preserveAspectRatio="none">
+          <path fill="rgba(255,255,255,0.4)" d="M0,65 C360,50 720,80 1080,65 C1440,50 1800,80 2160,65 C2520,50 2880,80 2880,65 L2880,100 L0,100 Z"/>
+        </svg>
+        <svg className="absolute bottom-0 left-0 w-[200%] h-full animate-wave-fast" viewBox="0 0 2880 100" preserveAspectRatio="none">
+          <path fill="rgba(255,255,255,0.7)" d="M0,80 C360,70 720,90 1080,80 C1440,70 1800,90 2160,80 C2520,70 2880,90 2880,80 L2880,100 L0,100 Z"/>
+        </svg>
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 md:px-6 relative z-10 text-center pt-20">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 text-center pt-24 pb-32">
         {/* Founded Badge */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2 mb-8"
+          className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6"
         >
-          <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-          <span className="text-sm font-medium text-white/90 tracking-wide uppercase">
+          <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+          <span className="text-xs font-medium text-white/80 tracking-wider uppercase">
             {t.founded}
           </span>
         </motion.div>
 
-        {/* Title */}
+        {/* Title - Using Reversal font */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold font-sans mb-4 text-white drop-shadow-2xl uppercase tracking-tighter"
+          className="font-hero text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight mb-4"
         >
           {t.title}
         </motion.h1>
 
-        {/* Subtitle */}
+        {/* Subtitle - Using Playfair font */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-xl md:text-2xl text-accent font-semibold mb-8 tracking-wide"
+          className="font-serif text-lg sm:text-xl md:text-2xl text-accent italic mb-6"
         >
           {t.subtitle}
         </motion.p>
@@ -101,19 +111,18 @@ export function AboutHero({ lang }: { lang: Language }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-lg md:text-xl text-blue-100/90 max-w-4xl mx-auto leading-relaxed mb-12"
+          className="text-sm md:text-base text-white/70 max-w-3xl mx-auto leading-relaxed mb-8"
         >
           {t.description}
         </motion.p>
 
         {/* Tagline */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="inline-block"
         >
-          <p className="text-2xl md:text-3xl font-light text-white/80 italic border-l-4 border-accent pl-6">
+          <p className="text-base md:text-lg text-white/60 italic">
             "{t.tagline}"
           </p>
         </motion.div>
@@ -124,36 +133,19 @@ export function AboutHero({ lang }: { lang: Language }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.8 }}
           onClick={scrollToContent}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors cursor-pointer group"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50 hover:text-white transition-colors cursor-pointer"
         >
-          <span className="text-xs uppercase tracking-widest">
-            {lang === "es" ? "Descubre más" : "Discover more"}
+          <span className="text-[10px] uppercase tracking-widest">
+            {lang === "es" ? "Descubre más" : lang === "zh" ? "了解更多" : "Discover more"}
           </span>
           <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [0, 6, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
           >
-            <ChevronDown className="h-6 w-6 group-hover:text-accent transition-colors" />
+            <ChevronDown className="h-5 w-5" />
           </motion.div>
         </motion.button>
-      </div>
-
-      {/* Bottom Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg
-          viewBox="0 0 1440 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-            fill="white"
-          />
-        </svg>
       </div>
     </section>
   )
 }
-

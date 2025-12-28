@@ -83,14 +83,14 @@ export function ValuesCarousel({ lang }: { lang: Language }) {
   const Icon = currentItem.icon
 
   return (
-    <section id="values-mission-vision" className="py-0 bg-slate-50 relative overflow-hidden">
+    <section id="values-mission-vision" className="py-0 section-ocean-alt relative overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center py-16 bg-white"
+        className="text-center py-16"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-sans uppercase tracking-tight">
+        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-hero uppercase tracking-tight">
           {lang === "es" ? "Nuestros Valores, Misión y Visión" : "Our Values, Mission & Vision"}
         </h2>
         <div className="w-24 h-1 bg-accent mx-auto"></div>
@@ -138,7 +138,7 @@ export function ValuesCarousel({ lang }: { lang: Language }) {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.3 }}
-                    className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 font-sans uppercase tracking-tight text-white drop-shadow-lg text-center"
+                    className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 font-hero uppercase tracking-tight text-white drop-shadow-lg text-center"
                   >
                     {currentItem.title}
                   </motion.h3>
@@ -176,7 +176,7 @@ export function ValuesCarousel({ lang }: { lang: Language }) {
         </AnimatePresence>
 
         {/* Dots Indicator */}
-        <div className="flex justify-center gap-2 py-8 bg-slate-50">
+        <div className="flex justify-center gap-2 py-8">
           {carouselItems.map((_, idx) => (
             <button
               key={idx}

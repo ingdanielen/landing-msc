@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { type Language } from "@/lib/content"
-import { GoogleMap } from "@/components/sections/google-map"
+import { MSCMap } from "@/components/ui/msc-map"
 import { MapPin, Navigation, Globe } from "lucide-react"
 
 const locationContent = {
@@ -32,6 +32,19 @@ const locationContent = {
     },
     cta: "Get Directions",
   },
+  zh: {
+    title: "我们的位置",
+    subtitle: "在巴拿马的心脏地带找到我们",
+    address: {
+      label: "地址",
+      value: "Altos de Curundu, Calle River, 569B号楼, 安孔, 巴拿马",
+    },
+    coverage: {
+      label: "覆盖范围",
+      value: "服务覆盖美洲和加勒比海所有港口",
+    },
+    cta: "获取路线",
+  },
 }
 
 export function LocationMap({ lang }: { lang: Language }) {
@@ -50,7 +63,7 @@ export function LocationMap({ lang }: { lang: Language }) {
               viewport={{ once: true }}
               className="flex-1"
             >
-              <h2 className="text-2xl md:text-3xl font-black text-white mb-2 tracking-tight">
+              <h2 className="text-2xl md:text-3xl font-hero font-bold text-white mb-2 tracking-tight">
                 {t.title}
               </h2>
               <p className="text-white/60 mb-6">{t.subtitle}</p>
@@ -95,7 +108,7 @@ export function LocationMap({ lang }: { lang: Language }) {
               className="lg:shrink-0"
             >
               <a
-                href="https://maps.google.com/?q=8.975003,-79.541983"
+                href="https://maps.google.com/?q=8.975,-79.5420"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent/90 text-white font-medium rounded-lg transition-colors"
@@ -108,11 +121,11 @@ export function LocationMap({ lang }: { lang: Language }) {
         </div>
       </div>
 
-      {/* Full Width Map */}
+      {/* Full Width Map with Leaflet */}
       <div className="relative">
-        <GoogleMap height="350px" />
+        <MSCMap lang={lang} height="400px" />
         {/* Top gradient overlay */}
-        <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-primary to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-6 bg-linear-gradient(to bottom, var(--color-primary), transparent) pointer-events-none z-10" />
       </div>
     </section>
   )

@@ -20,7 +20,7 @@ interface ServiceDetailCardProps {
   image: string
   features: string[]
   idx: number
-  lang: "es" | "en"
+  lang: "es" | "en" | "zh"
 }
 
 export function ServiceDetailCard({ title, description, icon, image, features, idx, lang }: ServiceDetailCardProps) {
@@ -54,14 +54,14 @@ export function ServiceDetailCard({ title, description, icon, image, features, i
 
       {/* Content */}
       <div className="p-8">
-        <h3 className="text-2xl font-bold text-primary mb-4 font-sans uppercase tracking-tight">{title}</h3>
+        <h3 className="text-2xl font-bold text-primary mb-4 font-hero uppercase tracking-tight">{title}</h3>
         <p className="text-slate-600 leading-relaxed mb-6">{description}</p>
         
         {/* Features List */}
         {features.length > 0 && (
           <div className="space-y-3">
             <h4 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-              {lang === "es" ? "Servicios Incluidos:" : "Services Included:"}
+              {lang === "es" ? "Servicios Incluidos:" : lang === "zh" ? "包含服务：" : "Services Included:"}
             </h4>
             <ul className="space-y-2">
               {features.map((feature, featureIdx) => (
@@ -78,7 +78,7 @@ export function ServiceDetailCard({ title, description, icon, image, features, i
         <div className="mt-6 pt-6 border-t border-slate-100">
           <Link href="/contact">
             <button className="text-accent hover:text-primary font-semibold text-sm uppercase tracking-wide flex items-center gap-2 group/btn">
-              {lang === "es" ? "Solicitar cotización" : "Request Quote"}
+              {lang === "es" ? "Solicitar cotización" : lang === "zh" ? "请求报价" : "Request Quote"}
               <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
             </button>
           </Link>

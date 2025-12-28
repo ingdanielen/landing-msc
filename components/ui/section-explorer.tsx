@@ -8,6 +8,7 @@ interface Section {
   id: string
   label: string
   labelEn: string
+  labelZh?: string
 }
 
 interface SectionExplorerProps {
@@ -63,7 +64,7 @@ export function SectionExplorer({ sections, lang }: SectionExplorerProps) {
             key={section.id}
             onClick={() => scrollToSection(section.id)}
             className="group flex items-center gap-2 transition-all"
-            aria-label={lang === "es" ? section.label : section.labelEn}
+            aria-label={lang === "es" ? section.label : lang === "zh" ? (section.labelZh || section.labelEn) : section.labelEn}
           >
             {/* Compact Box with Label and Dot - Only when active */}
             {isActive ? (
@@ -74,7 +75,7 @@ export function SectionExplorer({ sections, lang }: SectionExplorerProps) {
               >
                 {/* Section Label */}
                 <span className="text-xs font-medium text-primary whitespace-nowrap">
-                  {lang === "es" ? section.label : section.labelEn}
+                  {lang === "es" ? section.label : lang === "zh" ? (section.labelZh || section.labelEn) : section.labelEn}
                 </span>
                 {/* Dot Indicator - Inside box when active */}
                 <div className="h-2 w-2 rounded-full bg-primary shrink-0" />

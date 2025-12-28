@@ -77,7 +77,7 @@ const formContent = {
 }
 
 export function ContactFormSection({ lang }: { lang: Language }) {
-  const t = formContent[lang]
+  const t = formContent[lang as keyof typeof formContent]
   const [pending, setPending] = useState(false)
   const [selectedService, setSelectedService] = useState("")
 
@@ -93,7 +93,7 @@ export function ContactFormSection({ lang }: { lang: Language }) {
   }
 
   return (
-    <section className="py-16 md:py-20 bg-slate-50">
+    <section className="py-16 md:py-20 section-ocean-alt">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {/* Left - Info */}
@@ -103,7 +103,7 @@ export function ContactFormSection({ lang }: { lang: Language }) {
             viewport={{ once: true }}
             className="lg:col-span-2 flex flex-col justify-center"
           >
-            <h2 className="text-2xl md:text-3xl font-black text-primary mb-3 tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-hero font-bold text-primary mb-3 tracking-tight">
               {t.title}
             </h2>
             <p className="text-slate-500 mb-8">{t.subtitle}</p>

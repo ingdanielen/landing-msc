@@ -23,10 +23,10 @@ const notFoundContent = {
 
 export default function NotFound() {
   const { lang } = useLang()
-  const t = notFoundContent[lang]
+  const t = notFoundContent[lang as keyof typeof notFoundContent]
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center bg-slate-50 px-4 pt-24">
+    <div className="min-h-[70vh] flex items-center justify-center section-ocean-alt px-4 pt-24">
       <div className="max-w-2xl mx-auto text-center">
         <div className="mb-6">
           <Image
@@ -39,7 +39,7 @@ export default function NotFound() {
           />
         </div>
         
-        <h1 className="text-3xl md:text-5xl font-bold text-primary mb-4 font-sans uppercase tracking-tight">
+        <h1 className="text-3xl md:text-5xl font-bold text-primary mb-4 font-hero uppercase tracking-tight">
           {t.title}
         </h1>
         

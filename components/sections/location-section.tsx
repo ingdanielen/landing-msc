@@ -2,12 +2,12 @@
 
 import { motion } from "framer-motion"
 import { type Language } from "@/lib/content"
-import { GoogleMap } from "@/components/sections/google-map"
+import { MSCMap } from "@/components/ui/msc-map"
 import { Mail, Phone, AlertCircle, MapPin } from "lucide-react"
 
 export function LocationSection({ lang }: { lang: Language }) {
   return (
-    <section id="location" className="py-24 bg-white">
+    <section id="location" className="py-24">
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -15,12 +15,14 @@ export function LocationSection({ lang }: { lang: Language }) {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-sans uppercase tracking-tight">
-            {lang === "es" ? "Nuestra Ubicación" : "Our Location"}
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-hero uppercase tracking-tight">
+            {lang === "es" ? "Nuestra Ubicación" : lang === "zh" ? "我们的位置" : "Our Location"}
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             {lang === "es"
               ? "Encuéntranos en Panamá, listos para servirte en cualquier puerto del mundo."
+              : lang === "zh"
+              ? "在巴拿马找到我们，准备为全球任何港口提供服务。"
               : "Find us in Panama, ready to serve you at any port worldwide."}
           </p>
         </motion.div>
@@ -33,7 +35,7 @@ export function LocationSection({ lang }: { lang: Language }) {
           transition={{ duration: 0.6 }}
           className="rounded-2xl overflow-hidden shadow-xl mb-16"
         >
-          <GoogleMap height="500px" />
+          <MSCMap lang={lang} height="500px" />
         </motion.div>
 
         {/* Contact Information - Minimalist Design */}
@@ -44,12 +46,12 @@ export function LocationSection({ lang }: { lang: Language }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex items-start gap-4 pb-8 mb-8 border-b border-slate-200"
+            className="flex items-start gap-4 pb-8 mb-8 border-b border-primary/10"
           >
             <MapPin className="h-5 w-5 text-primary mt-1 shrink-0" strokeWidth={1.5} />
             <div>
               <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                {lang === "es" ? "Dirección de Oficina" : "Office Address"}
+                {lang === "es" ? "Dirección de Oficina" : lang === "zh" ? "办公地址" : "Office Address"}
               </p>
               <p className="text-base text-slate-700 leading-relaxed">
                 Altos de Curundu, Calle River, Edificio 569B, Ancón, Panamá, República de Panamá
@@ -69,7 +71,7 @@ export function LocationSection({ lang }: { lang: Language }) {
               <Mail className="h-5 w-5 text-primary mt-1 shrink-0" strokeWidth={1.5} />
               <div>
                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                  {lang === "es" ? "Correo Electrónico" : "Email"}
+                  {lang === "es" ? "Correo Electrónico" : lang === "zh" ? "电子邮件" : "Email"}
                 </p>
                 <a
                   href="mailto:msc@mscsurveyors.org"
@@ -90,7 +92,7 @@ export function LocationSection({ lang }: { lang: Language }) {
               <Phone className="h-5 w-5 text-primary mt-1 shrink-0" strokeWidth={1.5} />
               <div>
                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                  {lang === "es" ? "Teléfono / WhatsApp" : "Phone / WhatsApp"}
+                  {lang === "es" ? "Teléfono / WhatsApp" : lang === "zh" ? "电话 / WhatsApp" : "Phone / WhatsApp"}
                 </p>
                 <a
                   href="tel:+50765980679"
@@ -111,7 +113,7 @@ export function LocationSection({ lang }: { lang: Language }) {
               <AlertCircle className="h-5 w-5 text-accent mt-1 shrink-0" strokeWidth={1.5} />
               <div>
                 <p className="text-xs font-bold text-accent uppercase tracking-wider mb-2">
-                  {lang === "es" ? "Emergencia 24/7" : "24/7 Emergency"}
+                  {lang === "es" ? "Emergencia 24/7" : lang === "zh" ? "24/7 紧急热线" : "24/7 Emergency"}
                 </p>
                 <a
                   href="tel:+50765980679"

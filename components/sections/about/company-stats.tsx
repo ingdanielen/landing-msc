@@ -19,98 +19,42 @@ const statsContent = {
     title: "Métricas de Impacto",
     subtitle: "Datos que respaldan nuestra trayectoria",
     since: "Desde 2019",
+    verifiable: "Cifras verificables • Resultados reales",
     stats: [
-      {
-        icon: FileCheck,
-        value: 480,
-        prefix: "+",
-        suffix: "",
-        label: "Servicios Técnicos Completados",
-      },
-      {
-        icon: Users,
-        value: 120,
-        prefix: "+",
-        suffix: "",
-        label: "Clientes Corporativos Atendidos",
-      },
-      {
-        icon: RefreshCw,
-        value: 78,
-        prefix: "",
-        suffix: "%",
-        label: "Tasa de Recurrencia de Clientes",
-      },
-      {
-        icon: ThumbsUp,
-        value: 95,
-        prefix: "",
-        suffix: "%",
-        label: "Índice de Satisfacción del Cliente",
-      },
-      {
-        icon: TrendingUp,
-        value: 22,
-        prefix: "+",
-        suffix: "%",
-        label: "Crecimiento Anual Promedio",
-      },
-      {
-        icon: Clock,
-        value: 72,
-        prefix: "24-",
-        suffix: "h",
-        label: "Tiempo de Entrega de Informes",
-      },
+      { icon: FileCheck, value: 480, prefix: "+", suffix: "", label: "Servicios Técnicos Completados" },
+      { icon: Users, value: 120, prefix: "+", suffix: "", label: "Clientes Corporativos Atendidos" },
+      { icon: RefreshCw, value: 78, prefix: "", suffix: "%", label: "Tasa de Recurrencia de Clientes" },
+      { icon: ThumbsUp, value: 95, prefix: "", suffix: "%", label: "Índice de Satisfacción del Cliente" },
+      { icon: TrendingUp, value: 22, prefix: "+", suffix: "%", label: "Crecimiento Anual Promedio" },
+      { icon: Clock, value: 72, prefix: "24-", suffix: "h", label: "Tiempo de Entrega de Informes" },
     ],
   },
   en: {
     title: "Impact Metrics",
     subtitle: "Data supporting our track record",
     since: "Since 2019",
+    verifiable: "Verifiable figures • Real results",
     stats: [
-      {
-        icon: FileCheck,
-        value: 480,
-        prefix: "+",
-        suffix: "",
-        label: "Technical Services Completed",
-      },
-      {
-        icon: Users,
-        value: 120,
-        prefix: "+",
-        suffix: "",
-        label: "Corporate Clients Served",
-      },
-      {
-        icon: RefreshCw,
-        value: 78,
-        prefix: "",
-        suffix: "%",
-        label: "Client Recurrence Rate",
-      },
-      {
-        icon: ThumbsUp,
-        value: 95,
-        prefix: "",
-        suffix: "%",
-        label: "Customer Satisfaction Index",
-      },
-      {
-        icon: TrendingUp,
-        value: 22,
-        prefix: "+",
-        suffix: "%",
-        label: "Average Annual Growth",
-      },
-      {
-        icon: Clock,
-        value: 72,
-        prefix: "24-",
-        suffix: "h",
-        label: "Report Delivery Time",
-      },
+      { icon: FileCheck, value: 480, prefix: "+", suffix: "", label: "Technical Services Completed" },
+      { icon: Users, value: 120, prefix: "+", suffix: "", label: "Corporate Clients Served" },
+      { icon: RefreshCw, value: 78, prefix: "", suffix: "%", label: "Client Recurrence Rate" },
+      { icon: ThumbsUp, value: 95, prefix: "", suffix: "%", label: "Customer Satisfaction Index" },
+      { icon: TrendingUp, value: 22, prefix: "+", suffix: "%", label: "Average Annual Growth" },
+      { icon: Clock, value: 72, prefix: "24-", suffix: "h", label: "Report Delivery Time" },
+    ],
+  },
+  zh: {
+    title: "影响力指标",
+    subtitle: "支持我们业绩记录的数据",
+    since: "自2019年以来",
+    verifiable: "可验证的数据 • 真实的结果",
+    stats: [
+      { icon: FileCheck, value: 480, prefix: "+", suffix: "", label: "完成的技术服务" },
+      { icon: Users, value: 120, prefix: "+", suffix: "", label: "服务的企业客户" },
+      { icon: RefreshCw, value: 78, prefix: "", suffix: "%", label: "客户回头率" },
+      { icon: ThumbsUp, value: 95, prefix: "", suffix: "%", label: "客户满意度指数" },
+      { icon: TrendingUp, value: 22, prefix: "+", suffix: "%", label: "平均年增长率" },
+      { icon: Clock, value: 72, prefix: "24-", suffix: "h", label: "报告交付时间" },
     ],
   },
 }
@@ -186,7 +130,7 @@ export function CompanyStats({ lang }: { lang: Language }) {
             <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
             <span className="text-white/80 text-sm font-medium">{t.since}</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-hero font-bold text-white mb-4 tracking-tight">
             {t.title}
           </h2>
           <p className="text-white/60 text-base md:text-lg max-w-2xl mx-auto">
@@ -276,7 +220,7 @@ export function CompanyStats({ lang }: { lang: Language }) {
         >
           <div className="inline-flex items-center gap-3 text-white/40 text-xs md:text-sm">
             <div className="w-6 md:w-8 h-px bg-white/20" />
-            <span>{lang === "es" ? "Cifras verificables • Resultados reales" : "Verifiable figures • Real results"}</span>
+            <span>{t.verifiable}</span>
             <div className="w-6 md:w-8 h-px bg-white/20" />
           </div>
         </motion.div>

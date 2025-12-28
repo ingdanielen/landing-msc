@@ -3,6 +3,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Definir la fuente Reversal Light (versión delgada original) */
+@font-face {
+  font-family: 'Reversal';
+  src: url('/fonts/reversal/reversal_lt.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Primary Colors */
   /* Marine Blue – HEX #0A2A43 */
@@ -83,7 +92,11 @@
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  /* Fuentes - Tailwind v4 */
+  --font-family-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-family-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-family-body: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -127,8 +140,11 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    @apply overflow-x-hidden;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
   }
   h1,
   h2,
@@ -138,4 +154,154 @@
   h6 {
     @apply font-sans font-bold tracking-tight;
   }
+}
+
+/* ===== WAVE ANIMATIONS (for hero sections) ===== */
+@keyframes wave-slow {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes wave-medium {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes wave-fast {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-wave-slow {
+  animation: wave-slow 25s linear infinite;
+}
+
+.animate-wave-medium {
+  animation: wave-medium 18s linear infinite;
+}
+
+.animate-wave-fast {
+  animation: wave-fast 15s linear infinite;
+}
+
+/* ===== MINIMAL CARD STYLES ===== */
+.card-minimal {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(10, 42, 67, 0.06);
+  box-shadow: 0 1px 3px rgba(10, 42, 67, 0.04);
+  transition: all 0.3s ease;
+}
+
+.card-minimal:hover {
+  background: #ffffff;
+  border-color: rgba(46, 134, 193, 0.2);
+  box-shadow: 0 8px 30px rgba(10, 42, 67, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Section with subtle background */
+.section-alt {
+  background: linear-gradient(to bottom, rgba(248, 250, 252, 0.5) 0%, rgba(241, 245, 249, 0.3) 100%);
+}
+
+/* ===== SERVICE PAGE SPECIFIC ===== */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 8s ease infinite;
+  background-size: 200% 200%;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+}
+
+/* Service card hover */
+.service-card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card-hover:hover {
+  transform: translateY(-8px);
+}
+
+/* Text gradients */
+.text-gradient-primary {
+  background: linear-gradient(135deg, #0A2A43 0%, #2E86C1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #2E86C1 0%, #5DADE2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effects */
+.glow-accent {
+  box-shadow: 0 0 40px rgba(46, 134, 193, 0.3);
+}
+
+.glow-accent-hover:hover {
+  box-shadow: 0 0 60px rgba(46, 134, 193, 0.4);
+}
+
+/* Process connector */
+.process-connector {
+  position: relative;
+}
+
+.process-connector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -1rem;
+  width: 2rem;
+  height: 2px;
+  background: linear-gradient(to right, #2E86C1, transparent);
+}
+
+@media (max-width: 1024px) {
+  .process-connector::after {
+    display: none;
+  }
+}
+
+/* Stagger animations */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* ===== FUENTE REVERSAL PARA TÍTULOS ===== */
+/* Alta especificidad al final del archivo para sobrescribir Tailwind */
+.font-hero,
+h1.font-hero,
+h2.font-hero,
+h3.font-hero,
+p.font-hero,
+span.font-hero,
+[class*="font-hero"] {
+  font-family: 'Reversal', ui-sans-serif, system-ui, sans-serif !important;
+  font-weight: normal !important;
 }

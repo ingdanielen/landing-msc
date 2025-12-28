@@ -64,13 +64,41 @@ const blogPosts = {
       likes: 3,
     },
   ],
+  zh: [
+    {
+      id: 1,
+      title: "海事行业：挑战与机遇之旅",
+      excerpt:
+        "我们探讨海事行业的奉献精神和韧性，突出创新解决方案和对技术卓越的承诺。",
+      author: "MSC团队",
+      date: "2024年7月15日",
+      readTime: "4分钟",
+      image: "/images/footage/IMG_20181207_111709.webp",
+      views: 184,
+      comments: 73,
+      likes: 1,
+    },
+    {
+      id: 2,
+      title: "励志故事：成长与适应之旅",
+      excerpt:
+        "探索海事行业的励志之旅，以韧性和对行业挑战的持续适应进行航行。",
+      author: "MSC团队",
+      date: "2024年6月28日",
+      readTime: "3分钟",
+      image: "/images/footage/IMG_20190405_150150.webp",
+      views: 197,
+      comments: 65,
+      likes: 3,
+    },
+  ],
 }
 
 export function BlogPreview({ lang }: { lang: Language }) {
   const posts = blogPosts[lang]
 
   return (
-    <section id="blog" className="py-24 bg-white">
+    <section id="blog" className="py-24 section-ocean-alt">
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -78,13 +106,15 @@ export function BlogPreview({ lang }: { lang: Language }) {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-sans uppercase tracking-tight">
-            {lang === "es" ? "Noticias y Publicaciones" : "News & Publications"}
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-hero uppercase tracking-tight">
+            {lang === "es" ? "Noticias y Publicaciones" : lang === "zh" ? "新闻与出版物" : "News and Publications"}
           </h2>
           <div className="w-24 h-1 bg-accent mx-auto mb-6"></div>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             {lang === "es"
               ? "Artículos técnicos, noticias de la industria y actualizaciones normativas."
+              : lang === "zh"
+              ? "技术文章、行业新闻和法规更新。"
               : "Technical articles, industry news and regulatory updates."}
           </p>
         </motion.div>
@@ -100,7 +130,7 @@ export function BlogPreview({ lang }: { lang: Language }) {
               className="group"
             >
               <Link href="/blog" className="block">
-                <article className="bg-white border border-slate-200 hover:border-slate-300 transition-all duration-300 overflow-hidden flex flex-row h-full">
+                <article className="card-ocean rounded-lg overflow-hidden flex flex-row h-full shadow-lg">
                   {/* Image - Left Side */}
                   <div className="relative overflow-hidden shrink-0 w-48">
                     <Image
@@ -123,13 +153,13 @@ export function BlogPreview({ lang }: { lang: Language }) {
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="h-3 w-3" />
-                          <span>{post.readTime} {lang === "es" ? "lectura" : "read"}</span>
+                          <span>{post.readTime} {lang === "es" ? "lectura" : lang === "zh" ? "阅读" : "read"}</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Title - Bold, newspaper headline style */}
-                    <h3 className="text-lg font-bold text-primary mb-2.5 font-sans group-hover:text-accent transition-colors line-clamp-2">
+                    <h3 className="text-lg font-bold text-primary mb-2.5 font-hero group-hover:text-accent transition-colors line-clamp-2">
                       {post.title}
                     </h3>
 
@@ -153,7 +183,7 @@ export function BlogPreview({ lang }: { lang: Language }) {
         <div className="text-center">
           <Link href="/blog">
             <button className="text-accent hover:text-primary font-semibold text-sm uppercase tracking-wide flex items-center gap-2 mx-auto group">
-              {lang === "es" ? "Ver todas las publicaciones" : "View all publications"}
+              {lang === "es" ? "Ver todas las publicaciones" : lang === "zh" ? "查看所有出版物" : "View all publications"}
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </Link>

@@ -14,6 +14,7 @@ const whoIsMscContent = {
       "Con un equipo de inspectores altamente calificados, arquitectos navales y consultores marítimos, proporcionamos evaluaciones objetivas, precisas y conformes a estándares internacionales para buques, la carga, los puertos y las estructuras marítimos.",
     commitment:
       "Apoyar la navegación segura, proteger la integridad de la carga, asegurar el cumplimiento normativo y salvaguardar el medio ambiente marino, mediante la entrega de evaluaciones transparentes, imparciales y técnicamente sólidas en las que los clientes pueden confiar para la toma de decisiones críticas.",
+    commitmentTitle: "Nuestro Compromiso",
   },
   en: {
     title: "Who Is MSC?",
@@ -23,6 +24,17 @@ const whoIsMscContent = {
       "With a team of highly qualified inspectors, naval architects, and maritime consultants, we provide objective, accurate, and internationally compliant assessments for vessels, cargo, ports, and maritime structures.",
     commitment:
       "Support safe navigation, protect cargo integrity, ensure regulatory compliance, and safeguard the marine environment, by delivering transparent, impartial, and technically sound assessments that clients can trust for critical decision-making.",
+    commitmentTitle: "Our Commitment",
+  },
+  zh: {
+    title: "MSC是谁？",
+    description:
+      "海事检验与顾问是一家专门从事船舶、货物和海事基础设施综合检验的独立机构。凭借多年的行业经验，我们在整个海事物流链中保证精确的报告、法规合规和运营安全。",
+    team:
+      "我们拥有一支高素质的检验师、造船工程师和海事顾问团队，为船舶、货物、港口和海事结构提供客观、准确且符合国际标准的评估。",
+    commitment:
+      "通过提供客户可以信赖的透明、公正和技术可靠的评估，支持安全航行、保护货物完整性、确保法规合规并保护海洋环境，以便做出关键决策。",
+    commitmentTitle: "我们的承诺",
   },
 }
 
@@ -38,10 +50,10 @@ export function WhoIsMsc({ lang }: { lang: Language }) {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 font-sans uppercase tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 font-hero uppercase tracking-tight">
             {t.title}
           </h2>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-accent to-transparent mx-auto"></div>
+          <div className="w-32 h-1 bg-linear-gradient(to right, transparent, var(--color-accent), transparent) mx-auto"></div>
         </motion.div>
 
         <div className="max-w-6xl mx-auto space-y-12">
@@ -59,7 +71,7 @@ export function WhoIsMsc({ lang }: { lang: Language }) {
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary/75 to-secondary/90" />
+              <div className="absolute inset-0 bg-linear-to-br from-primary/85 via-primary/75 to-secondary/90" />
             </div>
             <div className="relative z-10 h-full flex flex-col justify-center p-12 md:p-16">
               <div className="h-16 w-16 bg-accent/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-6 border border-accent/30">
@@ -88,14 +100,14 @@ export function WhoIsMsc({ lang }: { lang: Language }) {
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-secondary/85 via-secondary/75 to-primary/90" />
+              <div className="absolute inset-0 bg-linear-to-br from-secondary/85 via-secondary/75 to-primary/90" />
             </div>
             <div className="relative z-10 h-full flex flex-col justify-center p-12 md:p-16">
               <div className="h-16 w-16 bg-accent/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-6 border border-accent/30">
                 <Shield className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-sans uppercase tracking-tight drop-shadow-lg">
-                {lang === "es" ? "Nuestro Compromiso" : "Our Commitment"}
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-hero uppercase tracking-tight drop-shadow-lg">
+                {t.commitmentTitle}
               </h3>
               <p className="text-white/95 text-lg md:text-xl leading-relaxed drop-shadow-md font-light">
                 {t.commitment}

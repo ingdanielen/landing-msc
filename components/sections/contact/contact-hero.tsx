@@ -25,13 +25,23 @@ const heroContent = {
       { icon: Shield, text: "Emergency Support" },
     ],
   },
+  zh: {
+    badge: "我们随时为您服务",
+    title: "联系我们",
+    subtitle: "请求海事检验或咨询",
+    highlights: [
+      { icon: Phone, text: "24小时响应" },
+      { icon: Clock, text: "全天候服务" },
+      { icon: Shield, text: "紧急支援" },
+    ],
+  },
 }
 
 export function ContactHero({ lang }: { lang: Language }) {
-  const t = heroContent[lang]
+  const t = heroContent[lang as keyof typeof heroContent] || heroContent.en
 
   return (
-    <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden bg-primary">
+    <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -43,7 +53,20 @@ export function ContactHero({ lang }: { lang: Language }) {
         >
           <source src="/images/videos/hero-1.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-primary/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/40" />
+      </div>
+      
+      {/* Animated Waves */}
+      <div className="absolute bottom-0 left-0 right-0 h-20 md:h-28 overflow-hidden z-[5]">
+        <svg className="absolute bottom-0 left-0 w-[200%] h-full animate-wave-slow" viewBox="0 0 2880 90" preserveAspectRatio="none">
+          <path fill="rgba(255,255,255,0.2)" d="M0,45 C360,30 720,60 1080,45 C1440,30 1800,60 2160,45 C2520,30 2880,60 2880,45 L2880,90 L0,90 Z"/>
+        </svg>
+        <svg className="absolute bottom-0 left-0 w-[200%] h-full animate-wave-medium" viewBox="0 0 2880 90" preserveAspectRatio="none">
+          <path fill="rgba(255,255,255,0.4)" d="M0,60 C360,45 720,75 1080,60 C1440,45 1800,75 2160,60 C2520,45 2880,75 2880,60 L2880,90 L0,90 Z"/>
+        </svg>
+        <svg className="absolute bottom-0 left-0 w-[200%] h-full animate-wave-fast" viewBox="0 0 2880 90" preserveAspectRatio="none">
+          <path fill="rgba(255,255,255,0.7)" d="M0,75 C360,65 720,85 1080,75 C1440,65 1800,85 2160,75 C2520,65 2880,85 2880,75 L2880,90 L0,90 Z"/>
+        </svg>
       </div>
 
       {/* Content */}
@@ -54,28 +77,28 @@ export function ContactHero({ lang }: { lang: Language }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2 mb-6"
+            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6"
           >
-            <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-            <span className="text-white/80 text-sm font-medium">{t.badge}</span>
+            <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+            <span className="text-white/80 text-xs font-medium tracking-wider uppercase">{t.badge}</span>
           </motion.div>
 
-          {/* Title */}
+          {/* Title - Using Reversal font */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight"
+            className="font-hero text-3xl sm:text-4xl md:text-5xl text-white mb-3 tracking-tight"
           >
             {t.title}
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subtitle - Using Playfair font */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-white/70 mb-10"
+            className="font-serif text-base md:text-lg text-accent italic mb-8"
           >
             {t.subtitle}
           </motion.p>
@@ -85,34 +108,23 @@ export function ContactHero({ lang }: { lang: Language }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-4 md:gap-6"
+            className="flex flex-wrap justify-center gap-3"
           >
             {t.highlights.map((item, idx) => {
               const Icon = item.icon
               return (
                 <div
                   key={idx}
-                  className="flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-lg px-4 py-2.5 border border-white/10"
+                  className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/10"
                 >
                   <Icon className="h-4 w-4 text-accent" />
-                  <span className="text-white text-sm font-medium">{item.text}</span>
+                  <span className="text-white text-xs font-medium">{item.text}</span>
                 </div>
               )
             })}
           </motion.div>
         </div>
       </div>
-
-      {/* Bottom Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 80" fill="none" className="w-full h-auto">
-          <path
-            d="M0 80L60 73.3C120 66.7 240 53.3 360 48C480 42.7 600 45.3 720 50.7C840 56 960 64 1080 64C1200 64 1320 56 1380 52L1440 48V80H1380C1320 80 1200 80 1080 80C960 80 840 80 720 80C600 80 480 80 360 80C240 80 120 80 60 80H0Z"
-            fill="white"
-          />
-        </svg>
-      </div>
     </section>
   )
 }
-

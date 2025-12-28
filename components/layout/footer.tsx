@@ -12,7 +12,7 @@ export function Footer() {
   const t = content[lang].footer
 
   return (
-    <footer className="bg-secondary text-white pt-16 pb-8 ">
+    <footer className="bg-secondary text-white pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-2 space-y-4">
@@ -40,7 +40,9 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-bold text-accent text-sm uppercase tracking-wider">Navigation</h4>
+            <h4 className="font-bold text-accent text-sm uppercase tracking-wider">
+              {lang === "es" ? "Navegación" : lang === "zh" ? "导航" : "Navigation"}
+            </h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
                 <a href="#home" className="hover:text-white transition-colors">
@@ -71,21 +73,23 @@ export function Footer() {
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-bold text-accent text-sm uppercase tracking-wider">Legal</h4>
+            <h4 className="font-bold text-accent text-sm uppercase tracking-wider">
+              {lang === "es" ? "Legal" : lang === "zh" ? "法律" : "Legal"}
+            </h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
                 <a href="#" className="hover:text-white transition-colors">
-                  Terms & Conditions
+                  {lang === "es" ? "Términos y Condiciones" : lang === "zh" ? "条款与条件" : "Terms & Conditions"}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition-colors">
-                  Cookie Policy
+                  {lang === "es" ? "Política de Cookies" : lang === "zh" ? "Cookie政策" : "Cookie Policy"}
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition-colors">
-                  Sitemap
+                  {lang === "es" ? "Mapa del Sitio" : lang === "zh" ? "网站地图" : "Sitemap"}
                 </a>
               </li>
             </ul>

@@ -1,4 +1,4 @@
-export type Language = "es" | "en"
+export type Language = "es" | "en" | "zh"
 
 export const content = {
   es: {
@@ -649,6 +649,329 @@ export const content = {
         jurisdiction: {
           title: "Jurisdiction",
           content: "Any legal matter related to this website shall be resolved exclusively before the courts of Panama City, Republic of Panama.",
+        },
+      },
+    },
+  },
+  zh: {
+    nav: {
+      home: "首页",
+      about: "关于我们",
+      services: "服务",
+      quality: "质量",
+      contact: "联系我们",
+      request: "申请检验",
+    },
+    hero: {
+      title: "值得信赖的独立海事检验。",
+      subtitle: "您可以依靠的卓越品质。",
+      description:
+        "我们为全球船东、租船人、保险公司和港口运营商提供独立检验、货物检查、船舶评估和技术咨询服务。",
+      ctaPrimary: "申请检验",
+      ctaSecondary: "24/7全天候支持",
+      highlights: [
+        "客观的第三方报告",
+        "快速全球响应",
+        "认证专业人员",
+        "符合IMO/ISO标准",
+      ],
+    },
+    about: {
+      title: "关于我们",
+      description:
+        "专业从事船舶、货物和海事基础设施综合检验的独立机构。",
+      mission: {
+        title: "使命",
+        text: "提供客观、可靠、全面的第三方海事检验和海事咨询服务，支持安全航行，保护船舶或海事设施的价值，确保法规合规。我们通过高素质的专业人员、先进的检验方法以及对透明度、公正性和卓越客户服务的坚定承诺来实现这一目标。",
+      },
+      vision: {
+        title: "愿景",
+        text: "成为最受信赖和全球认可的独立海事检验机构，以坚定的精确性、诚信和技术卓越来保障海事运营、船舶或海事设施以及环境。",
+      },
+      values: [
+        {
+          title: "诚信与公正",
+          description: "我们在所有评估中保持最高的道德标准，确保每份报告的客观性和透明度。",
+        },
+        {
+          title: "技术卓越",
+          description: "我们的认证专业人员应用先进的方法和专业知识，提供准确可靠的评估。",
+        },
+        {
+          title: "安全与合规",
+          description: "我们确保严格遵守国际法规（IMO、ISO、SOLAS、MARPOL），保护生命、资产和海洋环境。",
+        },
+        {
+          title: "专业与责任",
+          description: "每次检验都以最高的专业水准进行，对我们的评估和技术建议负责。",
+        },
+        {
+          title: "以客户为中心",
+          description: "我们优先考虑客户需求，在每次互动中提供个性化解决方案和卓越服务。",
+        },
+        {
+          title: "创新与持续改进",
+          description: "我们采用无人机检验等尖端技术，不断改进流程以提供最佳服务。",
+        },
+        {
+          title: "环境保护",
+          description: "致力于海事可持续发展，我们的评估考虑环境影响并推广负责任的做法。",
+        },
+      ],
+    },
+    services: {
+      title: "我们的服务",
+      subtitle: "海事行业的综合解决方案",
+      items: [
+        {
+          title: "船舶检验",
+          desc: "购前检验、状况和船级相关检验、租入/租出和燃油检验、损坏和事故检验以及P&I检验。",
+          icon: "Ship",
+          type: "vessel",
+          image: "/images/footage/IMG_20181207_111709.webp",
+        },
+        {
+          title: "货物检验",
+          desc: "装货前和卸货检验、货物损坏评估、装卸监督、散杂货和集装箱评估、水尺检验和计数服务。",
+          icon: "Container",
+          type: "cargo",
+          image: "/images/footage/IMG_20190405_150150.webp",
+        },
+        {
+          title: "海事咨询",
+          desc: "ISM/ISPS/MLC审核和检验、技术咨询、海事事故调查和法规合规咨询。",
+          icon: "Briefcase",
+          type: "consultancy",
+          image: "/images/footage/IMG_20190406_095637.webp",
+        },
+        {
+          title: "港口与码头",
+          desc: "码头状况评估和泊位系泊检验。",
+          icon: "Anchor",
+          type: "port",
+          image: "/images/footage/IMG_20190406_172726.webp",
+        },
+        {
+          title: "专业服务",
+          desc: "针对船舶难以到达区域的无人机航空检验。",
+          icon: "Drone",
+          type: "specialized",
+          image: "/images/footage/IMG_20190506_163718.webp",
+        },
+      ],
+    },
+    compliance: {
+      title: "质量与合规",
+      text: "所有运营均符合ISO 9001:2015、IMO公约（SOLAS、MARPOL、MLC等）、船旗国要求、船级社规则、P&I和船体机械保险公司指南以及检验和报告的行业最佳实践。",
+      standards: ["ISO 9001:2015", "IMO SOLAS/MARPOL/MLC", "船旗国", "船级社", "P&I和船体机械"],
+    },
+    team: {
+      title: "我们的团队",
+      subtitle: "具有全球经验的认证专家",
+      description:
+        "我们的检验师和顾问是造船、轮机工程、港口运营、航海科学和海事法律领域的认证专业人员。",
+      roles: ["造船工程师", "轮机工程师", "船长", "海事律师", "港口运营商"],
+    },
+    why_choose_us: {
+      title: "为什么选择我们",
+      items: [
+        "独立第三方验证",
+        "快速响应和24/7全天候服务",
+        "被利益相关方接受的公正报告",
+        "现代化工具",
+        "深厚的行业知识和区域经验",
+      ],
+    },
+    statsBanner: {
+      headline: "海上关怀，陆上信赖。",
+      description:
+        "我们的全球服务网络是为客户开发的。通过专注于为客户提供一流的服务，我们随时准备帮助您满足特定需求，并为您的下一个海事检验请求提供全面的解决方案。",
+      cta: "了解更多关于MSC",
+      stats: [
+        {
+          value: "+480",
+          label: "技术服务",
+          description: "自2019年以来完成的项目和检验",
+        },
+        {
+          value: "+120",
+          label: "企业客户",
+          description: "船东、运营商、保险公司和物流公司",
+        },
+        {
+          value: "78%",
+          label: "回头率",
+          description: "客户重复使用我们的服务",
+        },
+        {
+          value: "95%",
+          label: "客户满意度",
+          description: "基于服务后反馈",
+        },
+      ],
+    },
+    gallery: {
+      title: "多媒体画廊",
+      subtitle: "我们的现场作业",
+    },
+    blog: {
+      title: "新闻与洞察",
+      subtitle: "海事动态和法规更新",
+      empty: "即将推出：技术文章和行业新闻。",
+    },
+    contact: {
+      title: "联系我们",
+      subtitle: "全球支持和快速响应",
+      form: {
+        name: "姓名",
+        phone: "电话号码",
+        company: "公司",
+        type: "检验类型",
+        location: "港口/位置",
+        date: "所需日期",
+        message: "留言",
+        submit: "提交请求",
+      },
+      info: {
+        email: "msc@mscsurveyors.org",
+        phone: "(+507) 2636601",
+        address: "巴拿马共和国，巴拿马市，安孔，河街，库伦杜高地，569B号楼",
+        emergency: "24/7紧急热线: (+507) 65980679",
+      },
+    },
+    footer: {
+      brand_quote: "海上关怀，陆上信赖。",
+      disclaimer: {
+        title: "法律声明",
+        text: "MSC提供的信息仅供一般参考。不构成正式技术意见。受巴拿马共和国法律管辖。",
+      },
+      privacy: {
+        title: "隐私（第81号法）",
+        text: "遵守巴拿马2019年第81号个人数据保护法。您的数据将被严格保密和安全处理。",
+      },
+      rights: "© 2025 MSC – 海事检验与顾问。保留所有权利。",
+      links: {
+        home: "首页",
+        about: "关于我们",
+        services: "服务",
+        quality: "质量",
+        team: "团队",
+        gallery: "画廊",
+        blog: "新闻",
+        contact: "联系",
+      },
+    },
+    legal: {
+      disclaimer: {
+        title: "网站免责声明",
+        content: "海事检验与顾问（MSC）在本网站提供的信息仅供一般参考。尽管MSC努力确保信息的准确性，但不对本网站内容的完整性、可靠性或适用性作任何保证。\n\n本网站的信息不构成专业海事建议、检验指南或正式技术意见。所有正式服务均受巴拿马共和国法律管辖的书面合同约束。\n\nMSC不对因使用本网站而产生的直接、间接、附带或后果性损害承担责任。外部链接仅供方便使用；MSC对外部内容不承担责任。\n\n本网站上的所有标志、文本、图形、文件和材料均为MSC的专有财产，除非另有说明。根据巴拿马知识产权法，未经授权的复制或分发严格禁止。\n\n使用本网站即表示接受本法律声明和适用的条款与条件。",
+      },
+      privacy: {
+        title: "隐私政策",
+        intro: "MSC承诺根据巴拿马2019年第81号个人数据保护法以及相关国际标准（包括GDPR原则）保护您的个人数据。",
+        sections: {
+          information: {
+            title: "a. 我们收集的信息",
+            content: "• 姓名、电子邮件、电话、公司数据以及您提供的与服务相关的信息。\n\n• IP地址、浏览器详细信息、设备类型和访问页面。\n\n• 为报价、检验或通信提交的文件或信息。",
+          },
+          purpose: {
+            title: "b. 处理目的",
+            content: "个人数据用于响应查询、准备报价、协调检验、履行法律义务和改进服务。",
+          },
+          legalBasis: {
+            title: "c. 巴拿马法律下的法律依据",
+            content: "• 数据主体的同意。\n\n• 合同必要性。\n\n• 法律义务的遵守。\n\n• 合法商业利益。",
+          },
+          sharing: {
+            title: "d. 数据共享",
+            content: "MSC可能与分包检验师、保险公司、法律机构和技术服务提供商共享您的数据，仅在服务执行需要时严格进行。",
+          },
+          security: {
+            title: "e. 数据安全和保留",
+            content: "MSC根据第81号法应用合理的行政、物理和技术措施。数据仅在巴拿马商业、海事或税务法规要求的时间内保留。",
+          },
+          rights: {
+            title: "f. 您的权利（第81号法）",
+            content: "根据巴拿马法律，您可以请求访问、更正、删除、可移植性或限制处理您的个人数据。请求可通过我们的联系页面或电子邮件提交。",
+          },
+          contact: {
+            title: "g. 隐私事务联系",
+            content: "隐私相关事宜请联系：msc@mscsurveyors.org",
+          },
+        },
+      },
+      terms: {
+        title: "条款与条件",
+        sections: {
+          acceptance: {
+            title: "a. 接受条款",
+            content: "访问本网站即表示您同意遵守这些条款与条件，这些条款受巴拿马共和国法律管辖。",
+          },
+          use: {
+            title: "b. 网站使用",
+            content: "您同意不干扰或滥用本网站，未经MSC书面授权不得复制或分发其内容。",
+          },
+          services: {
+            title: "c. 专业服务",
+            content: "本网站包含的信息仅供一般参考。\n\n所有专业服务均通过受巴拿马海事、商业和民事法律管辖的书面合同提供。",
+          },
+          intellectual: {
+            title: "d. 知识产权",
+            content: "所有内容受2012年第64号法（版权法）和其他适用的巴拿马法规保护。",
+          },
+          liability: {
+            title: "e. 责任限制",
+            content: "MSC不对因网站错误、服务中断、病毒或对显示内容的依赖而造成的损失负责。",
+          },
+          jurisdiction: {
+            title: "f. 适用法律与管辖权",
+            content: "任何争议均受巴拿马共和国法律管辖。\n\n专属管辖权属于巴拿马城的主管法院。",
+          },
+        },
+      },
+      cookies: {
+        title: "Cookie政策",
+        intro: "MSC根据国际最佳实践和巴拿马消费者保护标准使用Cookie。",
+        sections: {
+          types: {
+            title: "a. Cookie类型",
+            content: "• 必要Cookie：基本网站功能。\n\n• 分析Cookie：匿名使用统计。\n\n• 功能Cookie：增强浏览体验。",
+          },
+          management: {
+            title: "b. 管理Cookie",
+            content: "用户可以从浏览器设置中禁用Cookie；但是，某些网站功能可能会变得不可用。",
+          },
+        },
+      },
+      legalNotice: {
+        title: "法律声明",
+        company: {
+          title: "a. 法律声明 – 巴拿马",
+          name: "海事检验与顾问（MSC）",
+          registration: "注册商业实体 – 巴拿马共和国",
+          ruc: "RUC: 155675244-2-2019 DV: 20",
+        },
+        office: {
+          title: "b. 注册办公室",
+          address: "巴拿马共和国，巴拿马市，安孔，河街，库伦杜高地，569B号楼",
+        },
+        contact: {
+          title: "c. 授权联系人",
+          email: "电子邮件: msc@mscsurveyors.org",
+          phone: "电话: (+507) 2636601",
+          website: "网站: www.mscsurveyors.org",
+        },
+        compliance: {
+          title: "d. 法规合规",
+          content: "MSC遵守巴拿马适用的海事、商业和数据保护法规运营，包括适用时巴拿马海事管理局（AMP）的监管框架。",
+        },
+        intellectual: {
+          title: "知识产权",
+          content: "所有内容受巴拿马和国际版权法保护。",
+        },
+        jurisdiction: {
+          title: "管辖权",
+          content: "与本网站相关的任何法律事务均应在巴拿马共和国巴拿马城的法院独家解决。",
         },
       },
     },

@@ -96,7 +96,7 @@ const standardsData = {
 }
 
 export function QualityStandards({ lang }: { lang: Language }) {
-  const standards = standardsData[lang]
+  const standards = standardsData[lang as keyof typeof standardsData]
 
   return (
     <>
@@ -106,7 +106,7 @@ export function QualityStandards({ lang }: { lang: Language }) {
         viewport={{ once: true }}
         className="text-center mb-16"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-sans uppercase tracking-tight">
+        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-hero uppercase tracking-tight">
           {lang === "es" ? "Estándares de Cumplimiento" : "Compliance Standards"}
         </h2>
         <div className="w-24 h-1 bg-accent mx-auto"></div>
@@ -122,15 +122,15 @@ export function QualityStandards({ lang }: { lang: Language }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-100 group"
+              className="card-ocean p-8 rounded-xl group"
             >
               <div
                 className={`h-16 w-16 rounded-xl flex items-center justify-center mb-6 transition-colors ${
                   standard.color === "accent"
-                    ? "bg-accent/5 group-hover:bg-accent"
+                    ? "bg-accent/10 group-hover:bg-accent"
                     : standard.color === "primary"
-                    ? "bg-primary/5 group-hover:bg-primary"
-                    : "bg-secondary/5 group-hover:bg-secondary"
+                    ? "bg-primary/10 group-hover:bg-primary"
+                    : "bg-slate-100 group-hover:bg-primary"
                 }`}
               >
                 <Icon
@@ -139,12 +139,12 @@ export function QualityStandards({ lang }: { lang: Language }) {
                       ? "text-accent group-hover:text-white"
                       : standard.color === "primary"
                       ? "text-primary group-hover:text-white"
-                      : "text-secondary group-hover:text-white"
+                      : "text-slate-600 group-hover:text-white"
                   }`}
                   strokeWidth={1.5}
                 />
               </div>
-              <h3 className="text-xl font-bold text-primary mb-3 font-sans uppercase tracking-tight">
+              <h3 className="text-xl font-bold text-primary mb-3 font-hero uppercase tracking-tight">
                 {standard.title}
               </h3>
               <div className="w-12 h-0.5 bg-accent mb-4"></div>

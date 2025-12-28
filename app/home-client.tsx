@@ -15,14 +15,14 @@ export function HomeClient() {
   const { lang } = useLang()
 
   const sections = [
-    { id: "hero", label: "Inicio", labelEn: "Home" },
-    { id: "services", label: "Servicios", labelEn: "Services" },
-    { id: "about", label: "Nosotros", labelEn: "About" },
-    { id: "stats", label: "Estadísticas", labelEn: "Statistics" },
-    { id: "location", label: "Ubicación", labelEn: "Location" },
-    { id: "cta", label: "Contacto", labelEn: "Contact" },
-    { id: "blog", label: "Blog", labelEn: "Blog" },
-    { id: "video", label: "Video", labelEn: "Video" },
+    { id: "hero", label: "Inicio", labelEn: "Home", labelZh: "首页" },
+    { id: "services", label: "Servicios", labelEn: "Services", labelZh: "服务" },
+    { id: "about", label: "Nosotros", labelEn: "About", labelZh: "关于" },
+    { id: "stats", label: "Estadísticas", labelEn: "Statistics", labelZh: "统计" },
+    { id: "location", label: "Ubicación", labelEn: "Location", labelZh: "位置" },
+    { id: "cta", label: "Contacto", labelEn: "Contact", labelZh: "联系" },
+    { id: "blog", label: "Blog", labelEn: "Blog", labelZh: "博客" },
+    { id: "video", label: "Video", labelEn: "Video", labelZh: "视频" },
   ]
 
   return (

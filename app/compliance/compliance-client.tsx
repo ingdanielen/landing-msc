@@ -36,11 +36,11 @@ export function CompliancePageClient() {
             <source src="/images/videos/hero-1.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-primary/60" />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/40 via-transparent to-primary/60" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-accent/10 to-transparent opacity-30" />
+          <div className="absolute inset-0 bg-linear-gradient(to bottom, var(--color-primary-40), transparent, var(--color-primary-60))" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle at center, var(--tw-gradient-stops))] from-accent/10 to-transparent opacity-30" />
         </div>
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold font-sans mb-6 text-white drop-shadow-lg uppercase tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-bold font-hero mb-6 text-white drop-shadow-lg uppercase tracking-tight">
             {t.title}
           </h1>
           <p className="text-xl text-blue-100 drop-shadow-md uppercase">
@@ -57,14 +57,14 @@ export function CompliancePageClient() {
       </section>
 
       {/* Standards Section */}
-      <section id="compliance-standards" className="py-24 bg-slate-50">
+      <section id="compliance-standards" className="py-24 section-ocean-alt">
         <div className="container mx-auto px-4 md:px-6">
           <QualityStandards lang={lang} />
         </div>
       </section>
 
       {/* Quality Control Section */}
-      <section id="compliance-control" className="py-24 bg-white">
+      <section id="compliance-control" className="py-24 section-ocean">
         <div className="container mx-auto px-4 md:px-6">
           <QualityControl lang={lang} />
         </div>

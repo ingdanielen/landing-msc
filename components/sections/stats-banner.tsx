@@ -68,7 +68,7 @@ export function StatsBanner({ lang }: { lang: Language }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-sans uppercase tracking-tight leading-tight"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-hero uppercase tracking-tight leading-tight"
               >
                 {t.headline}
               </motion.h2>

@@ -26,7 +26,7 @@ export function AboutPageClient() {
   ]
 
   return (
-    <main className="min-h-screen bg-background flex flex-col gap-0 relative">
+    <main className="min-h-screen flex flex-col gap-0 relative">
       <SectionExplorer sections={sections} lang={lang} />
 
       {/* Hero Section */}

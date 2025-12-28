@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Montserrat, Open_Sans } from "next/font/google"
+import { DM_Sans, Playfair_Display } from "next/font/google"
+import localFont from "next/font/local"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
@@ -8,18 +9,28 @@ import { LangProvider } from "@/components/lang-provider"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { OrganizationSchema, WebSiteSchema } from "@/components/seo/schema-org"
+import { OceanBackground } from "@/components/ui/ocean-background"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mscsurveyors.org"
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
+// Fuente local Reversal para títulos de hero
+const reversal = localFont({
+  src: "../public/fonts/reversal/reversal_lt.otf",
+  variable: "--font-reversal",
   display: "swap",
 })
 
-const openSans = Open_Sans({
+// Fuente elegante para subtítulos y textos destacados
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-open-sans",
+  variable: "--font-playfair",
+  display: "swap",
+})
+
+// Fuente moderna y limpia para el cuerpo
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
   display: "swap",
 })
 
@@ -126,18 +137,16 @@ export default function RootLayout({
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       </head>
       <body
-        className={`${montserrat.variable} ${openSans.variable} font-body antialiased bg-background text-foreground`}
+        className={`${reversal.variable} ${playfair.variable} ${dmSans.variable} font-body antialiased text-foreground`}
       >
+        <OceanBackground />
         <OrganizationSchema url={siteUrl} />
         <WebSiteSchema url={siteUrl} />
         <LangProvider>
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen relative z-10">
             <Navbar />
             <main className="flex-1">{children}</main>
-            <div className="pt-12">
-
-              <Footer />
-            </div>
+            <Footer />
           </div>
           <Toaster />
           <Analytics />

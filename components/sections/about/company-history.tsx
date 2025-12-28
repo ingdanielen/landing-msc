@@ -122,10 +122,10 @@ const historyContent = {
 }
 
 export function CompanyHistory({ lang }: { lang: Language }) {
-  const t = historyContent[lang]
+  const t = historyContent[lang as keyof typeof historyContent] || historyContent.en
 
   return (
-    <section className="py-24 lg:py-32 bg-white relative overflow-hidden">
+    <section className="py-24 lg:py-32 section-ocean-alt relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-32 bg-linear-to-b from-slate-50 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-32 bg-linear-to-t from-slate-50 to-transparent" />
@@ -141,7 +141,7 @@ export function CompanyHistory({ lang }: { lang: Language }) {
           <span className="text-accent text-sm tracking-widest uppercase font-medium">
             {t.subtitle}
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mt-3 font-sans uppercase tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-primary mt-3 font-hero uppercase tracking-tight">
             {t.title}
           </h2>
           <p className="text-slate-600 mt-6 max-w-3xl mx-auto text-lg">{t.intro}</p>
@@ -191,7 +191,7 @@ export function CompanyHistory({ lang }: { lang: Language }) {
                       </div>
                     </div>
 
-                    <h3 className="text-2xl md:text-3xl font-bold text-primary mb-4 font-sans">
+                    <h3 className="text-2xl md:text-3xl font-bold text-primary mb-4 font-hero">
                       {phase.title}
                     </h3>
                     <p className="text-slate-600 mb-6 text-lg leading-relaxed">

@@ -1,0 +1,11 @@
+export { ServicesHero } from "./services-hero"
+export { ServicesStats } from "./services-stats"
+export { ServicesCatalog } from "./services-catalog"
+export { ServicesProcess } from "./services-process"
+export { ServicesSuccess } from "./services-success"
+export { ServicesCertifications } from "./services-certifications"
+export { ServicesWhy } from "./services-why"
+export { ServicesFaq } from "./services-faq"
+export { ServicesCta } from "./services-cta"
+export { servicesData, type Language } from "./services-data"
+

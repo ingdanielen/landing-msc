@@ -100,7 +100,7 @@ const whyChooseContent = {
 }
 
 export function WhyChooseUs({ lang }: { lang: Language }) {
-  const t = whyChooseContent[lang]
+  const t = whyChooseContent[lang as keyof typeof whyChooseContent] || whyChooseContent.en
   const [activeIndex, setActiveIndex] = useState(0)
   const activeItem = t.items[activeIndex]
   const ActiveIcon = activeItem.icon
@@ -136,7 +136,7 @@ export function WhyChooseUs({ lang }: { lang: Language }) {
           <span className="text-accent text-sm tracking-widest uppercase font-medium">
             {t.subtitle}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 font-sans uppercase tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 font-hero uppercase tracking-tight">
             {t.title}
           </h2>
         </div>
@@ -163,7 +163,7 @@ export function WhyChooseUs({ lang }: { lang: Language }) {
                     <span className="text-white/40 text-sm font-mono">
                       {String(activeIndex + 1).padStart(2, "0")}/{String(t.items.length).padStart(2, "0")}
                     </span>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white font-sans tracking-tight">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white font-hero tracking-tight">
                       {activeItem.title}
                     </h3>
                   </div>
