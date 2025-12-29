@@ -1,40 +1,70 @@
 "use client"
 
+import { useState, useMemo } from "react"
 import { useLang } from "@/components/lang-provider"
-import { content } from "@/lib/content"
-import { ImageIcon } from "lucide-react"
+import type { GalleryItem, GalleryCategory } from "@/lib/gallery-types"
+import { 
+  GalleryHero, 
+  GalleryFilters, 
+  GalleryGrid, 
+  GalleryLightbox 
+} from "@/components/gallery"
 
-export function GalleryPageClient() {
+interface GalleryPageClientProps {
+  items: GalleryItem[]
+  categories: GalleryCategory[]
+}
+
+export function GalleryPageClient({ items, categories }: GalleryPageClientProps) {
   const { lang } = useLang()
-  const t = content[lang].gallery
+  const [selectedCategory, setSelectedCategory] = useState<GalleryCategory | "all">("all")
+  const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null)
+
+  // Filtrar items por categoria
+  const filteredItems = useMemo(() => {
+    return selectedCategory === "all" 
+      ? items 
+      : items.filter(item => item.category === selectedCategory)
+  }, [items, selectedCategory])
+
+  // Contar items por categoria
+  const itemsByCategory = useMemo(() => {
+    return items.reduce((acc, item) => {
+      acc[item.category] = (acc[item.category] || 0) + 1
+      return acc
+    }, {} as Record<string, number>)
+  }, [items])
 
   return (
     <>
-      <section className="bg-secondary py-20 text-white">
+      <GalleryHero lang={lang} />
+      
+      <GalleryFilters
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+        totalItems={items.length}
+        itemsByCategory={itemsByCategory}
+        lang={lang}
+      />
+      
+      <section className="py-10 md:py-14 bg-slate-50 min-h-[50vh]">
         <div className="container mx-auto px-4 md:px-6">
-          <h1 className="text-4xl md:text-6xl font-bold font-sans mb-6">{t.title}</h1>
-          <p className="text-xl text-blue-100">{t.subtitle}</p>
+          <GalleryGrid 
+            items={filteredItems} 
+            onItemClick={setSelectedItem}
+            lang={lang}
+          />
         </div>
       </section>
-
-      <section className="py-24">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <div
-                key={item}
-                className="aspect-video bg-slate-100 rounded-lg flex items-center justify-center border border-slate-200"
-              >
-                <div className="text-center text-slate-400">
-                  <ImageIcon className="h-10 w-10 mx-auto mb-2" />
-                  <span className="text-sm font-medium">Image Placeholder {item}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
+      <GalleryLightbox
+        item={selectedItem}
+        items={filteredItems}
+        onClose={() => setSelectedItem(null)}
+        onNavigate={setSelectedItem}
+        lang={lang}
+      />
     </>
   )
 }
-

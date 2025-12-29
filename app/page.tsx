@@ -1,8 +1,12 @@
 import type { Metadata } from "next"
 import { HomeClient } from "./home-client"
 import { WebPageSchema } from "@/components/seo/schema-org"
+import { getRecentBlogPosts } from "@/lib/blog"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mscsurveyors.org"
+
+// ISR: Revalidar cada hora
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: "Inicio | Inspecciones Marítimas Independientes",
@@ -45,6 +49,9 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
+  // Obtener posts recientes del CMS (Server Component)
+  const recentPosts = getRecentBlogPosts(2)
+
   return (
     <>
       <WebPageSchema
@@ -53,7 +60,7 @@ export default function Home() {
         url={siteUrl}
       />
       <main className="min-h-screen">
-        <HomeClient />
+        <HomeClient recentPosts={recentPosts} />
       </main>
     </>
   )

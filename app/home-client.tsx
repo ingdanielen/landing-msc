@@ -10,8 +10,13 @@ import { BlogPreview } from "@/components/sections/blog-preview"
 import { VideoShowcase } from "@/components/sections/video-showcase"
 import { SectionExplorer } from "@/components/ui/section-explorer"
 import { useLang } from "@/components/lang-provider"
+import type { BlogPostPreview } from "@/lib/blog-types"
 
-export function HomeClient() {
+interface HomeClientProps {
+  recentPosts: BlogPostPreview[]
+}
+
+export function HomeClient({ recentPosts }: HomeClientProps) {
   const { lang } = useLang()
 
   const sections = [
@@ -34,7 +39,7 @@ export function HomeClient() {
       <StatsBanner lang={lang} />
       <LocationSection lang={lang} />
       <CtaSection lang={lang} />
-      <BlogPreview lang={lang} />
+      <BlogPreview lang={lang} posts={recentPosts} />
       <VideoShowcase lang={lang} />
     </div>
   )

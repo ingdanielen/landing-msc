@@ -12,6 +12,13 @@
   font-display: swap;
 }
 
+/* Fuente de sistema para fallback de caracteres especiales */
+@font-face {
+  font-family: 'Reversal-Safe';
+  src: local('system-ui'), local('-apple-system'), local('Segoe UI');
+  unicode-range: U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E, U+00A0-00BF, U+2000-206F;
+}
+
 :root {
   /* Primary Colors */
   /* Marine Blue – HEX #0A2A43 */
@@ -96,6 +103,8 @@
   --font-family-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   --font-family-serif: var(--font-playfair), ui-serif, Georgia, serif;
   --font-family-body: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Font hero con fallback seguro para caracteres especiales */
+  --font-family-hero: 'Reversal', 'Reversal-Safe', ui-sans-serif, system-ui, sans-serif;
   
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -182,6 +191,10 @@
 
 .animate-wave-fast {
   animation: wave-fast 15s linear infinite;
+}
+
+.animate-wave-slower {
+  animation: wave-slow 35s linear infinite;
 }
 
 /* ===== MINIMAL CARD STYLES ===== */
@@ -294,14 +307,147 @@
 .stagger-6 { animation-delay: 0.6s; }
 
 /* ===== FUENTE REVERSAL PARA TÍTULOS ===== */
-/* Alta especificidad al final del archivo para sobrescribir Tailwind */
+/* 
+  NOTA: font-hero usa Reversal para letras y números.
+  Para caracteres especiales (-, :, etc.) se usa fallback de sistema.
+  Esto se logra con unicode-range en @font-face de Reversal-Safe.
+*/
 .font-hero,
 h1.font-hero,
 h2.font-hero,
 h3.font-hero,
+h4.font-hero,
 p.font-hero,
 span.font-hero,
 [class*="font-hero"] {
-  font-family: 'Reversal', ui-sans-serif, system-ui, sans-serif !important;
+  font-family: 'Reversal', 'Reversal-Safe', ui-sans-serif, system-ui, sans-serif !important;
   font-weight: normal !important;
+}
+
+/* ===== ARTICLE CONTENT STYLES ===== */
+/* Estilos para el contenido de artículos del blog */
+
+.article-content {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #475569;
+}
+
+/* Headers - Tamaños proporcionados */
+.article-h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0a2a43;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+}
+
+.article-h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #0a2a43;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.article-h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0a2a43;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.35;
+}
+
+.article-h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334155;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraphs */
+.article-p {
+  margin-bottom: 1.25rem;
+  color: #475569;
+}
+
+/* Lists */
+.article-li {
+  margin-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+  list-style-type: disc;
+  color: #475569;
+}
+
+.article-li-num {
+  margin-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+  list-style-type: decimal;
+  color: #475569;
+}
+
+/* Blockquote */
+.article-quote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid #2e86c1;
+  background: #f8fafc;
+  color: #64748b;
+  font-style: italic;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Links */
+.article-link {
+  color: #2e86c1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.article-link:hover {
+  color: #0a2a43;
+  text-decoration: underline;
+}
+
+/* Code */
+.article-code {
+  background: #f1f5f9;
+  color: #334155;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-family: ui-monospace, monospace;
+}
+
+/* Horizontal Rule */
+.article-hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .article-content {
+    font-size: 1.0625rem;
+  }
+  
+  .article-h1 {
+    font-size: 2rem;
+  }
+  
+  .article-h2 {
+    font-size: 1.5rem;
+  }
+  
+  .article-h3 {
+    font-size: 1.25rem;
+  }
 }

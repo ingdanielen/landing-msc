@@ -139,3 +139,60 @@ export function ServiceSchema({ name, description, url }: ServiceSchemaProps) {
   )
 }
 
+interface ArticleSchemaProps {
+  headline: string
+  description: string
+  image: string
+  datePublished: string
+  dateModified?: string
+  authorName?: string
+  url: string
+  siteUrl?: string
+}
+
+export function ArticleSchema({
+  headline,
+  description,
+  image,
+  datePublished,
+  dateModified,
+  authorName = "MSC Team",
+  url,
+  siteUrl = "https://www.mscsurveyors.org",
+}: ArticleSchemaProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: headline,
+    description: description,
+    image: [image],
+    datePublished: datePublished,
+    dateModified: dateModified || datePublished,
+    author: {
+      "@type": "Person",
+      name: authorName,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Marine Surveyors & Consultants",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/brand/logo-white.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+    url: url,
+  }
+
+  return (
+    <Script
+      id="article-schema"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+

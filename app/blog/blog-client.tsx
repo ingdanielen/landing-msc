@@ -5,123 +5,16 @@ import { content } from "@/lib/content"
 import { motion } from "framer-motion"
 import { BlogCard } from "@/components/sections/blog-card"
 import { SectionExplorer } from "@/components/ui/section-explorer"
+import { HeroText } from "@/components/ui/hero-text"
+import type { BlogPostPreview } from "@/lib/blog-types"
 
-// Mock blog posts data - En producción esto vendría de un CMS o API
-const blogPosts = {
-  es: [
-    {
-      id: 1,
-      title: "La Industria Marítima: Un Viaje de Desafíos y Oportunidades",
-      excerpt:
-        "Exploramos la dedicación y resiliencia en la industria marítima, destacando soluciones innovadoras y el compromiso con la excelencia técnica.",
-      author: "Equipo MSC",
-      date: "15 Jul, 2024",
-      readTime: "4 min",
-      image: "/images/footage/IMG_20181207_111709.webp",
-      views: 184,
-      comments: 73,
-      likes: 1,
-    },
-    {
-      id: 2,
-      title: "Historias Inspiradoras: Un Viaje de Crecimiento y Adaptación",
-      excerpt:
-        "Descubre el viaje inspirador en la industria marítima, navegando con resiliencia y adaptación constante a los desafíos del sector.",
-      author: "Equipo MSC",
-      date: "28 Jun, 2024",
-      readTime: "3 min",
-      image: "/images/footage/IMG_20190405_150150.webp",
-      views: 197,
-      comments: 65,
-      likes: 3,
-    },
-    {
-      id: 3,
-      title: "Innovación en Inspecciones Marítimas: Tecnología y Precisión",
-      excerpt:
-        "Cómo la tecnología avanzada y las metodologías modernas están transformando el futuro de las inspecciones marítimas.",
-      author: "Equipo MSC",
-      date: "10 Jun, 2024",
-      readTime: "5 min",
-      image: "/images/footage/IMG_20190406_095637.webp",
-      views: 156,
-      comments: 42,
-      likes: 8,
-    },
-    {
-      id: 4,
-      title: "Cumplimiento Normativo: Navegando las Regulaciones IMO",
-      excerpt:
-        "Una guía completa sobre las regulaciones internacionales y cómo mantenerse al día con los estándares de cumplimiento.",
-      author: "Equipo MSC",
-      date: "25 May, 2024",
-      readTime: "6 min",
-      image: "/images/footage/IMG_20190406_172726.webp",
-      views: 203,
-      comments: 58,
-      likes: 12,
-    },
-  ],
-  en: [
-    {
-      id: 1,
-      title: "The Maritime Industry: A Journey of Challenges and Opportunities",
-      excerpt:
-        "We explore dedication and resilience in the maritime industry, highlighting innovative solutions and commitment to technical excellence.",
-      author: "MSC Team",
-      date: "Jul 15, 2024",
-      readTime: "4 min",
-      image: "/images/footage/IMG_20181207_111709.webp",
-      views: 184,
-      comments: 73,
-      likes: 1,
-    },
-    {
-      id: 2,
-      title: "Inspirational Stories: A Journey of Growth and Adaptation",
-      excerpt:
-        "Discover the inspiring journey in the maritime industry, navigating with resilience and constant adaptation to sector challenges.",
-      author: "MSC Team",
-      date: "Jun 28, 2024",
-      readTime: "3 min",
-      image: "/images/footage/IMG_20190405_150150.webp",
-      views: 197,
-      comments: 65,
-      likes: 3,
-    },
-    {
-      id: 3,
-      title: "Innovation in Maritime Inspections: Technology and Precision",
-      excerpt:
-        "How advanced technology and modern methodologies are transforming the future of maritime inspections.",
-      author: "MSC Team",
-      date: "Jun 10, 2024",
-      readTime: "5 min",
-      image: "/images/footage/IMG_20190406_095637.webp",
-      views: 156,
-      comments: 42,
-      likes: 8,
-    },
-    {
-      id: 4,
-      title: "Regulatory Compliance: Navigating IMO Regulations",
-      excerpt:
-        "A comprehensive guide to international regulations and how to stay up to date with compliance standards.",
-      author: "MSC Team",
-      date: "May 25, 2024",
-      readTime: "6 min",
-      image: "/images/footage/IMG_20190406_172726.webp",
-      views: 203,
-      comments: 58,
-      likes: 12,
-    },
-  ],
+interface BlogPageClientProps {
+  posts: BlogPostPreview[]
 }
 
-export function BlogPageClient() {
+export function BlogPageClient({ posts }: BlogPageClientProps) {
   const { lang } = useLang()
   const t = content[lang].blog
-  const posts = blogPosts[lang]
 
   const sections = [
     { id: "hero", label: "Inicio", labelEn: "Hero" },
@@ -146,13 +39,14 @@ export function BlogPageClient() {
           <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/40" />
         </div>
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center py-16">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-hero text-3xl sm:text-4xl md:text-5xl text-white mb-3 tracking-tight"
           >
-            {t.title}
-          </motion.h1>
+            <HeroText as="h1" className="text-3xl sm:text-4xl md:text-5xl text-white mb-3 tracking-tight">
+              {t.title}
+            </HeroText>
+          </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -181,13 +75,13 @@ export function BlogPageClient() {
           <div className="flex flex-col gap-6 max-w-5xl mx-auto">
             {posts.map((post, idx) => (
               <motion.div
-                key={post.id}
+                key={post.slug}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
               >
-                <BlogCard {...post} lang={lang} variant="full" />
+                <BlogCard post={post} lang={lang} variant="full" />
               </motion.div>
             ))}
           </div>

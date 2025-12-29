@@ -17,7 +17,7 @@ export function About({ lang }: { lang: Language }) {
           viewport={{ once: true }}
           className="flex flex-col items-center text-center mb-16"
         >
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-4 font-sans uppercase">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary mb-4 font-hero uppercase">
             {t.title}
           </h2>
           <div className="w-24 h-1 bg-accent mb-6"></div>
@@ -44,7 +44,7 @@ export function About({ lang }: { lang: Language }) {
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <Target className="h-6 w-6 text-accent" />
-                  <h3 className="text-xl font-bold text-secondary font-sans">{t.mission.title}</h3>
+                  <h3 className="text-xl font-bold text-secondary font-hero">{t.mission.title}</h3>
                 </div>
                 <p className="text-muted-foreground">{t.mission.text}</p>
               </CardContent>
@@ -54,7 +54,7 @@ export function About({ lang }: { lang: Language }) {
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <Compass className="h-6 w-6 text-primary" />
-                  <h3 className="text-xl font-bold text-secondary font-sans">{t.vision.title}</h3>
+                  <h3 className="text-xl font-bold text-secondary font-hero">{t.vision.title}</h3>
                 </div>
                 <p className="text-muted-foreground">{t.vision.text}</p>
               </CardContent>

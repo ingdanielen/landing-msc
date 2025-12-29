@@ -14,7 +14,7 @@ export function Compliance({ lang }: { lang: Language }) {
             <div className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
               <FileCheck className="mr-2 h-4 w-4" /> ISO 9001:2015
             </div>
-            <h2 className="text-3xl font-bold text-primary font-sans uppercase">{t.title}</h2>
+            <h2 className="text-3xl font-bold text-primary font-hero uppercase">{t.title}</h2>
             <p className="text-muted-foreground text-lg">{t.text}</p>
 
             <div className="grid grid-cols-2 gap-4">

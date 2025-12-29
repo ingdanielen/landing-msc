@@ -1,8 +1,12 @@
 import type { Metadata } from "next"
 import { BlogPageClient } from "./blog-client"
 import { WebPageSchema } from "@/components/seo/schema-org"
+import { getAllBlogPosts } from "@/lib/blog"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mscsurveyors.org"
+
+// ISR: Revalidar cada hora
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: "Noticias y Publicaciones | Actualidad Marítima y Normativa",
@@ -41,6 +45,9 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPage() {
+  // Obtener posts del CMS (Server Component)
+  const posts = getAllBlogPosts()
+  
   return (
     <>
       <WebPageSchema
@@ -48,7 +55,7 @@ export default function BlogPage() {
         description="Artículos técnicos, noticias de la industria marítima, actualizaciones normativas y publicaciones sobre inspecciones marítimas."
         url={`${siteUrl}/blog`}
       />
-      <BlogPageClient />
+      <BlogPageClient posts={posts} />
     </>
   )
 }
