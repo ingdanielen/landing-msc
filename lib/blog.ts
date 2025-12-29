@@ -33,7 +33,6 @@ export type {
 } from './blog-types'
 
 export { 
-  BLOG_CATEGORY_LABELS, 
   getCategoryLabel, 
   formatBlogDate 
 } from './blog-types'
