@@ -83,7 +83,7 @@ function SmallCard({ post, lang }: { post: BlogPostPreview; lang: Language }) {
             <span className="text-xs text-accent font-medium truncate">
               {getCategoryLabel(post.category)}
             </span>
-            <span className="text-xs text-slate-400 shrink-0">
+            <span className="text-xs text-slate-500 shrink-0">
               {formatBlogDate(post.date)}
             </span>
           </div>
@@ -94,7 +94,7 @@ function SmallCard({ post, lang }: { post: BlogPostPreview; lang: Language }) {
           </h3>
           
           {/* Author */}
-          <span className="text-xs text-slate-400">
+          <span className="text-xs text-slate-500">
             {post.author || "MSC Team"}
           </span>
         </div>
@@ -162,7 +162,7 @@ export function BlogPreview({ lang, posts }: BlogPreviewProps) {
             {/* Si no hay suficientes posts, rellenar con placeholder */}
             {smallPosts.length < 3 && (
               <div className="flex-1 flex items-center justify-center border border-dashed border-slate-300 bg-slate-50/50 min-h-[120px]">
-                <span className="text-slate-400 text-sm">
+                <span className="text-slate-500 text-sm">
                   {lang === "es" ? "Más artículos próximamente" : "More articles coming soon"}
                 </span>
               </div>

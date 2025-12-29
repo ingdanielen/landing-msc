@@ -12,7 +12,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent } from "@/components/ui/card"
 import { MapPin, Phone, Mail, AlertCircle } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
-import { MSCMap } from "@/components/ui/msc-map"
+import dynamic from "next/dynamic"
+
+// Lazy load del mapa para mejorar LCP
+const MSCMap = dynamic(() => import("@/components/ui/msc-map").then(mod => mod.MSCMap), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[350px] bg-slate-100 animate-pulse rounded-xl flex items-center justify-center">
+      <div className="text-slate-400 text-sm">Cargando mapa...</div>
+    </div>
+  ),
+})
 
 export function ContactForm({ lang }: { lang: Language }) {
   const t = content[lang].contact

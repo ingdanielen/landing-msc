@@ -80,6 +80,9 @@ export function ServicesPreview({ lang }: { lang: Language }) {
                     alt={item.title}
                     fill
                     className="object-cover"
+                    sizes="100vw"
+                    quality={75}
+                    loading="lazy"
                   />
                   {/* Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/30" />
@@ -154,6 +157,9 @@ export function ServicesPreview({ lang }: { lang: Language }) {
                   alt={item.title}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="33vw"
+                  quality={75}
+                  loading="lazy"
                 />
                 
                 {/* Overlay - Darker on hover */}

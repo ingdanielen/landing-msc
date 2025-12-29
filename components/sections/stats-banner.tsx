@@ -32,6 +32,8 @@ export function StatsBanner({ lang }: { lang: Language }) {
             fill
             className="object-cover"
             priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            quality={80}
           />
           <div className="absolute inset-0 bg-linear-to-br from-primary/60 to-secondary/70" />
           <div className="absolute inset-0 bg-linear-to-l from-transparent via-transparent to-primary" />
@@ -103,12 +105,15 @@ export function StatsBanner({ lang }: { lang: Language }) {
               </motion.div>
 
               {/* Progress Dots */}
-              <div className="flex items-center gap-3 pt-8">
-                {t.stats.map((_, idx) => (
+              <div className="flex items-center gap-3 pt-8" role="tablist" aria-label="Statistics navigation">
+                {t.stats.map((stat, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveIndex(idx)}
                     className="group relative"
+                    aria-label={`Ver estadística ${idx + 1}: ${stat.label}`}
+                    aria-selected={activeIndex === idx}
+                    role="tab"
                   >
                     <motion.div
                       className={`w-3 h-3 rounded-full transition-all duration-300 ${
@@ -120,7 +125,7 @@ export function StatsBanner({ lang }: { lang: Language }) {
                     />
                   </button>
                 ))}
-                <span className="ml-4 text-white/40 font-mono text-sm">
+                <span className="ml-4 text-white/60 font-mono text-sm">
                   {String(activeIndex + 1).padStart(2, "0")} / {String(t.stats.length).padStart(2, "0")}
                 </span>
               </div>
@@ -181,9 +186,10 @@ export function StatsBanner({ lang }: { lang: Language }) {
             <button
               onClick={() => setActiveIndex((prev) => (prev - 1 + t.stats.length) % t.stats.length)}
               className="group flex items-center gap-3 text-white/60 hover:text-white transition-colors"
+              aria-label={`Estadística anterior: ${t.stats[(activeIndex - 1 + t.stats.length) % t.stats.length].label}`}
             >
               <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/10 transition-all">
-                <ChevronRight className="h-5 w-5 rotate-180" />
+                <ChevronRight className="h-5 w-5 rotate-180" aria-hidden="true" />
               </div>
               <span className="text-sm font-medium hidden md:block">
                 {t.stats[(activeIndex - 1 + t.stats.length) % t.stats.length].label}
@@ -193,12 +199,13 @@ export function StatsBanner({ lang }: { lang: Language }) {
             <button
               onClick={() => setActiveIndex((prev) => (prev + 1) % t.stats.length)}
               className="group flex items-center gap-3 text-white/60 hover:text-white transition-colors"
+              aria-label={`Siguiente estadística: ${t.stats[(activeIndex + 1) % t.stats.length].label}`}
             >
               <span className="text-sm font-medium hidden md:block">
                 {t.stats[(activeIndex + 1) % t.stats.length].label}
               </span>
               <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-accent group-hover:bg-accent/10 transition-all">
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </div>
             </button>
           </div>

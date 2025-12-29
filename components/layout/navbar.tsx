@@ -67,12 +67,13 @@ export function Navbar() {
             <Image
               src="/brand/logo-white.png"
               alt="MSC Logo"
-              width={1000}
-              height={1000}
+              width={168}
+              height={84}
               className={`transition-all duration-300 ${
                 shouldBeTransparent ? "h-12" : "h-10"
               } w-auto`}
               priority
+              sizes="168px"
             />
           </Link>
 
@@ -116,17 +117,25 @@ export function Navbar() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+              aria-label={isMobileMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden absolute top-full left-0 right-0 bg-primary/98 backdrop-blur-xl border-t border-white/10 transition-all duration-300 ${
-        isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
-      }`}>
+      <div 
+        id="mobile-menu"
+        role="navigation"
+        aria-label="Menú de navegación móvil"
+        className={`lg:hidden absolute top-full left-0 right-0 bg-primary/98 backdrop-blur-xl border-t border-white/10 transition-all duration-300 ${
+          isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+        }`}
+      >
         <div className="container mx-auto px-4 py-4 space-y-1">
           {navLinks.map((link) => (
             <Link

@@ -19,22 +19,38 @@ export function Footer() {
             <div className="flex items-center">
               <Image
                 src="/brand/logo-white.png"
-                alt="MSC Logo"
-                width={1000}
-                height={1000}
+                alt="MSC - Marine Surveyors & Consultants Logo"
+                width={180}
+                height={90}
                 className="h-18 w-auto"
+                sizes="180px"
+                loading="lazy"
               />
             </div>
             <p className="text-lg font-light text-gray-300 max-w-md italic">"{t.brand_quote}"</p>
             <div className="flex gap-4 pt-4">
-              <a href="#" className="hover:text-accent transition-colors">
-                <Linkedin className="h-5 w-5" />
+              <a 
+                href="https://www.linkedin.com/company/mscsurveyors" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors"
+                aria-label="Visitar perfil de LinkedIn de MSC"
+              >
+                <Linkedin className="h-5 w-5" aria-hidden="true" />
               </a>
-              <a href="#" className="hover:text-accent transition-colors">
-                <Mail className="h-5 w-5" />
+              <a 
+                href="mailto:msc@mscsurveyors.org" 
+                className="hover:text-accent transition-colors"
+                aria-label="Enviar correo electrónico a MSC"
+              >
+                <Mail className="h-5 w-5" aria-hidden="true" />
               </a>
-              <a href="#" className="hover:text-accent transition-colors">
-                <Phone className="h-5 w-5" />
+              <a 
+                href="tel:+50765980679" 
+                className="hover:text-accent transition-colors"
+                aria-label="Llamar a MSC"
+              >
+                <Phone className="h-5 w-5" aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -45,29 +61,29 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
-                <a href="#home" className="hover:text-white transition-colors">
+                <Link href="/" className="hover:text-white transition-colors">
                   {content[lang].nav.home}
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="hover:text-white transition-colors">
-                  {content[lang].nav.about}
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-white transition-colors">
-                  {content[lang].nav.services}
-                </a>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-white transition-colors">
-                  {content[lang].blog.title}
                 </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-white transition-colors">
+                <Link href="/about" className="hover:text-white transition-colors">
+                  {content[lang].nav.about}
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="hover:text-white transition-colors">
+                  {content[lang].nav.services}
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-white transition-colors">
+                  {lang === "es" ? "Noticias e Insights" : lang === "zh" ? "新闻与见解" : "News & Insights"}
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
                   {content[lang].nav.contact}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -78,19 +94,19 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="/terms" className="hover:text-white transition-colors">
                   {lang === "es" ? "Términos y Condiciones" : lang === "zh" ? "条款与条件" : "Terms & Conditions"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="/cookies" className="hover:text-white transition-colors">
                   {lang === "es" ? "Política de Cookies" : lang === "zh" ? "Cookie政策" : "Cookie Policy"}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="/sitemap.xml" className="hover:text-white transition-colors">
                   {lang === "es" ? "Mapa del Sitio" : lang === "zh" ? "网站地图" : "Sitemap"}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -98,18 +114,18 @@ export function Footer() {
 
         <Separator className="bg-white/10 my-8" />
 
-        <div className="grid gap-8 md:grid-cols-2 text-xs text-gray-500 leading-relaxed">
+        <div className="grid gap-8 md:grid-cols-2 text-xs text-gray-400 leading-relaxed">
           <div>
-            <h5 className="font-bold text-gray-400 mb-2">{t.disclaimer.title}</h5>
+            <h5 className="font-bold text-gray-300 mb-2">{t.disclaimer.title}</h5>
             <p>{t.disclaimer.text}</p>
           </div>
           <div>
-            <h5 className="font-bold text-gray-400 mb-2">{t.privacy.title}</h5>
+            <h5 className="font-bold text-gray-300 mb-2">{t.privacy.title}</h5>
             <p>{t.privacy.text}</p>
           </div>
         </div>
 
-        <div className="text-center text-xs text-gray-600 mt-12 pt-4 border-t border-white/5">{t.rights}</div>
+        <div className="text-center text-xs text-gray-400 mt-12 pt-4 border-t border-white/5">{t.rights}</div>
       </div>
     </footer>
   )

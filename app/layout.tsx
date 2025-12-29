@@ -135,6 +135,13 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        {/* Preconnect para OpenStreetMap (mapa) */}
+        <link rel="preconnect" href="https://a.tile.openstreetmap.org" />
+        <link rel="preconnect" href="https://b.tile.openstreetmap.org" />
+        <link rel="preconnect" href="https://c.tile.openstreetmap.org" />
+        <link rel="dns-prefetch" href="https://a.tile.openstreetmap.org" />
+        <link rel="dns-prefetch" href="https://b.tile.openstreetmap.org" />
+        <link rel="dns-prefetch" href="https://c.tile.openstreetmap.org" />
       </head>
       <body
         className={`${reversal.variable} ${playfair.variable} ${dmSans.variable} font-body antialiased text-foreground`}

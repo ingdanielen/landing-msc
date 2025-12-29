@@ -2,8 +2,18 @@
 
 import { motion } from "framer-motion"
 import { type Language } from "@/lib/content"
-import { MSCMap } from "@/components/ui/msc-map"
+import dynamic from "next/dynamic"
 import { Mail, Phone, AlertCircle, MapPin } from "lucide-react"
+
+// Lazy load del mapa para mejorar LCP
+const MSCMap = dynamic(() => import("@/components/ui/msc-map").then(mod => mod.MSCMap), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[500px] bg-slate-100 animate-pulse rounded-xl flex items-center justify-center">
+      <div className="text-slate-400 text-sm">Cargando mapa...</div>
+    </div>
+  ),
+})
 
 export function LocationSection({ lang }: { lang: Language }) {
   return (

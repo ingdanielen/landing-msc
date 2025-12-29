@@ -36,9 +36,12 @@ export function VideoShowcase({ lang }: { lang: Language }) {
           loop
           muted
           playsInline
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover object-bottom scale-110"
+          aria-label="Video decorativo del océano"
         >
           <source src="/images/videos/sea-video.mp4" type="video/mp4" />
+          <track kind="captions" src="/captions/hero-video.vtt" srcLang="es" label="Sin audio" default />
         </video>
         {/* Clean gradient overlay */}
         <div className="absolute inset-0 bg-primary/40" />

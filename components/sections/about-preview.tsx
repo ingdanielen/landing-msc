@@ -35,10 +35,13 @@ export function AboutPreview({ lang }: { lang: Language }) {
                 ? "我们拥有一支高素质的检验师、造船工程师和海事顾问团队，为船舶、货物、港口和海事结构提供客观、准确且符合国际标准的评估服务。"
                 : "With a team of highly qualified inspectors, naval architects and maritime consultants, we provide objective, accurate and internationally compliant assessments for vessels, cargo, ports and maritime structures."}
             </p>
-            <Link href="/about">
+            <Link 
+              href="/about"
+              aria-label={lang === "es" ? "Conoce más sobre Marine Surveyors & Consultants" : lang === "zh" ? "了解更多关于MSC" : "Learn more about Marine Surveyors & Consultants"}
+            >
               <Button className="bg-accent hover:bg-accent/90 text-white font-semibold group">
-                {lang === "es" ? "Conoce más" : lang === "zh" ? "了解更多" : "Learn More"}
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                {lang === "es" ? "Conoce más sobre nosotros" : lang === "zh" ? "了解更多" : "Learn more about us"}
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </Button>
             </Link>
           </motion.div>
@@ -56,6 +59,9 @@ export function AboutPreview({ lang }: { lang: Language }) {
               alt="Marine Surveyors & Consultants"
               fill
               className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              quality={80}
+              loading="lazy"
             />
           </motion.div>
         </div>

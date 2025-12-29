@@ -47,9 +47,14 @@ export function Hero({ lang }: { lang: Language }) {
           loop
           muted
           playsInline
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover"
+          poster="/images/stock/front-msc.jpg"
+          aria-label="Video de fondo mostrando operaciones marítimas"
         >
           <source src="/images/videos/hero-1.mp4" type="video/mp4" />
+          {/* Track para accesibilidad - video decorativo sin audio */}
+          <track kind="captions" src="/captions/hero-video.vtt" srcLang="es" label="Sin audio" default />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/85 via-primary/70 to-primary/50" />
       </div>

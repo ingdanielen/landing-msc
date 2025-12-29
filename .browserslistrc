@@ -1,0 +1,4 @@
+# Targeting modern browsers only to reduce polyfills
+# Baseline Widely Available: features available across all major browsers
+defaults and fully supports es6-module
+
