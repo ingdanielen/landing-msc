@@ -192,7 +192,7 @@ export function GalleryPreview({ lang, items }: GalleryPreviewProps) {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="relative aspect-[21/9] overflow-hidden bg-slate-100 cursor-pointer group"
+              className="relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-slate-100 cursor-pointer group"
               onClick={() => setLightboxIndex(currentIndex)}
               onMouseEnter={() => setIsPlaying(false)}
               onMouseLeave={() => setIsPlaying(true)}

@@ -28,7 +28,7 @@ const servicesContent = {
         icon: Ship,
         title: "Inspecciones de Buques",
         description: "Pre-compra, condicion, on/off hire, danos y siniestros, P&I.",
-        image: "/images/footage/IMG_20190406_172726.webp",
+        image: "/images/footage/IMG_20181207_112927.webp",
       },
       {
         icon: Container,
@@ -40,7 +40,7 @@ const servicesContent = {
         icon: ClipboardCheck,
         title: "Consultoria Maritima",
         description: "Auditorias ISM/ISPS/MLC, asesoria tecnica, investigacion de incidentes.",
-        image: "/images/footage/IMG_20190406_095637.webp",
+        image: "/images/footage/IMG_20190406_175914.webp",
       },
       {
         icon: Anchor,
@@ -73,7 +73,7 @@ const servicesContent = {
         icon: Ship,
         title: "Vessel Inspections",
         description: "Pre-purchase, condition, on/off hire, damage & casualty, P&I.",
-        image: "/images/footage/IMG_20190406_172726.webp",
+        image: "/images/footage/IMG_20181207_112927.webp",
       },
       {
         icon: Container,
@@ -85,7 +85,7 @@ const servicesContent = {
         icon: ClipboardCheck,
         title: "Maritime Consultancy",
         description: "ISM/ISPS/MLC audits, technical advisory, incident investigation.",
-        image: "/images/footage/IMG_20190406_095637.webp",
+        image: "/images/footage/IMG_20190406_175914.webp",
       },
       {
         icon: Anchor,
@@ -118,7 +118,7 @@ const servicesContent = {
         icon: Ship,
         title: "船舶检验",
         description: "购前检验、状况检验、租船/还船、损坏和事故、P&I。",
-        image: "/images/footage/IMG_20190406_172726.webp",
+        image: "/images/footage/IMG_20181207_112927.webp",
       },
       {
         icon: Container,
@@ -130,7 +130,7 @@ const servicesContent = {
         icon: ClipboardCheck,
         title: "海事咨询",
         description: "ISM/ISPS/MLC审核、技术咨询、事故调查。",
-        image: "/images/footage/IMG_20190406_095637.webp",
+        image: "/images/footage/IMG_20190406_175914.webp",
       },
       {
         icon: Anchor,
