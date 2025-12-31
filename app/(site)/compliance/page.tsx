@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${siteUrl}/brand/logo-white.png`,
+        url: `${siteUrl}/brand/images/seo-placeholder.webp`,
         width: 1200,
         height: 630,
         alt: "MSC - Calidad y Cumplimiento Marítimo",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Calidad y Cumplimiento | MSC Marine Surveyors",
     description: "Operaciones certificadas ISO 9001:2015 y cumplimiento total con convenios IMO.",
-    images: [`${siteUrl}/brand/logo-white.png`],
+    images: [`${siteUrl}/brand/images/seo-placeholder.webp`],
   },
   alternates: {
     canonical: `${siteUrl}/compliance`,

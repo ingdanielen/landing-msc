@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     url: `${siteUrl}/quality`,
     images: [
       {
-        url: `${siteUrl}/brand/logo-white.png`,
+        url: `${siteUrl}/brand/images/seo-placeholder.webp`,
         width: 1200,
         height: 630,
         alt: "MSC - Calidad y Cumplimiento",

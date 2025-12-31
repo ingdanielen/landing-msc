@@ -24,25 +24,26 @@ export const metadata: Metadata = {
     "IMO compliance",
   ],
   openGraph: {
-    title: "MSC - Inspecciones Marítimas Independientes en las que Puede Confiar",
+    title: "MSC - Inspecciones Marítimas Independientes",
     description:
-      "Realizamos inspecciones independientes, encuestas de carga, evaluaciones de buques y consultoría técnica para armadores, fletadores, aseguradoras y operadores portuarios en todo el mundo.",
+      "Inspecciones de buques, encuestas de carga y consultoría técnica. ISO 9001:2015 • IMO • SOLAS. Servicio global 24/7.",
     url: siteUrl,
     images: [
       {
-        url: `${siteUrl}/brand/logo-white.png`,
+        url: `${siteUrl}/images/seo-placeholder.webp`,
         width: 1200,
         height: 630,
-        alt: "MSC - Marine Surveyors & Consultants",
+        alt: "MSC - Marine Surveyors & Consultants - Inspecciones Marítimas",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
+    site: "@mscsurveyors",
     title: "MSC - Inspecciones Marítimas Independientes",
     description:
-      "Realizamos inspecciones independientes, encuestas de carga, evaluaciones de buques y consultoría técnica para armadores, fletadores, aseguradoras y operadores portuarios en todo el mundo.",
-    images: [`${siteUrl}/brand/logo-white.png`],
+      "Inspecciones de buques, encuestas de carga y consultoría técnica. ISO 9001:2015 certificado.",
+    images: [`${siteUrl}/images/seo-placeholder.webp`],
   },
   alternates: {
     canonical: siteUrl,

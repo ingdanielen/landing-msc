@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     url: `${siteUrl}/about`,
     images: [
       {
-        url: `${siteUrl}/brand/logo-white.png`,
+        url: `${siteUrl}/images/seo-placeholder.webp`,
         width: 1200,
         height: 630,
-        alt: "MSC - Sobre Nosotros",
+        alt: "MSC - Sobre Nosotros - Marine Surveyors & Consultants",
       },
     ],
   },

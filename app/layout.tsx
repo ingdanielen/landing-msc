@@ -81,24 +81,27 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US"],
     url: siteUrl,
     siteName: "Marine Surveyors & Consultants",
-    title: "MSC - Marine Surveyors & Consultants | Inspecciones Marítimas Independientes",
+    title: "MSC - Marine Surveyors & Consultants | Inspecciones Marítimas",
     description:
-      "Inspecciones marítimas independientes, encuestas de carga, evaluaciones de buques y consultoría técnica. Servicios globales con certificación ISO 9001:2015.",
+      "Inspecciones marítimas independientes, encuestas de carga, evaluaciones de buques y consultoría técnica. ISO 9001:2015 • IMO • SOLAS",
     images: [
       {
-        url: `${siteUrl}/brand/logo-white.png`,
+        url: `${siteUrl}/images/seo-placeholder.webp`,
         width: 1200,
         height: 630,
-        alt: "MSC - Marine Surveyors & Consultants",
+        alt: "MSC - Marine Surveyors & Consultants - Inspecciones Marítimas Independientes",
+        type: "image/webp",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
+    site: "@mscsurveyors",
+    creator: "@mscsurveyors",
     title: "MSC - Marine Surveyors & Consultants",
     description:
-      "Inspecciones marítimas independientes, encuestas de carga, evaluaciones de buques y consultoría técnica.",
-    images: [`${siteUrl}/brand/logo-white.png`],
+      "Inspecciones marítimas independientes, encuestas de carga y consultoría técnica. ISO 9001:2015 certificado.",
+    images: [`${siteUrl}/images/seo-placeholder.webp`],
   },
   icons: {
     icon: "/icon.png",
