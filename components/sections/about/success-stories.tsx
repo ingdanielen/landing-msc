@@ -9,7 +9,8 @@ import Image from "next/image"
 // Data based EXACTLY on more-company-info.txt
 const successContent = {
   es: {
-    title: "Casos de Éxito",
+    title: "Casos de",
+    titleHighlight: "Exito",
     subtitle: "Resultados que hablan por nosotros",
     categories: [
       {
@@ -108,7 +109,8 @@ const successContent = {
     ],
   },
   en: {
-    title: "Success Stories",
+    title: "Success",
+    titleHighlight: "Stories",
     subtitle: "Results that speak for us",
     categories: [
       {
@@ -286,8 +288,9 @@ export function SuccessStories({ lang }: { lang: Language }) {
               <span className="text-accent text-sm tracking-widest uppercase font-medium">
                 {t.subtitle}
               </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-hero font-bold text-white mt-2 tracking-tight">
-                {t.title}
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-2 tracking-tight">
+                <span className="font-hero">{t.title}</span>{" "}
+                <span className="font-hero text-accent">{t.titleHighlight}</span>
               </h2>
             </motion.div>
 

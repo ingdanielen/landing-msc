@@ -1,51 +1,56 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
 import { motion } from "framer-motion"
-import { type Language, content } from "@/lib/content"
+import { type Language } from "@/lib/content"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { toast } from "@/hooks/use-toast"
-import { Send, Ship, Package, Compass, FileSearch, CheckCircle2 } from "lucide-react"
+import { useContactForm } from "@/hooks/use-contact-form"
+import { Send, Ship, Package, Compass, FileSearch, CheckCircle2, AlertCircle, Loader2 } from "lucide-react"
 
 const formContent = {
   es: {
-    title: "Solicite una Inspección",
+    title: "Solicite una Inspeccion",
     subtitle: "Complete el formulario y responderemos en menos de 24 horas",
     form: {
       name: "Nombre completo",
-      email: "Correo electrónico",
-      phone: "Teléfono / WhatsApp",
-      company: "Empresa u organización",
+      email: "Correo electronico",
+      phone: "Telefono / WhatsApp",
+      company: "Empresa u organizacion",
       serviceType: "Tipo de servicio",
-      location: "Puerto o ubicación",
+      location: "Puerto o ubicacion",
       message: "Detalles adicionales",
       submit: "Enviar Solicitud",
       sending: "Enviando...",
     },
     services: [
-      { value: "vessel", label: "Inspección de Buques", icon: Ship },
-      { value: "cargo", label: "Inspección de Carga", icon: Package },
-      { value: "consultancy", label: "Consultoría Marítima", icon: Compass },
+      { value: "vessel", label: "Inspeccion de Buques", icon: Ship },
+      { value: "cargo", label: "Inspeccion de Carga", icon: Package },
+      { value: "consultancy", label: "Consultoria Maritima", icon: Compass },
       { value: "other", label: "Otro Servicio", icon: FileSearch },
     ],
     benefits: [
       "Respuesta garantizada en 24 horas",
-      "Cotización sin compromiso",
-      "Asesoría técnica inicial gratuita",
+      "Cotizacion sin compromiso",
+      "Asesoria tecnica inicial gratuita",
     ],
-    privacy: "Al enviar este formulario, acepta nuestra política de privacidad.",
+    privacy: "Al enviar este formulario, acepta nuestra politica de privacidad.",
     success: {
       title: "Solicitud Enviada",
       message: "Gracias por contactar a MSC. Responderemos a su solicitud en breve.",
     },
+    errors: {
+      name: "El nombre es requerido",
+      email: "El email es requerido",
+      emailInvalid: "Email invalido",
+      message: "El mensaje es requerido",
+    },
   },
   en: {
     title: "Request an Inspection",
-    subtitle: "Fill out the form and we'll respond within 24 hours",
+    subtitle: "Fill out the form and we will respond within 24 hours",
     form: {
       name: "Full name",
       email: "Email address",
@@ -73,23 +78,38 @@ const formContent = {
       title: "Request Sent",
       message: "Thank you for contacting MSC. We will respond to your request shortly.",
     },
+    errors: {
+      name: "Name is required",
+      email: "Email is required",
+      emailInvalid: "Invalid email",
+      message: "Message is required",
+    },
   },
 }
 
 export function ContactFormSection({ lang }: { lang: Language }) {
-  const t = formContent[lang as keyof typeof formContent]
-  const [pending, setPending] = useState(false)
-  const [selectedService, setSelectedService] = useState("")
+  const t = formContent[lang as keyof typeof formContent] || formContent.en
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setPending(true)
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setPending(false)
-    toast({
-      title: t.success.title,
-      description: t.success.message,
-    })
+  const {
+    formData,
+    updateField,
+    handleSubmit,
+    isLoading,
+    isSuccess,
+    error,
+    successMessage,
+    fieldErrors,
+    reset,
+  } = useContactForm({
+    onSuccess: () => {
+      // Toast o notificación adicional si se desea
+    },
+  })
+
+  // Obtener el label del servicio seleccionado
+  const getServiceLabel = (value: string) => {
+    const service = t.services.find(s => s.value === value)
+    return service?.label || value
   }
 
   return (
@@ -128,12 +148,12 @@ export function ContactFormSection({ lang }: { lang: Language }) {
               <div className="space-y-2">
                 {t.services.map((service) => {
                   const Icon = service.icon
-                  const isSelected = selectedService === service.value
+                  const isSelected = formData.serviceType === service.value
                   return (
                     <button
                       key={service.value}
                       type="button"
-                      onClick={() => setSelectedService(service.value)}
+                      onClick={() => updateField('serviceType', service.value)}
                       className={`
                         w-full flex items-center gap-3 p-3 rounded-lg transition-all text-left
                         ${isSelected
@@ -166,29 +186,73 @@ export function ContactFormSection({ lang }: { lang: Language }) {
             className="lg:col-span-3"
           >
             <div className="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-slate-100">
+              {/* Success Message */}
+              {isSuccess && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg flex items-start gap-3"
+                >
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-emerald-800">{t.success.title}</p>
+                    <p className="text-sm text-emerald-700">{successMessage || t.success.message}</p>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Error Message */}
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3"
+                >
+                  <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-red-800">Error</p>
+                    <p className="text-sm text-red-700">{error}</p>
+                  </div>
+                </motion.div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Name & Email Row */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">
-                      {t.form.name}
+                      {t.form.name} *
                     </label>
                     <Input
-                      required
+                      name="from_name"
+                      value={formData.name}
+                      onChange={(e) => updateField('name', e.target.value)}
                       placeholder="John Doe"
-                      className="h-11 rounded-lg border-slate-200 focus:border-accent focus:ring-accent"
+                      className={`h-11 rounded-lg border-slate-200 focus:border-accent focus:ring-accent ${
+                        fieldErrors.name ? 'border-red-300 focus:border-red-500' : ''
+                      }`}
                     />
+                    {fieldErrors.name && (
+                      <p className="text-xs text-red-500">{fieldErrors.name}</p>
+                    )}
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">
-                      {t.form.email}
+                      {t.form.email} *
                     </label>
                     <Input
-                      required
+                      name="from_email"
                       type="email"
+                      value={formData.email}
+                      onChange={(e) => updateField('email', e.target.value)}
                       placeholder="john@company.com"
-                      className="h-11 rounded-lg border-slate-200 focus:border-accent focus:ring-accent"
+                      className={`h-11 rounded-lg border-slate-200 focus:border-accent focus:ring-accent ${
+                        fieldErrors.email ? 'border-red-300 focus:border-red-500' : ''
+                      }`}
                     />
+                    {fieldErrors.email && (
+                      <p className="text-xs text-red-500">{fieldErrors.email}</p>
+                    )}
                   </div>
                 </div>
 
@@ -199,7 +263,9 @@ export function ContactFormSection({ lang }: { lang: Language }) {
                       {t.form.phone}
                     </label>
                     <Input
-                      required
+                      name="phone"
+                      value={formData.phone}
+                      onChange={(e) => updateField('phone', e.target.value)}
                       placeholder="+507 6598-0679"
                       className="h-11 rounded-lg border-slate-200 focus:border-accent focus:ring-accent"
                     />
@@ -209,56 +275,65 @@ export function ContactFormSection({ lang }: { lang: Language }) {
                       {t.form.company}
                     </label>
                     <Input
-                      required
+                      name="company"
+                      value={formData.company}
+                      onChange={(e) => updateField('company', e.target.value)}
                       placeholder="Company Name"
                       className="h-11 rounded-lg border-slate-200 focus:border-accent focus:ring-accent"
                     />
                   </div>
                 </div>
 
-                {/* Service & Location Row */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">
-                      {t.form.serviceType}
-                    </label>
-                    <Select value={selectedService} onValueChange={setSelectedService}>
-                      <SelectTrigger className="h-11 rounded-lg border-slate-200">
-                        <SelectValue placeholder={lang === "es" ? "Seleccionar..." : "Select..."} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {t.services.map((service) => (
-                          <SelectItem key={service.value} value={service.value}>
-                            {service.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">
-                      {t.form.location}
-                    </label>
-                    <Input
-                      placeholder={lang === "es" ? "Puerto de Balboa" : "Port of Balboa"}
-                      className="h-11 rounded-lg border-slate-200 focus:border-accent focus:ring-accent"
-                    />
-                  </div>
+                {/* Service Type - Mobile */}
+                <div className="lg:hidden space-y-1.5">
+                  <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    {t.form.serviceType}
+                  </label>
+                  <Select 
+                    value={formData.serviceType} 
+                    onValueChange={(value) => updateField('serviceType', value)}
+                  >
+                    <SelectTrigger className="h-11 rounded-lg border-slate-200">
+                      <SelectValue placeholder={lang === "es" ? "Seleccionar..." : "Select..."} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {t.services.map((service) => (
+                        <SelectItem key={service.value} value={service.value}>
+                          {service.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
+
+                {/* Hidden field for service type (for EmailJS) */}
+                <input 
+                  type="hidden" 
+                  name="service_type" 
+                  value={formData.serviceType ? getServiceLabel(formData.serviceType) : ''} 
+                />
 
                 {/* Message */}
                 <div className="space-y-1.5">
                   <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    {t.form.message}
+                    {t.form.message} *
                   </label>
                   <Textarea
-                    className="min-h-[100px] rounded-lg border-slate-200 focus:border-accent focus:ring-accent resize-none"
+                    name="message"
+                    value={formData.message}
+                    onChange={(e) => updateField('message', e.target.value)}
+                    className={`min-h-[100px] rounded-lg border-slate-200 focus:border-accent focus:ring-accent resize-none ${
+                      fieldErrors.message ? 'border-red-300 focus:border-red-500' : ''
+                    }`}
                     placeholder={
                       lang === "es"
                         ? "Describa brevemente su solicitud..."
                         : "Briefly describe your request..."
                     }
                   />
+                  {fieldErrors.message && (
+                    <p className="text-xs text-red-500">{fieldErrors.message}</p>
+                  )}
                 </div>
 
                 {/* Submit */}
@@ -266,10 +341,13 @@ export function ContactFormSection({ lang }: { lang: Language }) {
                   <Button
                     type="submit"
                     className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg"
-                    disabled={pending}
+                    disabled={isLoading}
                   >
-                    {pending ? (
-                      t.form.sending
+                    {isLoading ? (
+                      <span className="flex items-center gap-2">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        {t.form.sending}
+                      </span>
                     ) : (
                       <span className="flex items-center gap-2">
                         {t.form.submit}
@@ -287,4 +365,3 @@ export function ContactFormSection({ lang }: { lang: Language }) {
     </section>
   )
 }
-

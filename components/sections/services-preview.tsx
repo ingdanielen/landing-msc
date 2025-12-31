@@ -80,8 +80,8 @@ export function ServicesPreview({ lang }: { lang: Language }) {
                     alt={item.title}
                     fill
                     className="object-cover"
-                    sizes="100vw"
-                    quality={75}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    quality={60}
                     loading="lazy"
                   />
                   {/* Gradient */}
@@ -158,7 +158,7 @@ export function ServicesPreview({ lang }: { lang: Language }) {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   sizes="33vw"
-                  quality={75}
+                  quality={60}
                   loading="lazy"
                 />
                 

@@ -1,0 +1,34 @@
+---
+alwaysApply: true
+---
+
+# Reglas de Componentización y Calidad de Código
+
+## Componentización
+- SIEMPRE componentiza el código siguiendo buenas prácticas de React/Next.js
+- Divide componentes grandes en componentes más pequeños y reutilizables
+- Cada componente debe tener una única responsabilidad (Single Responsibility Principle)
+- Extrae lógica repetida en hooks personalizados cuando sea apropiado
+- Usa composición sobre herencia
+
+## Legibilidad
+- Prioriza código legible y autodocumentado sobre código "inteligente"
+- Usa nombres descriptivos para variables, funciones y componentes
+- Mantén funciones cortas y enfocadas en una sola tarea
+- Organiza imports de manera consistente (React primero, luego externos, luego locales)
+- Usa destructuring cuando mejore la legibilidad
+- Agrega comentarios solo cuando el "por qué" no sea obvio
+
+## Optimización
+- Optimiza el rendimiento desde el inicio
+- Usa `React.memo()` para componentes que reciben props estables
+- Implementa `useMemo()` y `useCallback()` donde sea necesario para evitar re-renders innecesarios
+- Lazy loading para componentes pesados con `dynamic()` de Next.js
+- Optimiza imágenes usando el componente `Image` de Next.js
+- Evita cálculos costosos en el render, muévelos a efectos o memoízalos
+- Minimiza el state y mantenlo lo más local posible
+
+## Estructura de Archivos
+- Un componente por archivo
+- Coloca componentes relacionados en carpetas con su propio index
+- Separa la lógica de negocio de la presentación cuando sea compleja

@@ -1,8 +1,9 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useCallback } from "react"
 import type { Language } from "@/lib/content"
 import type L from "leaflet"
+import Image from "next/image"
 
 // Coordenadas: 8°58'30.0"N 79°32'31.1"W
 // Convertidas a decimal: 8.975, -79.5420
@@ -10,6 +11,9 @@ const MSC_COORDINATES = {
   lat: 8.975,
   lng: -79.5420,
 }
+
+// Imagen estática del mapa para carga inicial rápida
+const STATIC_MAP_URL = `https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/${MSC_COORDINATES.lng},${MSC_COORDINATES.lat},15,0/600x400@2x?access_token=pk.placeholder`
 
 const mapContent = {
   es: {
@@ -51,6 +55,7 @@ export function MSCMap({ lang, height = "350px", className = "" }: MSCMapProps) 
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstanceRef = useRef<L.Map | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const t = mapContent[lang]
 
@@ -64,8 +69,26 @@ export function MSCMap({ lang, height = "350px", className = "" }: MSCMapProps) 
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
+  // Intersection Observer para lazy load del mapa
   useEffect(() => {
-    if (typeof window === "undefined" || !mapRef.current) return
+    if (!mapRef.current) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: "200px" } // Precargar 200px antes de ser visible
+    )
+
+    observer.observe(mapRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !mapRef.current || !isVisible) return
     if (mapInstanceRef.current) return
 
     const initMap = async () => {
@@ -188,7 +211,7 @@ export function MSCMap({ lang, height = "350px", className = "" }: MSCMapProps) 
         mapInstanceRef.current = null
       }
     }
-  }, [t, isMobile])
+  }, [t, isMobile, isVisible])
 
   return (
     <div className={`relative ${className}`} style={{ height, zIndex: 0 }}>
@@ -223,14 +246,29 @@ export function MSCMap({ lang, height = "350px", className = "" }: MSCMapProps) 
         className="w-full h-full rounded-xl overflow-hidden"
         style={{ position: 'relative', zIndex: 1 }}
       />
+      {/* Placeholder con mapa estático mientras carga */}
       {!isLoaded && (
-        <div className="absolute inset-0 bg-slate-100 animate-pulse flex items-center justify-center rounded-xl">
-          <div className="text-slate-500 flex items-center gap-2 text-sm">
-            <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Loading...
+        <div className="absolute inset-0 bg-slate-200 flex items-center justify-center rounded-xl overflow-hidden">
+          {/* Placeholder con ubicación */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200" />
+          <div className="relative z-10 text-center p-4">
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 flex items-center justify-center">
+              <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <p className="text-sm font-medium text-slate-600">{t.address}</p>
+            <p className="text-xs text-slate-500">{t.city}</p>
+            {isVisible && (
+              <div className="mt-3 flex items-center justify-center gap-2 text-xs text-slate-400">
+                <svg className="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+                Loading map...
+              </div>
+            )}
           </div>
         </div>
       )}

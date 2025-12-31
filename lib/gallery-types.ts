@@ -40,6 +40,8 @@ export interface GalleryItemMeta {
   location?: string
   /** Si es imagen destacada */
   featured?: boolean
+  /** Si es visible en la galería pública */
+  visible?: boolean
 }
 
 /** Imagen completa con slug */

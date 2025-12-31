@@ -5,4 +5,5 @@ export { CompanyStats } from "./company-stats"
 export { SuccessStories } from "./success-stories"
 export { WhyChooseUs } from "./why-choose-us"
 export { MissionVisionValues } from "./mission-vision-values"
+export { TeamExpertise } from "./team-expertise"
 

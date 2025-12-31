@@ -22,17 +22,19 @@ import Image from "next/image"
 const missionVisionContent = {
   es: {
     sectionTitle: "Nuestros Pilares",
+    sectionTitleHighlight: "",
     mission: {
-      title: "Misión",
+      title: "Mision",
       text: "Proveer inspecciones marítimas de tercera parte de forma objetiva, confiable y completa, y consultorías marítimas que apoyan la navegación segura, protegen el valor de los buques o artefactos navales y garantizan el cumplimiento normativo.",
       subtext:
         "Logramos esto mediante profesionales altamente calificados, metodologías avanzadas de inspección y un compromiso inquebrantable con la transparencia, la imparcialidad y un servicio excepcional al cliente.",
     },
     vision: {
-      title: "Visión",
+      title: "Vision",
       text: "Ser la organización independiente de inspección marítima más confiable y reconocida globalmente, entregando precisión, integridad y excelencia técnica inquebrantables para salvaguardar las operaciones marítimas, los buques o artefactos navales y el medio ambiente.",
     },
-    valuesTitle: "Valores Corporativos",
+    valuesTitle: "Valores",
+    valuesTitleHighlight: "Corporativos",
     valuesSubtitle: "Los principios que guían cada una de nuestras acciones",
     values: [
       {
@@ -87,7 +89,8 @@ const missionVisionContent = {
     ],
   },
   en: {
-    sectionTitle: "Our Pillars",
+    sectionTitle: "Our",
+    sectionTitleHighlight: "Pillars",
     mission: {
       title: "Mission",
       text: "To provide objective, reliable, and complete third-party marine surveys and maritime consultancy that support safe navigation, protect the value of vessels or naval artifacts, and ensure regulatory compliance.",
@@ -98,7 +101,8 @@ const missionVisionContent = {
       title: "Vision",
       text: "To be the most trusted and globally recognized independent marine survey organization, delivering unwavering precision, integrity, and technical excellence to safeguard maritime operations, vessels or naval artifacts, and the environment.",
     },
-    valuesTitle: "Corporate Values",
+    valuesTitle: "Corporate",
+    valuesTitleHighlight: "Values",
     valuesSubtitle: "The principles that guide each of our actions",
     values: [
       {
@@ -188,8 +192,9 @@ export function MissionVisionValues({ lang }: { lang: Language }) {
             viewport={{ once: true }}
             className="text-center mb-12 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-hero font-bold text-primary mb-6 tracking-tight">
-              {t.sectionTitle}
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-6 tracking-tight">
+              <span className="font-hero">{t.sectionTitle}</span>{" "}
+              {t.sectionTitleHighlight && <span className="font-hero text-accent">{t.sectionTitleHighlight}</span>}
             </h2>
             <div className="w-20 md:w-24 h-1 bg-accent mx-auto" />
           </motion.div>
@@ -280,8 +285,9 @@ export function MissionVisionValues({ lang }: { lang: Language }) {
               <span className="text-accent text-xs md:text-sm tracking-widest uppercase font-medium">
                 {t.valuesSubtitle}
               </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-hero font-bold text-white mt-2 tracking-tight">
-                {t.valuesTitle}
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-2 tracking-tight">
+                <span className="font-hero">{t.valuesTitle}</span>{" "}
+                <span className="font-hero text-accent">{t.valuesTitleHighlight}</span>
               </h2>
             </motion.div>
 

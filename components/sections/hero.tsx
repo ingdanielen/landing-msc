@@ -3,18 +3,24 @@
 import { motion } from "framer-motion"
 import { ArrowRight, Phone, Shield } from "lucide-react"
 import { type Language, content } from "@/lib/content"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 
 export function Hero({ lang }: { lang: Language }) {
   const t = content[lang].hero
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoLoaded, setVideoLoaded] = useState(false)
 
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
 
     let isReversing = false
+
+    const handleCanPlay = () => {
+      setVideoLoaded(true)
+    }
 
     const handleTimeUpdate = () => {
       if (video.currentTime >= video.duration - 0.2 && !isReversing) {
@@ -30,8 +36,12 @@ export function Hero({ lang }: { lang: Language }) {
       }
     }
 
+    video.addEventListener("canplay", handleCanPlay)
     video.addEventListener("timeupdate", handleTimeUpdate)
-    return () => video.removeEventListener("timeupdate", handleTimeUpdate)
+    return () => {
+      video.removeEventListener("canplay", handleCanPlay)
+      video.removeEventListener("timeupdate", handleTimeUpdate)
+    }
   }, [])
 
   return (
@@ -39,21 +49,31 @@ export function Hero({ lang }: { lang: Language }) {
       id="hero"
       className="relative min-h-[100dvh] flex items-center overflow-hidden"
     >
-      {/* Background Video */}
+      {/* Background - Imagen optimizada como fallback inmediato */}
       <div className="absolute inset-0 z-0">
+        {/* Imagen de fondo optimizada - carga primero */}
+        <Image
+          src="/images/placeholder-hero.webp"
+          alt=""
+          fill
+          priority
+          quality={75}
+          sizes="100vw"
+          className={`object-cover transition-opacity duration-500 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+          aria-hidden="true"
+        />
+        {/* Video - carga después */}
         <video
           ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover"
-          poster="/images/stock/front-msc.jpg"
+          preload="none"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
           aria-label="Video de fondo mostrando operaciones marítimas"
         >
           <source src="/images/videos/hero-1.mp4" type="video/mp4" />
-          {/* Track para accesibilidad - video decorativo sin audio */}
           <track kind="captions" src="/captions/hero-video.vtt" srcLang="es" label="Sin audio" default />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/85 via-primary/70 to-primary/50" />

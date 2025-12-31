@@ -21,7 +21,7 @@ export function ServicesCta({ lang }: ServicesCtaProps) {
   }, [])
 
   return (
-    <section id="services-cta" className="py-16 bg-linear-gradient(to bottom right, var(--color-primary), var(--color-primary), var(--color-secondary)) relative overflow-hidden" suppressHydrationWarning>
+    <section id="services-cta" className="py-16 bg-gradient-to-br from-primary via-primary to-secondary relative overflow-hidden" suppressHydrationWarning>
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/10 rounded-full blur-3xl" />

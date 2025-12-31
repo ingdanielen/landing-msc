@@ -16,7 +16,8 @@ import Image from "next/image"
 // Data based EXACTLY on more-company-info.txt
 const statsContent = {
   es: {
-    title: "Métricas de Impacto",
+    title: "Metricas de",
+    titleHighlight: "Impacto",
     subtitle: "Datos que respaldan nuestra trayectoria",
     since: "Desde 2019",
     verifiable: "Cifras verificables • Resultados reales",
@@ -30,7 +31,8 @@ const statsContent = {
     ],
   },
   en: {
-    title: "Impact Metrics",
+    title: "Impact",
+    titleHighlight: "Metrics",
     subtitle: "Data supporting our track record",
     since: "Since 2019",
     verifiable: "Verifiable figures • Real results",
@@ -44,7 +46,8 @@ const statsContent = {
     ],
   },
   zh: {
-    title: "影响力指标",
+    title: "Impact",
+    titleHighlight: "Metrics",
     subtitle: "支持我们业绩记录的数据",
     since: "自2019年以来",
     verifiable: "可验证的数据 • 真实的结果",
@@ -130,8 +133,9 @@ export function CompanyStats({ lang }: { lang: Language }) {
             <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
             <span className="text-white/80 text-sm font-medium">{t.since}</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-hero font-bold text-white mb-4 tracking-tight">
-            {t.title}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
+            <span className="font-hero">{t.title}</span>{" "}
+            <span className="font-hero text-accent">{t.titleHighlight}</span>
           </h2>
           <p className="text-white/60 text-base md:text-lg max-w-2xl mx-auto">
             {t.subtitle}

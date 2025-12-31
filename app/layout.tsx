@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { DM_Sans, Playfair_Display } from "next/font/google"
+import { Space_Grotesk, Playfair_Display } from "next/font/google"
 import localFont from "next/font/local"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
@@ -27,10 +27,11 @@ const playfair = Playfair_Display({
   display: "swap",
 })
 
-// Fuente moderna y limpia para el cuerpo
-const dmSans = DM_Sans({
+// Space Grotesk - Fuente principal moderna y futurista
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
   display: "swap",
 })
 
@@ -105,13 +106,8 @@ export const metadata: Metadata = {
     images: [`${siteUrl}/brand/logo-white.png`],
   },
   icons: {
-    icon: [
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
+    icon: "/icon.png",
+    apple: "/icon.png",
   },
   alternates: {
     canonical: siteUrl,
@@ -135,29 +131,25 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        {/* Preconnect para OpenStreetMap (mapa) */}
-        <link rel="preconnect" href="https://a.tile.openstreetmap.org" />
-        <link rel="preconnect" href="https://b.tile.openstreetmap.org" />
-        <link rel="preconnect" href="https://c.tile.openstreetmap.org" />
+        {/* Precargar fuente Reversal para evitar FOUT y bloqueo de renderización */}
+        <link
+          rel="preload"
+          href="/fonts/reversal/reversal_lt.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
+        {/* Preconnect para OpenStreetMap (mapa) - solo cuando sea necesario */}
         <link rel="dns-prefetch" href="https://a.tile.openstreetmap.org" />
         <link rel="dns-prefetch" href="https://b.tile.openstreetmap.org" />
         <link rel="dns-prefetch" href="https://c.tile.openstreetmap.org" />
       </head>
       <body
-        className={`${reversal.variable} ${playfair.variable} ${dmSans.variable} font-body antialiased text-foreground`}
+        className={`${reversal.variable} ${playfair.variable} ${spaceGrotesk.variable} font-body antialiased text-foreground`}
       >
-        <OceanBackground />
-        <OrganizationSchema url={siteUrl} />
-        <WebSiteSchema url={siteUrl} />
-        <LangProvider>
-          <div className="flex flex-col min-h-screen relative z-10">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-          <Toaster />
-          <Analytics />
-        </LangProvider>
+        {children}
+        <Toaster />
+        <Analytics />
       </body>
     </html>
   )

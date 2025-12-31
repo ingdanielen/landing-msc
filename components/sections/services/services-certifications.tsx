@@ -21,12 +21,21 @@ export function ServicesCertifications({ lang }: ServicesCertificationsProps) {
     <section id="services-certifications" className="py-20 relative overflow-hidden" suppressHydrationWarning>
       {/* Split background - left dark, right with image */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-linear-gradient(to bottom right, var(--color-primary), var(--color-secondary), var(--color-slate-900))" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-[#0a1929]" />
         <div className="absolute right-0 top-0 w-1/2 h-full opacity-10">
           <div className="absolute inset-0 bg-[url('/images/footage/IMG_20190406_095637.webp')] bg-cover bg-center" />
         </div>
         {/* Subtle grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)_1px,linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px',
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">

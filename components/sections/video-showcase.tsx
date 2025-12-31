@@ -5,6 +5,7 @@ import { type Language } from "@/lib/content"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 
 const videoShowcaseContent = {
   es: {
@@ -26,23 +27,50 @@ const videoShowcaseContent = {
 
 export function VideoShowcase({ lang }: { lang: Language }) {
   const t = videoShowcaseContent[lang as keyof typeof videoShowcaseContent] as { quote: string; cta: string }
+  const sectionRef = useRef<HTMLElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  // Lazy load video cuando sea visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true)
+          if (videoRef.current) {
+            videoRef.current.play()
+          }
+          observer.disconnect()
+        }
+      },
+      { rootMargin: "100px" }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <section id="video" className="relative w-full h-[70vh] min-h-[600px] overflow-hidden">
+    <section ref={sectionRef} id="video" className="relative w-full h-[70vh] min-h-[600px] overflow-hidden">
       {/* Video Background */}
-      <div className="absolute inset-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover object-bottom scale-110"
-          aria-label="Video decorativo del océano"
-        >
-          <source src="/images/videos/sea-video.mp4" type="video/mp4" />
-          <track kind="captions" src="/captions/hero-video.vtt" srcLang="es" label="Sin audio" default />
-        </video>
+      <div className="absolute inset-0 bg-primary">
+        {isVisible && (
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="none"
+            className="absolute inset-0 w-full h-full object-cover object-bottom scale-110"
+            aria-label="Video decorativo del océano"
+          >
+            <source src="/images/videos/sea-video.mp4" type="video/mp4" />
+            <track kind="captions" src="/captions/hero-video.vtt" srcLang="es" label="Sin audio" default />
+          </video>
+        )}
         {/* Clean gradient overlay */}
         <div className="absolute inset-0 bg-primary/40" />
       </div>

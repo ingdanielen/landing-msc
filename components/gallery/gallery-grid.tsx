@@ -2,9 +2,10 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { MapPin, Star } from "lucide-react"
+import { MapPin, Star, ImageIcon } from "lucide-react"
 import type { GalleryItem } from "@/lib/gallery-types"
 import { type Language } from "@/lib/content"
+import { useState } from "react"
 
 interface GalleryGridProps {
   items: GalleryItem[]
@@ -25,8 +26,67 @@ const labels = {
   }
 }
 
+// Safe image component
+function SafeGalleryImage({ 
+  src, 
+  alt, 
+  className 
+}: { 
+  src?: string | null
+  alt?: string | null
+  className?: string
+}) {
+  const [error, setError] = useState(false)
+  const safeSrc = src && src.trim() ? src : "/placeholder.jpg"
+  const safeAlt = alt || "Imagen de galería"
+
+  if (error) {
+    return (
+      <div className="absolute inset-0 bg-slate-200 flex items-center justify-center">
+        <ImageIcon className="w-10 h-10 text-slate-400" />
+      </div>
+    )
+  }
+
+  return (
+    <Image
+      src={safeSrc}
+      alt={safeAlt}
+      fill
+      className={className}
+      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+      onError={() => setError(true)}
+    />
+  )
+}
+
+// Get safe item data
+function getSafeItem(item: GalleryItem | null | undefined) {
+  if (!item) return null
+  
+  return {
+    slug: item.slug || "",
+    image: item.image || "/placeholder.jpg",
+    alt: item.alt || item.title || "Imagen",
+    title: item.title || "Sin título",
+    category: item.category || "general",
+    location: item.location || "",
+    featured: item.featured || false,
+    date: item.date || "",
+    description: item.description || "",
+    isValid: Boolean(item.slug)
+  }
+}
+
 export function GalleryGrid({ items, onItemClick, lang }: GalleryGridProps) {
-  if (items.length === 0) {
+  // Filter valid items
+  const validItems = (items || [])
+    .map(getSafeItem)
+    .filter((item): item is NonNullable<ReturnType<typeof getSafeItem>> => 
+      item !== null && item.isValid
+    )
+
+  if (validItems.length === 0) {
     return (
       <div className="text-center py-20">
         <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-slate-100 flex items-center justify-center">
@@ -43,23 +103,21 @@ export function GalleryGrid({ items, onItemClick, lang }: GalleryGridProps) {
       className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4"
     >
       <AnimatePresence mode="popLayout">
-        {items.map((item, idx) => (
+        {validItems.map((item, idx) => (
           <motion.article
-            key={item.slug}
+            key={item.slug || idx}
             layout
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ delay: idx * 0.02, duration: 0.3 }}
             className="group relative aspect-square bg-slate-200 rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-shadow duration-300"
-            onClick={() => onItemClick(item)}
+            onClick={() => onItemClick(item as unknown as GalleryItem)}
           >
-            <Image
+            <SafeGalleryImage
               src={item.image}
               alt={item.alt}
-              fill
               className="object-cover group-hover:scale-110 transition-transform duration-500"
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
             
             {/* Featured Badge */}
@@ -96,4 +154,3 @@ export function GalleryGrid({ items, onItemClick, lang }: GalleryGridProps) {
     </motion.div>
   )
 }
-

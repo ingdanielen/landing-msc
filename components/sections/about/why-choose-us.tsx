@@ -16,7 +16,8 @@ import Image from "next/image"
 // Data based EXACTLY on company-info.txt - "POR QUÉ ELEGIRNOS" section
 const whyChooseContent = {
   es: {
-    title: "¿Por Qué Elegirnos?",
+    title: "Por Que",
+    titleHighlight: "Elegirnos",
     subtitle: "Nuestra propuesta de valor",
     items: [
       {
@@ -57,7 +58,8 @@ const whyChooseContent = {
     ],
   },
   en: {
-    title: "Why Choose Us?",
+    title: "Why Choose",
+    titleHighlight: "Us",
     subtitle: "Our value proposition",
     items: [
       {
@@ -136,8 +138,9 @@ export function WhyChooseUs({ lang }: { lang: Language }) {
           <span className="text-accent text-sm tracking-widest uppercase font-medium">
             {t.subtitle}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 font-hero uppercase tracking-tight">
-            {t.title}
+          <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 uppercase tracking-tight">
+            <span className="font-hero">{t.title}</span>{" "}
+            <span className="font-hero text-accent">{t.titleHighlight}</span>
           </h2>
         </div>
 

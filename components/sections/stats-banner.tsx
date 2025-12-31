@@ -27,13 +27,13 @@ export function StatsBanner({ lang }: { lang: Language }) {
           className="relative"
         >
           <Image
-            src="/images/stock/front-msc.jpg"
+            src="/images/footage/IMG_20190406_095637.webp"
             alt="Marine Surveyors & Consultants"
             fill
             className="object-cover"
-            priority
+            loading="lazy"
             sizes="(max-width: 1024px) 100vw, 50vw"
-            quality={80}
+            quality={60}
           />
           <div className="absolute inset-0 bg-linear-to-br from-primary/60 to-secondary/70" />
           <div className="absolute inset-0 bg-linear-to-l from-transparent via-transparent to-primary" />

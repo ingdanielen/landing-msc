@@ -4,22 +4,85 @@ import { type Language } from "@/lib/content"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { ArrowRight, Calendar, Tag } from "lucide-react"
+import { ArrowRight, Calendar, Tag, FileText } from "lucide-react"
 import type { BlogPostPreview } from "@/lib/blog-types"
 import { formatBlogDate, getCategoryLabel } from "@/lib/blog-types"
+import { useState } from "react"
 
 interface BlogPreviewProps {
   lang: Language
   posts: BlogPostPreview[]
 }
 
+// Safe image component
+function SafeBlogImage({ 
+  src, 
+  alt,
+  fill = false,
+  sizes,
+  className
+}: { 
+  src?: string | null
+  alt?: string | null
+  fill?: boolean
+  sizes?: string
+  className?: string
+}) {
+  const [error, setError] = useState(false)
+  const safeSrc = src && src.trim() ? src : "/placeholder.jpg"
+  const safeAlt = alt || "Imagen del artículo"
+
+  if (error) {
+    return (
+      <div className={`bg-slate-200 flex items-center justify-center ${fill ? 'absolute inset-0' : ''}`}>
+        <FileText className="w-10 h-10 text-slate-400" />
+      </div>
+    )
+  }
+
+  return (
+    <Image
+      src={safeSrc}
+      alt={safeAlt}
+      fill={fill}
+      className={className}
+      sizes={sizes}
+      quality={60}
+      loading="lazy"
+      onError={() => setError(true)}
+    />
+  )
+}
+
+// Get safe post data
+function getSafePost(post: BlogPostPreview | null | undefined) {
+  if (!post) return null
+  
+  return {
+    slug: post.slug || "",
+    title: post.title || "Sin título",
+    excerpt: post.excerpt || "",
+    date: post.date || new Date().toISOString(),
+    category: post.category || "Noticias",
+    featured_image: post.featured_image || "/placeholder.jpg",
+    featured_image_alt: post.featured_image_alt || post.title || "Imagen del artículo",
+    author: post.author || "MSC Team",
+    reading_time: post.reading_time,
+    isValid: Boolean(post.slug)
+  }
+}
+
 /** Card grande para artículo destacado */
-function FeaturedCard({ post, lang }: { post: BlogPostPreview; lang: Language }) {
+function FeaturedCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: Language }) {
+  const post = getSafePost(rawPost)
+  
+  if (!post || !post.isValid) return null
+
   return (
     <Link href={`/blog/${post.slug}`} className="block group h-full">
       <article className="relative h-[420px] overflow-hidden bg-primary">
         {/* Background Image */}
-        <Image
+        <SafeBlogImage
           src={post.featured_image}
           alt={post.featured_image_alt}
           fill
@@ -42,13 +105,15 @@ function FeaturedCard({ post, lang }: { post: BlogPostPreview; lang: Language })
           </h3>
           
           {/* Excerpt */}
-          <p className="text-white/70 text-sm leading-relaxed mb-4 line-clamp-2">
-            {post.excerpt}
-          </p>
+          {post.excerpt && (
+            <p className="text-white/70 text-sm leading-relaxed mb-4 line-clamp-2">
+              {post.excerpt}
+            </p>
+          )}
           
           {/* Meta */}
           <div className="flex items-center justify-between text-white/50 text-xs">
-            <span>{post.author || "MSC Team"}</span>
+            <span>{post.author}</span>
             <div className="flex items-center gap-1">
               <Calendar className="h-3 w-3" />
               <span>{formatBlogDate(post.date)}</span>
@@ -61,13 +126,17 @@ function FeaturedCard({ post, lang }: { post: BlogPostPreview; lang: Language })
 }
 
 /** Card pequeña para artículos secundarios */
-function SmallCard({ post, lang }: { post: BlogPostPreview; lang: Language }) {
+function SmallCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: Language }) {
+  const post = getSafePost(rawPost)
+  
+  if (!post || !post.isValid) return null
+
   return (
     <Link href={`/blog/${post.slug}`} className="block group">
       <article className="flex gap-4 h-[120px] bg-white border border-slate-200 hover:border-accent/50 transition-all overflow-hidden">
         {/* Image */}
-        <div className="relative w-[140px] shrink-0 overflow-hidden">
-          <Image
+        <div className="relative w-[140px] shrink-0 overflow-hidden bg-slate-100">
+          <SafeBlogImage
             src={post.featured_image}
             alt={post.featured_image_alt}
             fill
@@ -95,7 +164,7 @@ function SmallCard({ post, lang }: { post: BlogPostPreview; lang: Language }) {
           
           {/* Author */}
           <span className="text-xs text-slate-500">
-            {post.author || "MSC Team"}
+            {post.author}
           </span>
         </div>
       </article>
@@ -104,12 +173,16 @@ function SmallCard({ post, lang }: { post: BlogPostPreview; lang: Language }) {
 }
 
 export function BlogPreview({ lang, posts }: BlogPreviewProps) {
+  // Filter valid posts
+  const validPosts = (posts || [])
+    .filter(post => post && post.slug)
+  
   // Necesitamos al menos 1 post para mostrar
-  if (posts.length === 0) return null
+  if (validPosts.length === 0) return null
   
   // El primer post es el destacado, los siguientes 3 son los pequeños
-  const featuredPost = posts[0]
-  const smallPosts = posts.slice(1, 4)
+  const featuredPost = validPosts[0]
+  const smallPosts = validPosts.slice(1, 4)
 
   return (
     <section id="blog" className="py-24 section-ocean-alt">
@@ -149,7 +222,7 @@ export function BlogPreview({ lang, posts }: BlogPreviewProps) {
           <div className="flex flex-col gap-4">
             {smallPosts.map((post, idx) => (
               <motion.div
-                key={post.slug}
+                key={post.slug || idx}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}

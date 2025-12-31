@@ -8,7 +8,8 @@ import Image from "next/image"
 // Data based EXACTLY on company-info.txt "Quiénes Somos" and "Compromiso" sections
 const introContent = {
   es: {
-    title: "Quiénes Somos",
+    title: "Quienes",
+    titleHighlight: "Somos",
     subtitle: "Sobre la empresa",
     description: [
       "Marine Surveyors and Consultants es una organización independiente especializada en inspecciones integrales de buques, carga e infraestructura marítima. Con años de experiencia en la industria, garantizamos informes precisos, cumplimiento normativo y seguridad operativa a lo largo de toda la cadena logística marítima.",
@@ -55,7 +56,8 @@ const introContent = {
     },
   },
   en: {
-    title: "Who We Are",
+    title: "Who We",
+    titleHighlight: "Are",
     subtitle: "About the company",
     description: [
       "Marine Surveyors and Consultants is an independent organization specializing in comprehensive vessel, cargo, and maritime infrastructure inspections. With years of industry experience, we ensure accurate reports, regulatory compliance, and operational safety throughout the maritime logistics chain.",
@@ -102,7 +104,8 @@ const introContent = {
     },
   },
   zh: {
-    title: "关于我们",
+    title: "Who We",
+    titleHighlight: "Are",
     subtitle: "公司简介",
     description: [
       "Marine Surveyors and Consultants 是一家专业从事船舶、货物和海事基础设施综合检验的独立组织。凭借多年的行业经验，我们确保在整个海事物流链中提供准确的报告、法规合规性和运营安全。",
@@ -208,8 +211,9 @@ export function CompanyIntro({ lang }: { lang: Language }) {
               <span className="text-accent text-sm tracking-widest uppercase font-medium">
                 {t.subtitle}
               </span>
-              <h2 className="text-3xl md:text-4xl font-hero font-bold text-primary mt-2 tracking-tight">
-                {t.title}
+              <h2 className="text-3xl md:text-4xl font-bold text-primary mt-2 tracking-tight">
+                <span className="font-hero">{t.title}</span>{" "}
+                <span className="font-hero text-accent">{t.titleHighlight}</span>
               </h2>
             </div>
 

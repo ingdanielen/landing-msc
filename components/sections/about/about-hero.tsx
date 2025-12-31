@@ -6,7 +6,8 @@ import { ChevronDown } from "lucide-react"
 
 const heroContent = {
   es: {
-    title: "Sobre Nosotros",
+    title: "Sobre",
+    titleHighlight: "Nosotros",
     subtitle: "Marine Surveyors & Consultants",
     description:
       "Firma especializada en inspecciones marítimas, supervisión técnica, consultoría y verificación independiente, creada para ofrecer criterio técnico confiable, imparcial y alineado con los estándares internacionales.",
@@ -14,7 +15,8 @@ const heroContent = {
     founded: "Fundada en 2019",
   },
   en: {
-    title: "About Us",
+    title: "About",
+    titleHighlight: "Us",
     subtitle: "Marine Surveyors & Consultants",
     description:
       "Specialized firm providing marine inspections, technical supervision, consultancy, and independent verification, established to deliver reliable, impartial technical judgment aligned with international standards.",
@@ -22,7 +24,8 @@ const heroContent = {
     founded: "Founded in 2019",
   },
   zh: {
-    title: "关于我们",
+    title: "About",
+    titleHighlight: "Us",
     subtitle: "海事测量师与顾问",
     description:
       "专业从事海事检验、技术监督、咨询和独立验证的公司，致力于提供可靠、公正、符合国际标准的技术判断。",
@@ -91,9 +94,10 @@ export function AboutHero({ lang }: { lang: Language }) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-hero text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight mb-4"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight mb-4"
         >
-          {t.title}
+          <span className="font-hero">{t.title}</span>{" "}
+          <span className="font-hero text-accent">{t.titleHighlight}</span>
         </motion.h1>
 
         {/* Subtitle - Using Playfair font */}

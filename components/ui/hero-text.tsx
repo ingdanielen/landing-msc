@@ -13,10 +13,11 @@ interface HeroTextProps {
 }
 
 /**
- * Componente que renderiza texto con la fuente Reversal,
- * pero usa una fuente de sistema para caracteres especiales
- * (puntuación, símbolos, etc.) ya que la fuente Reversal demo
- * no los soporta correctamente.
+ * Componente que renderiza texto con la fuente Reversal SOLO para LETRAS,
+ * y usa Space Grotesk para TODO lo demás (números, espacios, símbolos, puntuación).
+ * 
+ * La fuente Reversal demo no soporta caracteres especiales correctamente,
+ * por lo que solo se aplica a letras A-Z y a-z.
  * 
  * @example
  * <HeroText as="h1" className="text-4xl">
@@ -37,22 +38,19 @@ export function HeroText({
   const segments = useMemo(() => {
     if (!content) return []
     
-    // Regex para separar letras/números de caracteres especiales
-    // Letras (incluyendo acentuadas) y números van con Reversal
-    // Todo lo demás (espacios, puntuación, símbolos) va con fuente de sistema
-    const regex = /([a-zA-Z0-9\u00C0-\u024F]+)|([^a-zA-Z0-9\u00C0-\u024F]+)/g
-    const parts: { text: string; isAlphanumeric: boolean }[] = []
+    const result: { char: string; useReversal: boolean }[] = []
     
-    let match
-    while ((match = regex.exec(content)) !== null) {
-      const isAlphanumeric = !!match[1]
-      parts.push({
-        text: match[0],
-        isAlphanumeric,
+    for (const char of content) {
+      // SOLO letras A-Z y a-z usan Reversal
+      // Todo lo demás (números, espacios, tildes, símbolos, puntuación) usa Space Grotesk
+      const isLetter = /^[a-zA-Z]$/.test(char)
+      result.push({
+        char,
+        useReversal: isLetter,
       })
     }
     
-    return parts
+    return result
   }, [content])
 
   if (!content) return null
@@ -63,13 +61,13 @@ export function HeroText({
         <span
           key={idx}
           style={{
-            fontFamily: segment.isAlphanumeric 
-              ? "'Reversal', ui-sans-serif, system-ui, sans-serif" 
-              : "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-            fontWeight: segment.isAlphanumeric ? 'normal' : 'inherit',
+            fontFamily: segment.useReversal 
+              ? "'Reversal', var(--font-space-grotesk), system-ui, sans-serif" 
+              : "var(--font-space-grotesk), system-ui, sans-serif",
+            fontWeight: 'inherit',
           }}
         >
-          {segment.text}
+          {segment.char}
         </span>
       ))}
     </Component>

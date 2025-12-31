@@ -159,6 +159,7 @@ export function getGalleryItemBySlug(slug: string): GalleryItem | null {
     description: data.description,
     location: data.location,
     featured: data.featured || false,
+    visible: data.visible !== false,
   }
 }
 
@@ -188,18 +189,32 @@ export function getFeaturedGalleryItems(): GalleryItem[] {
 }
 
 /**
- * Obtiene las N imágenes más recientes.
- * Útil para mostrar en la página de inicio.
+ * Obtiene las N imágenes más recientes, priorizando las destacadas.
+ * Para Home se muestran las 12 destacadas más recientes.
+ * Si hay menos de 12 destacadas, se completan con las más recientes no destacadas.
  * 
- * @param count - Número de imágenes a obtener (default: 6)
- * @returns Array de las imágenes más recientes
+ * @param count - Número de imágenes a obtener (default: 6, máx. 12 para home)
+ * @returns Array de imágenes (destacadas primero, luego recientes)
  * 
  * @example
- * // En la página de inicio
- * const recentItems = getRecentGalleryItems(6)
+ * // En la página de inicio (máx 12 destacadas)
+ * const recentItems = getRecentGalleryItems(12)
  */
 export function getRecentGalleryItems(count: number = 6): GalleryItem[] {
-  return getAllGalleryItems().slice(0, count)
+  const allItems = getAllGalleryItems()
+  
+  // Separar destacadas y no destacadas
+  const featured = allItems.filter(item => item.featured)
+  const nonFeatured = allItems.filter(item => !item.featured)
+  
+  // Tomar las últimas 'count' destacadas (las más recientes)
+  const featuredToShow = featured.slice(0, count)
+  
+  // Si hay menos destacadas que count, completar con no destacadas
+  const remaining = count - featuredToShow.length
+  const nonFeaturedToShow = remaining > 0 ? nonFeatured.slice(0, remaining) : []
+  
+  return [...featuredToShow, ...nonFeaturedToShow]
 }
 
 /**

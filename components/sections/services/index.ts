@@ -1,4 +1,5 @@
 export { ServicesHero } from "./services-hero"
+export { ServicesIntro } from "./services-intro"
 export { ServicesStats } from "./services-stats"
 export { ServicesCatalog } from "./services-catalog"
 export { ServicesProcess } from "./services-process"

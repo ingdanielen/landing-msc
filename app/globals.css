@@ -100,10 +100,11 @@
 
 @theme inline {
   /* Fuentes - Tailwind v4 */
-  --font-family-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Space Grotesk como fuente principal moderna y futurista */
+  --font-family-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-family-serif: var(--font-playfair), ui-serif, Georgia, serif;
-  --font-family-body: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
-  /* Font hero con fallback seguro para caracteres especiales */
+  --font-family-body: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  /* Font hero con fallback seguro para caracteres especiales - Reversal intacto */
   --font-family-hero: 'Reversal', 'Reversal-Safe', ui-sans-serif, system-ui, sans-serif;
   
   --color-background: var(--background);
@@ -154,14 +155,37 @@
   }
   body {
     @apply bg-background text-foreground overflow-x-hidden;
+    font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.625;
+    letter-spacing: -0.01em;
   }
-  h1,
+  /* Headings con Space Grotesk - Reversal se aplica solo con font-hero */
   h2,
-  h3,
+  h3 {
+    @apply font-sans font-bold;
+    letter-spacing: -0.02em;
+  }
   h4,
   h5,
   h6 {
+    @apply font-sans font-semibold;
+    letter-spacing: -0.01em;
+  }
+  /* H1 mantiene tracking-tight para Reversal cuando se usa font-hero */
+  h1 {
     @apply font-sans font-bold tracking-tight;
+  }
+  /* Párrafos optimizados */
+  p {
+    line-height: 1.65;
+    letter-spacing: -0.01em;
+  }
+  /* Navegación, botones y labels con tipografía refinada */
+  nav,
+  button,
+  label,
+  .btn {
+    letter-spacing: -0.01em;
   }
 }
 

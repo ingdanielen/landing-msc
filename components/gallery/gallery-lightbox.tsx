@@ -2,11 +2,11 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { X, MapPin, Calendar, Tag, ChevronLeft, ChevronRight } from "lucide-react"
+import { X, MapPin, Calendar, Tag, ChevronLeft, ChevronRight, ImageIcon } from "lucide-react"
 import type { GalleryItem } from "@/lib/gallery-types"
 import { getCategoryLabel, formatGalleryDate } from "@/lib/gallery-types"
 import { type Language } from "@/lib/content"
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 interface GalleryLightboxProps {
   item: GalleryItem | null
@@ -21,20 +21,80 @@ const labels = {
   location: { es: "Ubicacion", en: "Location", zh: "位置" },
   date: { es: "Fecha", en: "Date", zh: "日期" },
   category: { es: "Categoria", en: "Category", zh: "类别" },
+  noTitle: { es: "Sin título", en: "No title", zh: "无标题" },
+}
+
+// Safe image component
+function SafeLightboxImage({ 
+  src, 
+  alt 
+}: { 
+  src?: string | null
+  alt?: string | null
+}) {
+  const [error, setError] = useState(false)
+  const safeSrc = src && src.trim() ? src : "/placeholder.jpg"
+  const safeAlt = alt || "Imagen de galería"
+
+  if (error) {
+    return (
+      <div className="absolute inset-0 bg-slate-800 flex items-center justify-center">
+        <ImageIcon className="w-16 h-16 text-slate-600" />
+      </div>
+    )
+  }
+
+  return (
+    <Image
+      src={safeSrc}
+      alt={safeAlt}
+      fill
+      className="object-contain"
+      sizes="(max-width: 768px) 100vw, 70vw"
+      priority
+      onError={() => setError(true)}
+    />
+  )
+}
+
+// Get safe item data
+function getSafeItem(item: GalleryItem | null | undefined, lang: Language) {
+  if (!item) return null
+  
+  return {
+    slug: item.slug || "",
+    image: item.image || "/placeholder.jpg",
+    alt: item.alt || item.title || "Imagen",
+    title: item.title || labels.noTitle[lang],
+    category: item.category || "general",
+    location: item.location || "",
+    date: item.date || "",
+    description: item.description || "",
+    featured: item.featured || false,
+    isValid: Boolean(item.slug)
+  }
 }
 
 export function GalleryLightbox({ item, items, onClose, onNavigate, lang }: GalleryLightboxProps) {
-  const currentIndex = item ? items.findIndex(i => i.slug === item.slug) : -1
+  // Filter valid items
+  const validItems = (items || []).filter(i => i && i.slug)
+  const safeItem = getSafeItem(item, lang)
+  
+  const currentIndex = safeItem ? validItems.findIndex(i => i.slug === safeItem.slug) : -1
   const hasPrev = currentIndex > 0
-  const hasNext = currentIndex < items.length - 1
+  const hasNext = currentIndex < validItems.length - 1
 
   const goToPrev = useCallback(() => {
-    if (hasPrev) onNavigate(items[currentIndex - 1])
-  }, [hasPrev, currentIndex, items, onNavigate])
+    if (hasPrev && validItems[currentIndex - 1]) {
+      onNavigate(validItems[currentIndex - 1])
+    }
+  }, [hasPrev, currentIndex, validItems, onNavigate])
 
   const goToNext = useCallback(() => {
-    if (hasNext) onNavigate(items[currentIndex + 1])
-  }, [hasNext, currentIndex, items, onNavigate])
+    if (hasNext && validItems[currentIndex + 1]) {
+      onNavigate(validItems[currentIndex + 1])
+    }
+  }, [hasNext, currentIndex, validItems, onNavigate])
 
   // Keyboard navigation
   useEffect(() => {
@@ -44,7 +104,7 @@ export function GalleryLightbox({ item, items, onClose, onNavigate, lang }: Gall
       if (e.key === "ArrowRight") goToNext()
     }
     
-    if (item) {
+    if (safeItem) {
       document.addEventListener("keydown", handleKeyDown)
       document.body.style.overflow = "hidden"
     }
@@ -53,11 +113,14 @@ export function GalleryLightbox({ item, items, onClose, onNavigate, lang }: Gall
       document.removeEventListener("keydown", handleKeyDown)
       document.body.style.overflow = ""
     }
-  }, [item, onClose, goToPrev, goToNext])
+  }, [safeItem, onClose, goToPrev, goToNext])
+
+  // Don't render if no valid item
+  if (!safeItem || !safeItem.isValid) return null
 
   return (
     <AnimatePresence>
-      {item && (
+      {safeItem && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -97,20 +160,16 @@ export function GalleryLightbox({ item, items, onClose, onNavigate, lang }: Gall
           <div className="h-full flex flex-col md:flex-row items-center justify-center p-4 md:p-8 gap-6">
             {/* Image */}
             <motion.div
-              key={item.slug}
+              key={safeItem.slug}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               className="relative flex-1 w-full max-w-4xl h-[50vh] md:h-[75vh]"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image
-                src={item.image}
-                alt={item.alt}
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 70vw"
-                priority
+              <SafeLightboxImage
+                src={safeItem.image}
+                alt={safeItem.alt}
               />
             </motion.div>
             
@@ -126,34 +185,36 @@ export function GalleryLightbox({ item, items, onClose, onNavigate, lang }: Gall
               <div className="flex items-center gap-2 mb-3">
                 <Tag className="w-4 h-4 text-accent" />
                 <span className="text-sm font-medium text-accent">
-                  {getCategoryLabel(item.category)}
+                  {getCategoryLabel(safeItem.category)}
                 </span>
               </div>
               
               {/* Title */}
               <h3 className="text-xl font-bold text-primary mb-3">
-                {item.title}
+                {safeItem.title}
               </h3>
               
               {/* Description */}
-              {item.description && (
+              {safeItem.description && (
                 <p className="text-slate-600 text-sm mb-5 leading-relaxed">
-                  {item.description}
+                  {safeItem.description}
                 </p>
               )}
               
               {/* Meta Info */}
               <div className="space-y-3 pt-4 border-t border-slate-100">
-                {item.location && (
+                {safeItem.location && (
                   <div className="flex items-center gap-3 text-sm text-slate-500">
                     <MapPin className="w-4 h-4 text-slate-400" />
-                    <span>{item.location}</span>
+                    <span>{safeItem.location}</span>
                   </div>
                 )}
-                <div className="flex items-center gap-3 text-sm text-slate-500">
-                  <Calendar className="w-4 h-4 text-slate-400" />
-                  <span>{formatGalleryDate(item.date, lang)}</span>
-                </div>
+                {safeItem.date && (
+                  <div className="flex items-center gap-3 text-sm text-slate-500">
+                    <Calendar className="w-4 h-4 text-slate-400" />
+                    <span>{formatGalleryDate(safeItem.date, lang)}</span>
+                  </div>
+                )}
               </div>
 
               {/* Mobile Navigation */}
@@ -175,9 +236,11 @@ export function GalleryLightbox({ item, items, onClose, onNavigate, lang }: Gall
               </div>
 
               {/* Counter */}
-              <div className="text-center mt-4 text-sm text-slate-400">
-                {currentIndex + 1} / {items.length}
-              </div>
+              {validItems.length > 0 && (
+                <div className="text-center mt-4 text-sm text-slate-400">
+                  {currentIndex + 1} / {validItems.length}
+                </div>
+              )}
             </motion.div>
           </div>
         </motion.div>
@@ -185,4 +248,3 @@ export function GalleryLightbox({ item, items, onClose, onNavigate, lang }: Gall
     </AnimatePresence>
   )
 }
-
