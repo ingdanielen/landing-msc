@@ -129,21 +129,12 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        {/* Precargar imagen del hero - crítico para primera carga */}
-        <link
-          rel="preload"
-          href="/images/placeholder-hero.webp"
-          as="image"
-          type="image/webp"
-          fetchPriority="high"
-        />
-        {/* Precargar video solo en desktop (min-width: 1024px) */}
+        {/* Preload crítico del video hero - fetch inmediato */}
         <link
           rel="preload"
           href="/images/videos/hero-1.mp4"
-          as="video"
-          type="video/mp4"
-          media="(min-width: 1024px) and (hover: hover)"
+          as="fetch"
+          crossOrigin="anonymous"
         />
         {/* Precargar fuente Reversal */}
         <link
@@ -153,7 +144,9 @@ export default function RootLayout({
           type="font/otf"
           crossOrigin="anonymous"
         />
-        {/* DNS prefetch para recursos externos */}
+        {/* Prefetch y preconnect para rendimiento */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://a.tile.openstreetmap.org" />
         <link rel="dns-prefetch" href="https://b.tile.openstreetmap.org" />
         <link rel="dns-prefetch" href="https://c.tile.openstreetmap.org" />
