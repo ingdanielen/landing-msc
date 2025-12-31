@@ -179,6 +179,8 @@ function ServiceCard({
         fill
         className="object-cover transition-transform duration-700 group-hover:scale-110"
         sizes="(max-width: 768px) 100vw, 33vw"
+        quality={50}
+        loading="lazy"
       />
       
       <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent opacity-90 group-hover:from-primary group-hover:via-primary/80 group-hover:to-primary/50 transition-all duration-500" />

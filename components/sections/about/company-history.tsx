@@ -304,7 +304,7 @@ export function CompanyHistory({ lang }: { lang: Language }) {
               </div>
               <div>
                 <p className="text-primary text-xl font-bold">
-                  <span className="font-sans">+</span><span className="font-hero">25</span> {lang === 'es' ? 'años de experiencia combinada' : 'years combined experience'}
+                  +25 {lang === 'es' ? 'años de experiencia combinada' : 'years combined experience'}
                 </p>
                 <p className="text-slate-500 text-sm">{lang === 'es' ? 'En el equipo de MSC' : 'Within the MSC team'}</p>
               </div>
@@ -312,21 +312,17 @@ export function CompanyHistory({ lang }: { lang: Language }) {
             
             <div className="flex gap-8">
               <div className="text-center">
-                <p className="text-3xl font-hero font-bold text-primary">2019</p>
+                <p className="text-3xl font-bold text-primary">2019</p>
                 <p className="text-slate-500 text-xs uppercase tracking-wider">{lang === 'es' ? 'Fundada' : 'Founded'}</p>
               </div>
               <div className="w-px bg-slate-200" />
               <div className="text-center">
-                <p className="text-3xl font-bold text-accent">
-                  <span className="font-sans">+</span><span className="font-hero">480</span>
-                </p>
+                <p className="text-3xl font-bold text-accent">+480</p>
                 <p className="text-slate-500 text-xs uppercase tracking-wider">{lang === 'es' ? 'Servicios' : 'Services'}</p>
               </div>
               <div className="w-px bg-slate-200" />
               <div className="text-center">
-                <p className="text-3xl font-bold text-primary">
-                  <span className="font-sans">+</span><span className="font-hero">120</span>
-                </p>
+                <p className="text-3xl font-bold text-primary">+120</p>
                 <p className="text-slate-500 text-xs uppercase tracking-wider">{lang === 'es' ? 'Clientes' : 'Clients'}</p>
               </div>
             </div>

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ShieldCheck, FileCheck, Award, Building2, Scale, CheckCircle2 } from "lucide-react"
 import { type Language } from "@/lib/content"
+import { HeroText } from "@/components/ui/hero-text"
 
 const standardsData = {
   es: [
@@ -106,9 +107,9 @@ export function QualityStandards({ lang }: { lang: Language }) {
         viewport={{ once: true }}
         className="text-center mb-16"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 font-hero uppercase tracking-tight">
+        <HeroText as="h2" className="text-3xl md:text-4xl font-bold text-primary mb-4 uppercase tracking-tight">
           {lang === "es" ? "Estándares de Cumplimiento" : "Compliance Standards"}
-        </h2>
+        </HeroText>
         <div className="w-24 h-1 bg-accent mx-auto"></div>
       </motion.div>
 
@@ -144,9 +145,9 @@ export function QualityStandards({ lang }: { lang: Language }) {
                   strokeWidth={1.5}
                 />
               </div>
-              <h3 className="text-xl font-bold text-primary mb-3 font-hero uppercase tracking-tight">
+              <HeroText as="h3" className="text-xl font-bold text-primary mb-3 uppercase tracking-tight">
                 {standard.title}
-              </h3>
+              </HeroText>
               <div className="w-12 h-0.5 bg-accent mb-4"></div>
               <p className="text-slate-600 leading-relaxed text-sm">{standard.description}</p>
             </motion.div>

@@ -148,7 +148,8 @@ function FeatureCard({ text, image }: FeatureItem) {
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
             sizes="110px"
-            quality={60}
+            quality={40}
+            loading="lazy"
             onError={() => setImageError(true)}
           />
         ) : (

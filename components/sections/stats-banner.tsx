@@ -25,7 +25,8 @@ export function StatsBanner({ lang }: { lang: Language }) {
           fill
           className="object-cover opacity-40"
           sizes="100vw"
-          quality={60}
+          quality={40}
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#00111f]/80 via-[#00111f]/70 to-[#00111f]/90" />
         
@@ -109,9 +110,9 @@ export function StatsBanner({ lang }: { lang: Language }) {
                     <Icon className="w-6 h-6 md:w-7 md:h-7 text-accent" />
                   </div>
 
-                  {/* Value */}
+                  {/* Value - Sin font-hero porque son números */}
                   <div className="mb-2">
-                    <span className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-hero tracking-tight">
+                    <span className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight">
                       {stat.value}
                     </span>
                   </div>

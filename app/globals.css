@@ -3,20 +3,49 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Definir la fuente Reversal Light (versión delgada original) */
+/* ============================================
+   REVERSAL FONT - SOLO LETRAS (A-Z, a-z)
+   Cualquier otro carácter usará Space Grotesk
+   ============================================ */
+
+/* Reversal solo para letras mayúsculas (A-Z) */
 @font-face {
   font-family: 'Reversal';
   src: url('/fonts/reversal/reversal_lt.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0041-005A; /* A-Z */
 }
 
-/* Fuente de sistema para fallback de caracteres especiales */
+/* Reversal solo para letras minúsculas (a-z) */
 @font-face {
-  font-family: 'Reversal-Safe';
-  src: local('system-ui'), local('-apple-system'), local('Segoe UI');
-  unicode-range: U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E, U+00A0-00BF, U+2000-206F;
+  font-family: 'Reversal';
+  src: url('/fonts/reversal/reversal_lt.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0061-007A; /* a-z */
+}
+
+/* Space Grotesk para números (0-9) - fallback automático */
+@font-face {
+  font-family: 'Reversal';
+  src: local('Space Grotesk'), local('SpaceGrotesk-Regular');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0030-0039; /* 0-9 */
+}
+
+/* Space Grotesk para símbolos y puntuación - fallback automático */
+@font-face {
+  font-family: 'Reversal';
+  src: local('Space Grotesk'), local('SpaceGrotesk-Regular');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E, U+00A0-00FF, U+2000-206F;
 }
 
 :root {
@@ -104,8 +133,8 @@
   --font-family-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-family-serif: var(--font-playfair), ui-serif, Georgia, serif;
   --font-family-body: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  /* Font hero con fallback seguro para caracteres especiales - Reversal intacto */
-  --font-family-hero: 'Reversal', 'Reversal-Safe', ui-sans-serif, system-ui, sans-serif;
+  /* Font hero - Reversal para letras, Space Grotesk para números/símbolos (automático via unicode-range) */
+  --font-family-hero: 'Reversal', var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -342,9 +371,11 @@ h2.font-hero,
 h3.font-hero,
 h4.font-hero,
 p.font-hero,
+/* Font Hero - Reversal solo carga letras, números y símbolos usan Space Grotesk automáticamente */
+.font-hero,
 span.font-hero,
 [class*="font-hero"] {
-  font-family: 'Reversal', 'Reversal-Safe', ui-sans-serif, system-ui, sans-serif !important;
+  font-family: 'Reversal', var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif !important;
   font-weight: normal !important;
 }
 

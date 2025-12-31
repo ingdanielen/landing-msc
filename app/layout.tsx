@@ -5,11 +5,6 @@ import localFont from "next/font/local"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
-import { LangProvider } from "@/components/lang-provider"
-import { Navbar } from "@/components/layout/navbar"
-import { Footer } from "@/components/layout/footer"
-import { OrganizationSchema, WebSiteSchema } from "@/components/seo/schema-org"
-import { OceanBackground } from "@/components/ui/ocean-background"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mscsurveyors.org"
 
@@ -131,7 +126,15 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        {/* Precargar fuente Reversal para evitar FOUT y bloqueo de renderización */}
+        {/* Precargar imagen del hero para mobile */}
+        <link
+          rel="preload"
+          href="/images/placeholder-hero.webp"
+          as="image"
+          type="image/webp"
+          fetchPriority="high"
+        />
+        {/* Precargar fuente Reversal */}
         <link
           rel="preload"
           href="/fonts/reversal/reversal_lt.otf"
@@ -139,10 +142,11 @@ export default function RootLayout({
           type="font/otf"
           crossOrigin="anonymous"
         />
-        {/* Preconnect para OpenStreetMap (mapa) - solo cuando sea necesario */}
+        {/* DNS prefetch para recursos externos */}
         <link rel="dns-prefetch" href="https://a.tile.openstreetmap.org" />
         <link rel="dns-prefetch" href="https://b.tile.openstreetmap.org" />
         <link rel="dns-prefetch" href="https://c.tile.openstreetmap.org" />
+        <link rel="dns-prefetch" href="https://api.emailjs.com" />
       </head>
       <body
         className={`${reversal.variable} ${playfair.variable} ${spaceGrotesk.variable} font-body antialiased text-foreground`}

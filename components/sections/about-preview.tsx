@@ -118,7 +118,8 @@ export function AboutPreview({ lang }: { lang: Language }) {
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                quality={80}
+                quality={60}
+                loading="lazy"
               />
               {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#00111f] via-transparent to-transparent opacity-60" />
@@ -155,7 +156,7 @@ export function AboutPreview({ lang }: { lang: Language }) {
               className="absolute -bottom-5 left-5 md:left-10 bg-accent p-4 md:p-6 shadow-xl"
             >
               <div className="text-4xl md:text-5xl font-bold text-white">
-                <span className="font-hero">480</span><span className="font-sans">+</span>
+                480+
               </div>
               <div className="text-white/80 text-xs uppercase tracking-wider mt-1">
                 {lang === "es" ? "Servicios" : lang === "zh" ? "服务" : "Services"}

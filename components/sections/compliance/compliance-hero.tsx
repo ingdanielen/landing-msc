@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Shield, ChevronDown } from "lucide-react"
 import { type Language } from "@/lib/content"
+import { HeroText } from "@/components/ui/hero-text"
 
 const heroContent = {
   es: {
@@ -86,15 +87,19 @@ export function ComplianceHero({ lang }: { lang: Language }) {
           </span>
         </motion.div>
 
-        {/* Title - Using Reversal font */}
-        <motion.h1
+        {/* Title - Using HeroText for proper character handling */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-hero text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight mb-4"
         >
-          {t.title}
-        </motion.h1>
+          <HeroText 
+            as="h1" 
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight mb-4"
+          >
+            {t.title}
+          </HeroText>
+        </motion.div>
 
         {/* Subtitle - Using Playfair font */}
         <motion.p
