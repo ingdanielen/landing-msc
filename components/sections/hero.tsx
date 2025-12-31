@@ -7,26 +7,10 @@ import { useEffect, useRef, useState, memo } from "react"
 import Link from "next/link"
 import Image from "next/image"
 
-// Detectar si es dispositivo móvil (solo en cliente)
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false)
-  
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  return isMobile
-}
-
 // Componente de olas memoizado para evitar re-renders
 const AnimatedWaves = memo(function AnimatedWaves() {
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-32 md:h-40 overflow-hidden z-[5]">
+    <div className="absolute bottom-0 left-0 right-0 h-32 md:h-40 overflow-hidden z-5">
       <svg className="absolute bottom-0 left-0 w-[200%] h-full animate-wave-slow" viewBox="0 0 2880 120" preserveAspectRatio="none">
         <path fill="rgba(255,255,255,0.15)" d="M0,60 C360,40 720,80 1080,60 C1440,40 1800,80 2160,60 C2520,40 2880,80 2880,60 L2880,120 L0,120 Z"/>
       </svg>
@@ -43,39 +27,38 @@ const AnimatedWaves = memo(function AnimatedWaves() {
 export function Hero({ lang }: { lang: Language }) {
   const t = content[lang].hero
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [videoLoaded, setVideoLoaded] = useState(false)
-  const isMobile = useIsMobile()
+  const [isDesktop, setIsDesktop] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
 
   useEffect(() => {
-    // En mobile, no cargar el video - solo usar imagen
-    if (isMobile) return
+    // Detectar desktop vs mobile/tablet
+    // Desktop = pantalla >= 1024px Y no es touch device
+    const checkDevice = () => {
+      const isLargeScreen = window.innerWidth >= 1024
+      const isNotTouch = !('ontouchstart' in window) && !navigator.maxTouchPoints
+      setIsDesktop(isLargeScreen && isNotTouch)
+    }
+    
+    checkDevice()
+    // No agregamos listener de resize para evitar cambios durante uso
+  }, [])
 
+  useEffect(() => {
+    if (!isDesktop) return
+    
     const video = videoRef.current
     if (!video) return
 
-    // Cargar video con delay para priorizar contenido visible
-    const loadVideo = () => {
-      video.src = "/images/videos/hero-1.mp4"
-      video.load()
-    }
-
-    // Delay la carga del video 1 segundo para que la imagen se muestre primero
-    const timer = setTimeout(loadVideo, 1000)
-
-    const handleCanPlay = () => {
-      setVideoLoaded(true)
-      video.play().catch(() => {})
-    }
-
-    video.addEventListener("canplaythrough", handleCanPlay)
+    const handleCanPlay = () => setVideoReady(true)
     
-    return () => {
-      clearTimeout(timer)
-      video.removeEventListener("canplaythrough", handleCanPlay)
+    if (video.readyState >= 3) {
+      setVideoReady(true)
     }
-  }, [isMobile])
+    
+    video.addEventListener("canplaythrough", handleCanPlay)
+    return () => video.removeEventListener("canplaythrough", handleCanPlay)
+  }, [isDesktop])
 
-  // Animaciones simplificadas para mejor rendimiento
   const fadeIn = {
     initial: { opacity: 0, y: 15 },
     animate: { opacity: 1, y: 0 },
@@ -84,43 +67,43 @@ export function Hero({ lang }: { lang: Language }) {
   return (
     <section
       id="hero"
-      className="relative min-h-[100dvh] flex items-center overflow-hidden"
+      className="relative min-h-dvh flex items-center overflow-hidden"
     >
-      {/* Background */}
+      {/* Background optimizado por dispositivo */}
       <div className="absolute inset-0 z-0">
-        {/* Imagen de fondo - siempre visible, optimizada */}
+        {/* Imagen - siempre renderizada, visible en mobile/tablet o mientras carga video */}
         <Image
           src="/images/placeholder-hero.webp"
           alt=""
           fill
           priority
-          quality={60}
+          quality={75}
           sizes="100vw"
-          placeholder="blur"
-          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIRAAAQMDBAMAAAAAAAAAAAAAAQIDBAAFERITITEGQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABkRAAIDAQAAAAAAAAAAAAAAAAABAhEhMf/aAAwDAQACEQMRAD8A0i82ON5C80hxpV0YUcPJOUhXxI6rnr3Ua6SlSpTZVKXsYjrR9pSkkqwkfT/AKKVS0SLZ//Z"
-          className={`object-cover transition-opacity duration-700 ${!isMobile && videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+          className={`object-cover ${isDesktop && videoReady ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
           aria-hidden="true"
         />
         
-        {/* Video - solo en desktop */}
-        {!isMobile && (
+        {/* Video - solo en desktop, renderizado condicionalmente */}
+        {isDesktop && (
           <video
             ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
-            preload="none"
-            poster="/images/placeholder-hero.webp"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
+            preload="auto"
+            className={`absolute inset-0 w-full h-full object-cover ${videoReady ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
             aria-hidden="true"
-          />
+          >
+            <source src="/images/videos/hero-1.mp4" type="video/mp4" />
+          </video>
         )}
         
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/85 via-primary/70 to-primary/50" />
+        {/* Overlay degradado */}
+        <div className="absolute inset-0 bg-linear-to-b from-primary/85 via-primary/70 to-primary/50" />
       </div>
 
-      {/* Animated Waves - memoizado */}
+      {/* Animated Waves */}
       <AnimatedWaves />
 
       {/* Content */}
@@ -176,7 +159,7 @@ export function Hero({ lang }: { lang: Language }) {
                   {t.ctaPrimary}
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent/80" />
+                <div className="absolute inset-0 bg-linear-to-r from-accent to-accent/80" />
               </button>
             </Link>
             <Link href="tel:+50765980679">
