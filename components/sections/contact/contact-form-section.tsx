@@ -85,6 +85,43 @@ const formContent = {
       message: "Message is required",
     },
   },
+  zh: {
+    title: "申请检验",
+    subtitle: "填写表格，我们将在24小时内回复",
+    form: {
+      name: "全名",
+      email: "电子邮件",
+      phone: "电话 / WhatsApp",
+      company: "公司或组织",
+      serviceType: "服务类型",
+      location: "港口或位置",
+      message: "详细信息",
+      submit: "提交申请",
+      sending: "发送中...",
+    },
+    services: [
+      { value: "vessel", label: "船舶检验", icon: Ship },
+      { value: "cargo", label: "货物检验", icon: Package },
+      { value: "consultancy", label: "海事咨询", icon: Compass },
+      { value: "other", label: "其他服务", icon: FileSearch },
+    ],
+    benefits: [
+      "保证24小时内回复",
+      "免费报价",
+      "免费初步技术咨询",
+    ],
+    privacy: "提交此表格即表示您同意我们的隐私政策。",
+    success: {
+      title: "申请已发送",
+      message: "感谢您联系MSC。我们将尽快回复您的申请。",
+    },
+    errors: {
+      name: "姓名为必填项",
+      email: "邮箱为必填项",
+      emailInvalid: "邮箱格式无效",
+      message: "留言为必填项",
+    },
+  },
 }
 
 export function ContactFormSection({ lang }: { lang: Language }) {
@@ -115,7 +152,7 @@ export function ContactFormSection({ lang }: { lang: Language }) {
   return (
     <section className="py-16 md:py-20 section-ocean-alt">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-12 max-w-6xl mx-auto">
           {/* Left - Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -143,7 +180,7 @@ export function ContactFormSection({ lang }: { lang: Language }) {
             {/* Service Quick Select - Desktop */}
             <div className="hidden lg:block mt-10">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
-                {lang === "es" ? "Servicios Disponibles" : "Available Services"}
+                {lang === "es" ? "Servicios Disponibles" : lang === "zh" ? "可用服务" : "Available Services"}
               </p>
               <div className="space-y-2">
                 {t.services.map((service) => {
@@ -294,7 +331,7 @@ export function ContactFormSection({ lang }: { lang: Language }) {
                     onValueChange={(value) => updateField('serviceType', value)}
                   >
                     <SelectTrigger className="h-11 rounded-lg border-slate-200">
-                      <SelectValue placeholder={lang === "es" ? "Seleccionar..." : "Select..."} />
+                      <SelectValue placeholder={lang === "es" ? "Seleccionar..." : lang === "zh" ? "选择..." : "Select..."} />
                     </SelectTrigger>
                     <SelectContent>
                       {t.services.map((service) => (
@@ -328,6 +365,8 @@ export function ContactFormSection({ lang }: { lang: Language }) {
                     placeholder={
                       lang === "es"
                         ? "Describa brevemente su solicitud..."
+                        : lang === "zh"
+                        ? "请简要描述您的需求..."
                         : "Briefly describe your request..."
                     }
                   />

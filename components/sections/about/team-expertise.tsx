@@ -120,6 +120,56 @@ const content = {
     ctaTitle: "Global Expert Network",
     ctaDescription: "Our network of professionals is available 24/7 at strategic ports around the world.",
   },
+  zh: {
+    badge: "专家团队",
+    title: "精英专业人员",
+    titleAccent: "海事检验",
+    subtitle: "我们的团队将数十年的现场经验与前沿技术知识相结合，提供世界一流的公正可靠评估。",
+    stats: [
+      { value: "50+", label: "年综合经验" },
+      { value: "15+", label: "技术专业领域" },
+      { value: "100%", label: "认证更新" },
+    ],
+    expertise: [
+      {
+        id: "naval",
+        icon: Ship,
+        title: "船舶建造",
+        description: "按照最高国际标准进行船舶设计、建造和结构评估。",
+        skills: ["稳定性分析", "船体设计", "焊接检验", "损坏评估"]
+      },
+      {
+        id: "engineering",
+        icon: Compass,
+        title: "海事工程",
+        description: "推进系统、船舶机械和海事设备的技术评估。",
+        skills: ["推进系统", "电气系统", "自动化", "能源效率"]
+      },
+      {
+        id: "port",
+        icon: Anchor,
+        title: "港口运营",
+        description: "综合港口管理、海事物流和码头运营。",
+        skills: ["码头管理", "货物优化", "港口安全", "文档处理"]
+      },
+      {
+        id: "nautical",
+        icon: GraduationCap,
+        title: "航海科学",
+        description: "具有丰富航海和海事安全经验的船长和船员。",
+        skills: ["高级航海", "船员管理", "安全协议", "驾驶台操作"]
+      },
+      {
+        id: "legal",
+        icon: Scale,
+        title: "海事法律",
+        description: "国际海事法规和监管合规专家。",
+        skills: ["IMO/SOLAS", "海事合同", "仲裁", "P&I保险"]
+      },
+    ],
+    ctaTitle: "全球专家网络",
+    ctaDescription: "我们的专业网络全天候24/7在全球战略港口提供服务。",
+  },
 }
 
 export function TeamExpertise({ lang }: TeamExpertiseProps) {

@@ -156,6 +156,74 @@ const missionVisionContent = {
       },
     ],
   },
+  zh: {
+    sectionTitle: "我们的",
+    sectionTitleHighlight: "支柱",
+    mission: {
+      title: "使命",
+      text: "提供客观、可靠、全面的第三方海事检验和海事咨询，支持安全航行，保护船舶或海事设施的价值，确保法规合规。",
+      subtext:
+        "我们通过高素质的专业人员、先进的检验方法以及对透明度、公正性和卓越客户服务的坚定承诺来实现这一目标。",
+    },
+    vision: {
+      title: "愿景",
+      text: "成为最受信赖和全球认可的独立海事检验机构，以坚定的精确性、诚信和技术卓越来保障海事运营、船舶或海事设施以及环境。",
+    },
+    valuesTitle: "企业",
+    valuesTitleHighlight: "价值观",
+    valuesSubtitle: "指导我们每项行动的原则",
+    values: [
+      {
+        title: "诚信与公正",
+        short: "诚信",
+        description: "我们在所有评估中保持最高的道德标准，确保每份报告的客观性和透明度。",
+        icon: Shield,
+        image: "/images/footage/IMG_20181207_111709.webp",
+      },
+      {
+        title: "技术卓越",
+        short: "卓越",
+        description: "我们的认证专业人员应用先进的方法和专业知识，提供准确的评估。",
+        icon: Zap,
+        image: "/images/footage/IMG_20190405_150150.webp",
+      },
+      {
+        title: "安全与合规",
+        short: "安全",
+        description: "我们确保严格遵守国际法规（IMO、ISO、SOLAS、MARPOL），保护生命、资产和环境。",
+        icon: Lock,
+        image: "/images/footage/IMG_20190406_095637.webp",
+      },
+      {
+        title: "专业精神",
+        short: "专业",
+        description: "每次检验都以最高的专业水准进行，对我们的评估和建议负责。",
+        icon: Briefcase,
+        image: "/images/footage/IMG_20190406_172726.webp",
+      },
+      {
+        title: "客户服务",
+        short: "客户",
+        description: "我们优先考虑客户需求，提供个性化解决方案和卓越服务。",
+        icon: Users,
+        image: "/images/footage/IMG_20181207_111716.webp",
+      },
+      {
+        title: "持续创新",
+        short: "创新",
+        description: "我们采用无人机检验等尖端技术，不断改进流程。",
+        icon: Lightbulb,
+        image: "/images/footage/IMG_20190405_150153.webp",
+      },
+      {
+        title: "环境保护",
+        short: "环境",
+        description: "致力于海事可持续发展，我们的评估考虑环境影响并推广负责任的做法。",
+        icon: Leaf,
+        image: "/images/footage/IMG_20190406_095657.webp",
+      },
+    ],
+  },
 }
 
 export function MissionVisionValues({ lang }: { lang: Language }) {

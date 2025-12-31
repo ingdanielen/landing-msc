@@ -20,7 +20,15 @@
  * ============================================
  */
 
-import emailjs from '@emailjs/browser'
+// Importación dinámica para evitar errores en SSR
+let emailjs: typeof import('@emailjs/browser')['default'] | null = null
+
+// Solo importar en el cliente
+if (typeof window !== 'undefined') {
+  import('@emailjs/browser').then((module) => {
+    emailjs = module.default
+  })
+}
 
 // ============================================
 // CONFIGURACIÓN
@@ -62,7 +70,7 @@ let isInitialized = false
  * Se llama automáticamente antes de enviar un email.
  */
 export function initEmailJS(): void {
-  if (!isInitialized && EMAILJS_CONFIG.publicKey) {
+  if (!isInitialized && EMAILJS_CONFIG.publicKey && emailjs) {
     emailjs.init(EMAILJS_CONFIG.publicKey)
     isInitialized = true
   }
@@ -94,6 +102,15 @@ export function initEmailJS(): void {
  * }
  */
 export async function sendContactEmail(formData: ContactFormData): Promise<EmailJSResponse> {
+  // Verificar que estamos en el cliente
+  if (typeof window === 'undefined') {
+    return {
+      success: false,
+      message: 'El servicio de email solo funciona en el navegador.',
+      error: 'SSR_NOT_SUPPORTED',
+    }
+  }
+
   // Verificar configuración
   if (!EMAILJS_CONFIG.serviceId || !EMAILJS_CONFIG.templateId || !EMAILJS_CONFIG.publicKey) {
     console.error('EmailJS: Configuración incompleta. Verifica las variables de entorno.')
@@ -102,6 +119,12 @@ export async function sendContactEmail(formData: ContactFormData): Promise<Email
       message: 'Error de configuración del servicio de email.',
       error: 'MISSING_CONFIG',
     }
+  }
+
+  // Cargar emailjs si no está disponible
+  if (!emailjs) {
+    const module = await import('@emailjs/browser')
+    emailjs = module.default
   }
 
   // Inicializar si es necesario
@@ -172,6 +195,15 @@ export async function sendContactEmail(formData: ContactFormData): Promise<Email
  * }
  */
 export async function sendFormEmail(form: HTMLFormElement): Promise<EmailJSResponse> {
+  // Verificar que estamos en el cliente
+  if (typeof window === 'undefined') {
+    return {
+      success: false,
+      message: 'El servicio de email solo funciona en el navegador.',
+      error: 'SSR_NOT_SUPPORTED',
+    }
+  }
+
   // Verificar configuración
   if (!EMAILJS_CONFIG.serviceId || !EMAILJS_CONFIG.templateId || !EMAILJS_CONFIG.publicKey) {
     console.error('EmailJS: Configuración incompleta.')
@@ -180,6 +212,12 @@ export async function sendFormEmail(form: HTMLFormElement): Promise<EmailJSRespo
       message: 'Error de configuración del servicio de email.',
       error: 'MISSING_CONFIG',
     }
+  }
+
+  // Cargar emailjs si no está disponible
+  if (!emailjs) {
+    const module = await import('@emailjs/browser')
+    emailjs = module.default
   }
 
   // Inicializar si es necesario

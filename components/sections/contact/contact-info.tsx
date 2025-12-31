@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { type Language } from "@/lib/content"
 import { MapPin, Phone, Mail, Clock, AlertCircle, Copy, Check, ExternalLink } from "lucide-react"
+import { HeroText } from "@/components/ui/hero-text"
 
 const infoContent = {
   es: {
@@ -98,10 +99,56 @@ const infoContent = {
     },
     copied: "Copied!",
   },
+  zh: {
+    title: "联系我们",
+    subtitle: "多种联系渠道供您选择",
+    emergencyBadge: "紧急热线",
+    emergencyTitle: "全天候支持",
+    emergencyDesc: "对于紧急海事情况，我们全天候24小时随时待命。",
+    emergencyPhone: "(+507) 6598-0679",
+    emergencyCta: "立即致电",
+    channels: [
+      {
+        id: "office",
+        icon: MapPin,
+        title: "总部办公室",
+        value: "巴拿马共和国",
+        detail: "Altos de Curundu, Calle River, 569B号楼, Ancón",
+        action: { label: "查看地图", href: "https://maps.google.com/?q=8.975003,-79.541983" },
+        copyable: false,
+      },
+      {
+        id: "phone",
+        icon: Phone,
+        title: "电话 / WhatsApp",
+        value: "(+507) 6598-0679",
+        detail: "电话和WhatsApp消息",
+        action: { label: "拨打电话", href: "tel:+50765980679" },
+        copyable: true,
+        copyValue: "+50765980679",
+      },
+      {
+        id: "email",
+        icon: Mail,
+        title: "电子邮件",
+        value: "msc@mscsurveyors.org",
+        detail: "保证24小时内回复",
+        action: { label: "发送邮件", href: "mailto:msc@mscsurveyors.org" },
+        copyable: true,
+        copyValue: "msc@mscsurveyors.org",
+      },
+    ],
+    hours: {
+      title: "营业时间",
+      schedule: "周一至周五: 09:00 - 18:00",
+      timezone: "巴拿马时间 (EST)",
+    },
+    copied: "已复制！",
+  },
 }
 
 export function ContactInfo({ lang }: { lang: Language }) {
-  const t = infoContent[lang as keyof typeof infoContent]
+  const t = infoContent[lang as keyof typeof infoContent] || infoContent.en
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [activeChannel, setActiveChannel] = useState<string>("office")
 
@@ -132,13 +179,16 @@ export function ContactInfo({ lang }: { lang: Language }) {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-hero font-bold text-primary mb-2 tracking-tight">
+            <HeroText 
+              as="h2" 
+              className="text-3xl md:text-4xl font-bold text-primary mb-2 tracking-tight"
+            >
               {t.title}
-            </h2>
+            </HeroText>
             <p className="text-slate-500">{t.subtitle}</p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-5 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
             {/* Left - Emergency Card (Featured) */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -185,7 +235,7 @@ export function ContactInfo({ lang }: { lang: Language }) {
                   {/* Phone Number */}
                   <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-6">
                     <p className="text-white/50 text-xs mb-1">
-                      {lang === "es" ? "Número de emergencia" : "Emergency number"}
+                      {lang === "es" ? "Número de emergencia" : lang === "zh" ? "紧急电话" : "Emergency number"}
                     </p>
                     <p className="text-2xl md:text-3xl font-black text-white font-mono">
                       {t.emergencyPhone}
@@ -285,7 +335,7 @@ export function ContactInfo({ lang }: { lang: Language }) {
                           ) : (
                             <>
                               <Copy className="h-4 w-4" />
-                              {lang === "es" ? "Copiar" : "Copy"}
+                              {lang === "es" ? "Copiar" : lang === "zh" ? "复制" : "Copy"}
                             </>
                           )}
                         </button>

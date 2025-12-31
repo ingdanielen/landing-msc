@@ -52,8 +52,8 @@ export function Navbar() {
     { name: tFooter.about, href: "/about" },
     { name: tFooter.services, href: "/services" },
     { name: tFooter.quality, href: "/compliance" },
-    { name: lang === "es" ? "Galería" : lang === "zh" ? "图库" : "Gallery", href: "/gallery" },
-    { name: "Blog", href: "/blog" },
+    { name: tFooter.gallery, href: "/gallery" },
+    { name: tFooter.blog, href: "/blog" },
     { name: tFooter.contact, href: "/contact" },
   ]
 

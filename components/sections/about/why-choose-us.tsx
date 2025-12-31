@@ -99,6 +99,48 @@ const whyChooseContent = {
       },
     ],
   },
+  zh: {
+    title: "为什么",
+    titleHighlight: "选择我们",
+    subtitle: "我们的价值主张",
+    items: [
+      {
+        icon: CheckCircle2,
+        title: "独立第三方验证",
+        description:
+          "专业从事船舶、货物和海事基础设施综合检验的独立组织。我们提供符合国际标准的客观、准确评估。",
+        image: "/images/footage/IMG_20181207_111709.webp",
+      },
+      {
+        icon: Clock,
+        title: "快速响应和全天候服务",
+        description:
+          "紧急检验即时响应。报告平均交付时间：24-72小时，视服务复杂程度而定。",
+        image: "/images/footage/IMG_20190405_150150.webp",
+      },
+      {
+        icon: FileCheck,
+        title: "被利益相关方接受的公正报告",
+        description:
+          "具有证据价值的技术文件，被船东、运营商、保险公司、港口当局和物流公司接受。",
+        image: "/images/footage/IMG_20190406_095637.webp",
+      },
+      {
+        icon: Wrench,
+        title: "现代化工具",
+        description:
+          "校准测量设备、无人机航拍检查难以到达的船舶区域，以及符合船级社标准的方法论。",
+        image: "/images/footage/IMG_20190406_172726.webp",
+      },
+      {
+        icon: Globe,
+        title: "深厚的行业知识和区域经验",
+        description:
+          "团队拥有超过25年的综合经验。业务覆盖商业港口、码头和锚地。检验员持有船舶建造、海事工程、港口运营和航海科学认证。",
+        image: "/images/footage/IMG_20181207_111716.webp",
+      },
+    ],
+  },
 }
 
 export function WhyChooseUs({ lang }: { lang: Language }) {

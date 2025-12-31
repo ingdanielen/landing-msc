@@ -208,6 +208,106 @@ const successContent = {
       },
     ],
   },
+  zh: {
+    title: "成功",
+    titleHighlight: "案例",
+    subtitle: "用结果说话",
+    categories: [
+      {
+        id: "cargo",
+        icon: Package,
+        name: "货物检验",
+        cases: [
+          {
+            title: "散货检验",
+            client: "国际物流运营商",
+            image: "/images/footage/IMG_20190405_150150.webp",
+            problem: "货物重量和状况反复出现差异。",
+            solution: "完整水尺检验、装卸监督、照片记录。",
+            result: "消除合同纠纷，节省大量资金。",
+          },
+          {
+            title: "普通货物损坏",
+            client: "区域出口公司",
+            image: "/images/footage/IMG_20190405_150249.webp",
+            problem: "因明显损坏而拒收货物。",
+            solution: "装运前后检验，附根本原因的技术报告。",
+            result: "成功向保险公司索赔，部分价值恢复。",
+          },
+          {
+            title: "积载监督",
+            client: "港口码头",
+            image: "/images/footage/IMG_20190406_095637.webp",
+            problem: "因积载不当造成损坏风险。",
+            solution: "实时监督，即时技术建议。",
+            result: "安全作业，零事故。",
+          },
+        ],
+      },
+      {
+        id: "vessel",
+        icon: Ship,
+        name: "船舶检验",
+        cases: [
+          {
+            title: "租船前检验",
+            client: "船队运营商",
+            image: "/images/footage/IMG_20181207_111709.webp",
+            problem: "对船舶实际状况的不确定性。",
+            solution: "结构和运营检验，国际检查清单。",
+            result: "根据技术状况进行谈判。",
+          },
+          {
+            title: "租入/租出检验",
+            client: "国际船东",
+            image: "/images/footage/IMG_20181207_111716.webp",
+            problem: "租船期间损坏争议。",
+            solution: "有记录的技术对比。",
+            result: "客观解决争议，缩短法律时间。",
+          },
+          {
+            title: "状况检验",
+            client: "海事投资者",
+            image: "/images/footage/IMG_20190406_172726.webp",
+            problem: "评估收购可行性。",
+            solution: "综合状况报告。",
+            result: "做出明智的投资决策。",
+          },
+        ],
+      },
+      {
+        id: "consultancy",
+        icon: Briefcase,
+        name: "海事咨询",
+        cases: [
+          {
+            title: "法规合规",
+            client: "港口运营商",
+            image: "/images/footage/IMG_20190405_150331.webp",
+            problem: "审计中反复出现问题。",
+            solution: "法规评估，纠正行动计划。",
+            result: "后续审计完全合规。",
+          },
+          {
+            title: "海事索赔协助",
+            client: "保险公司",
+            image: "/images/footage/IMG_20190406_095657.webp",
+            problem: "缺乏明确的技术证据。",
+            solution: "独立技术专家评估。",
+            result: "索赔结果有利。",
+          },
+          {
+            title: "运营优化",
+            client: "物流公司",
+            image: "/images/footage/IMG_20190406_180706.webp",
+            problem: "港口延误和成本超支。",
+            solution: "技术运营分析。",
+            result: "减少时间和成本。",
+          },
+        ],
+      },
+    ],
+  },
 }
 
 export function SuccessStories({ lang }: { lang: Language }) {
@@ -360,7 +460,7 @@ export function SuccessStories({ lang }: { lang: Language }) {
                   {/* Challenge */}
                   <div className="relative pl-4 border-l-2 border-red-500/60">
                     <span className="text-red-400 text-xs tracking-widest uppercase font-semibold block mb-1">
-                      {lang === "es" ? "Desafío" : "Challenge"}
+                      {lang === "es" ? "Desafío" : lang === "zh" ? "挑战" : "Challenge"}
                     </span>
                     <p className="text-white/80 text-base md:text-lg">{currentCase.problem}</p>
                   </div>
@@ -401,7 +501,7 @@ export function SuccessStories({ lang }: { lang: Language }) {
                     className="bg-white/5 backdrop-blur-sm rounded-lg p-5 md:p-6 border border-white/10"
                   >
                     <h4 className="text-white/40 text-xs tracking-widest uppercase font-semibold mb-3">
-                      {lang === "es" ? "Nuestra Solución" : "Our Solution"}
+                      {lang === "es" ? "Nuestra Solución" : lang === "zh" ? "我们的解决方案" : "Our Solution"}
                     </h4>
                     <p className="text-white/90 text-base md:text-lg leading-relaxed">
                       {currentCase.solution}
@@ -416,7 +516,7 @@ export function SuccessStories({ lang }: { lang: Language }) {
                     className="bg-accent rounded-lg p-5 md:p-6"
                   >
                     <h4 className="text-white/70 text-xs tracking-widest uppercase font-semibold mb-3">
-                      {lang === "es" ? "Resultado" : "Result"}
+                      {lang === "es" ? "Resultado" : lang === "zh" ? "结果" : "Result"}
                     </h4>
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="h-5 w-5 md:h-6 md:w-6 text-white shrink-0 mt-0.5" />

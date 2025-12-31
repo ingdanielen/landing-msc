@@ -122,6 +122,63 @@ const historyContent = {
       },
     ],
   },
+  zh: {
+    badge: "发展历程",
+    title: "我们的",
+    titleHighlight: "历史",
+    intro:
+      "MSC成立于2019年，旨在满足海事行业的一个迫切需求：缺乏真正独立的检验服务，这种服务需要具备扎实的技术判断力和预防性方法。",
+    phases: [
+      {
+        id: "phase-1",
+        years: "2019-2020",
+        title: "创立",
+        icon: Anchor,
+        image: "/about-us/Foundation.webp",
+        description:
+          "公司开始运营，专注于货物检验、状况调查和港口作业监督。",
+        highlights: [
+          "货物检验",
+          "状况调查",
+          "港口作业监督",
+        ],
+        result:
+          "MSC凭借技术准确性、清晰的报告和及时的响应建立了声誉，赢得了客户的持续信任。",
+      },
+      {
+        id: "phase-2",
+        years: "2021-2022",
+        title: "技术扩展",
+        icon: Ship,
+        image: "/about-us/technical.webp",
+        description:
+          "MSC通过引入新的专业服务和加强内部流程来扩展其服务组合。",
+        highlights: [
+          "船舶检验",
+          "租船前和租入/租出调查",
+          "技术咨询和专家评估",
+        ],
+        result:
+          "加强了文档管理、质量控制和报告标准化方面的内部流程，提升了组织的专业水平。",
+      },
+      {
+        id: "phase-3",
+        years: "2023-至今",
+        title: "区域整合",
+        icon: Award,
+        image: "/about-us/regional.webp",
+        description:
+          "MSC巩固为一家综合性技术海事公司，具备处理复杂业务的能力。",
+        highlights: [
+          "处理复杂业务",
+          "出具具有证据价值的报告",
+          "在技术争议和海事索赔中提供咨询服务",
+        ],
+        result:
+          "如今，MSC因其独立的技术判断、流程可追溯性和风险缓解方法而获得认可。",
+      },
+    ],
+  },
 }
 
 export function CompanyHistory({ lang }: { lang: Language }) {
@@ -304,26 +361,26 @@ export function CompanyHistory({ lang }: { lang: Language }) {
               </div>
               <div>
                 <p className="text-primary text-xl font-bold">
-                  +25 {lang === 'es' ? 'años de experiencia combinada' : 'years combined experience'}
+                  +25 {lang === 'es' ? 'años de experiencia combinada' : lang === 'zh' ? '年综合经验' : 'years combined experience'}
                 </p>
-                <p className="text-slate-500 text-sm">{lang === 'es' ? 'En el equipo de MSC' : 'Within the MSC team'}</p>
+                <p className="text-slate-500 text-sm">{lang === 'es' ? 'En el equipo de MSC' : lang === 'zh' ? '在MSC团队内' : 'Within the MSC team'}</p>
               </div>
             </div>
             
             <div className="flex gap-8">
               <div className="text-center">
                 <p className="text-3xl font-bold text-primary">2019</p>
-                <p className="text-slate-500 text-xs uppercase tracking-wider">{lang === 'es' ? 'Fundada' : 'Founded'}</p>
+                <p className="text-slate-500 text-xs uppercase tracking-wider">{lang === 'es' ? 'Fundada' : lang === 'zh' ? '成立' : 'Founded'}</p>
               </div>
               <div className="w-px bg-slate-200" />
               <div className="text-center">
                 <p className="text-3xl font-bold text-accent">+480</p>
-                <p className="text-slate-500 text-xs uppercase tracking-wider">{lang === 'es' ? 'Servicios' : 'Services'}</p>
+                <p className="text-slate-500 text-xs uppercase tracking-wider">{lang === 'es' ? 'Servicios' : lang === 'zh' ? '服务' : 'Services'}</p>
               </div>
               <div className="w-px bg-slate-200" />
               <div className="text-center">
                 <p className="text-3xl font-bold text-primary">+120</p>
-                <p className="text-slate-500 text-xs uppercase tracking-wider">{lang === 'es' ? 'Clientes' : 'Clients'}</p>
+                <p className="text-slate-500 text-xs uppercase tracking-wider">{lang === 'es' ? 'Clientes' : lang === 'zh' ? '客户' : 'Clients'}</p>
               </div>
             </div>
           </div>

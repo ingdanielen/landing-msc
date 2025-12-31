@@ -72,11 +72,13 @@ function AnimatedCounter({
   suffix: string 
 }) {
   const [count, setCount] = useState(0)
+  const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "0px" })
 
   useEffect(() => {
-    if (isInView) {
+    if (isInView && !hasAnimated) {
+      setHasAnimated(true)
       const controls = animate(0, value, {
         duration: 2,
         ease: "easeOut",
@@ -84,7 +86,17 @@ function AnimatedCounter({
       })
       return () => controls.stop()
     }
-  }, [isInView, value])
+  }, [isInView, value, hasAnimated])
+
+  // Fallback: si después de 3s no ha animado, mostrar el valor final
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (count === 0 && value > 0) {
+        setCount(value)
+      }
+    }, 3000)
+    return () => clearTimeout(timeout)
+  }, [count, value])
 
   return (
     <span ref={ref} className="tabular-nums">

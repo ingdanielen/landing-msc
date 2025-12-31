@@ -191,9 +191,9 @@ export function CompanyIntro({ lang }: { lang: Language }) {
               <div className="bg-primary text-white p-4 md:p-6 rounded-lg shadow-xl">
                 <div className="text-3xl md:text-4xl font-black text-accent leading-none">+25</div>
                 <div className="text-xs md:text-sm text-white/70 mt-1 leading-tight">
-                  {lang === "es" ? "Años de experiencia" : "Years of experience"}
+                  {lang === "es" ? "Años de experiencia" : lang === "zh" ? "年经验" : "Years of experience"}
                   <br />
-                  <span className="text-white/50">{lang === "es" ? "combinada" : "combined"}</span>
+                  <span className="text-white/50">{lang === "es" ? "combinada" : lang === "zh" ? "综合" : "combined"}</span>
                 </div>
               </div>
             </motion.div>
