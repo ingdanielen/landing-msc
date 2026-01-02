@@ -145,7 +145,7 @@ const HeroContent = memo(function HeroContent({
   )
 })
 
-// Hook para manejar el crossfade de videos
+// Hook para manejar el crossfade de videos (solo desktop)
 function useVideoLoop() {
   const videoARef = useRef<HTMLVideoElement>(null)
   const videoBRef = useRef<HTMLVideoElement>(null)
@@ -217,40 +217,54 @@ export function Hero({ lang }: { lang: Language }) {
     >
       {/* Background - Videos con crossfade seamless */}
       <div className="absolute inset-0 z-0 bg-primary overflow-hidden">
-        {/* Video A */}
+        {/* Video para Desktop */}
         <video
           ref={videoARef}
+          src="/videos/right-hero.mp4"
           muted
           playsInline
           preload="auto"
           disablePictureInPicture
           disableRemotePlayback
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out hidden md:block"
           style={{ 
             transform: 'translateZ(0)',
             opacity: activeVideo === 'A' ? 1 : 0 
           }}
           aria-hidden="true"
-        >
-          <source src="/videos/right-hero.mp4" type="video/mp4" />
-        </video>
+        />
         
-        {/* Video B (clon para crossfade) */}
+        {/* Video B Desktop (clon para crossfade) */}
         <video
           ref={videoBRef}
+          src="/videos/right-hero.mp4"
           muted
           playsInline
           preload="auto"
           disablePictureInPicture
           disableRemotePlayback
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out hidden md:block"
           style={{ 
             transform: 'translateZ(0)',
             opacity: activeVideo === 'B' ? 1 : 0 
           }}
           aria-hidden="true"
+        />
+        
+        {/* Video para Mobile - loop simple */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
+          className="absolute inset-0 w-full h-full object-cover md:hidden"
+          style={{ transform: 'translateZ(0)' }}
+          aria-hidden="true"
         >
-          <source src="/videos/right-hero.mp4" type="video/mp4" />
+          <source src="/videos/hero-sections.mp4" type="video/mp4" />
         </video>
         
         {/* Overlay degradado */}
