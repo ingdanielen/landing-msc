@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Ship, Container, Briefcase, Anchor, Zap, CheckCircle2, ArrowRight } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 
 const icons = {
   Ship: Ship,
@@ -76,12 +76,12 @@ export function ServiceDetailCard({ title, description, icon, image, features, i
 
         {/* CTA */}
         <div className="mt-6 pt-6 border-t border-slate-100">
-          <Link href="/contact">
+          <LocalizedLink href="/contact">
             <button className="text-accent hover:text-primary font-semibold text-sm uppercase tracking-wide flex items-center gap-2 group/btn">
               {lang === "es" ? "Solicitar cotización" : lang === "zh" ? "请求报价" : "Request Quote"}
               <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
             </button>
-          </Link>
+          </LocalizedLink>
         </div>
       </div>
     </motion.div>

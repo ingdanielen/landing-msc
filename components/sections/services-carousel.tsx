@@ -16,7 +16,7 @@ import {
 } from "lucide-react"
 import { type Language } from "@/lib/content"
 import { HeroText } from "@/components/ui/hero-text"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 
 const servicesContent = {
   es: {
@@ -169,7 +169,7 @@ function ServiceCard({
   const Icon = service.icon
   
   return (
-    <Link 
+    <LocalizedLink 
       href="/services" 
       className="group block relative h-[400px] md:h-[480px] w-full overflow-hidden"
     >
@@ -215,7 +215,7 @@ function ServiceCard({
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-    </Link>
+    </LocalizedLink>
   )
 }
 
@@ -376,13 +376,13 @@ export function ServicesCarousel({ lang }: { lang: Language }) {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Link
+          <LocalizedLink
             href="/services"
             className="inline-flex items-center gap-3 bg-accent hover:bg-accent/90 text-white px-8 py-4 font-semibold transition-all group"
           >
             {t.cta}
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          </LocalizedLink>
         </motion.div>
       </div>
     </section>

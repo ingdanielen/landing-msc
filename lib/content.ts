@@ -1,4 +1,6 @@
-export type Language = "es" | "en" | "zh"
+// Re-export Language type from route-translations for backwards compatibility
+export type { Language } from "@/lib/route-translations"
+import type { Language } from "@/lib/route-translations"
 
 export const content = {
   es: {

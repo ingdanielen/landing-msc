@@ -1,6 +1,6 @@
 "use client"
 
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { Calendar, ArrowRight, Tag, Clock, User, ArrowUpRight, FileText } from "lucide-react"
@@ -95,7 +95,7 @@ function FeaturedCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: st
   if (!post.isValid) return null
 
   return (
-    <Link href={`/blog/${post.slug}`} className="block group">
+    <LocalizedLink href={`/blog/${post.slug}`} className="block group">
       <article className="relative h-[550px] md:h-[650px] overflow-hidden rounded-sm">
         {/* Background Image */}
         <div className="absolute inset-0">
@@ -194,7 +194,7 @@ function FeaturedCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: st
           </motion.div>
         </div>
       </article>
-    </Link>
+    </LocalizedLink>
   )
 }
 
@@ -207,7 +207,7 @@ function StandardCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: st
   if (!post.isValid) return null
 
   return (
-    <Link href={`/blog/${post.slug}`} className="block group h-full">
+    <LocalizedLink href={`/blog/${post.slug}`} className="block group h-full">
       <article className="relative h-full bg-white border-l-2 border-l-transparent hover:border-l-accent overflow-hidden transition-all duration-500 flex flex-col shadow-[0_0_0_1px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.2)]">
         {/* Image */}
         <div className="relative h-56 md:h-64 overflow-hidden bg-slate-100">
@@ -279,7 +279,7 @@ function StandardCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: st
         {/* Bottom accent line on hover */}
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
       </article>
-    </Link>
+    </LocalizedLink>
   )
 }
 
@@ -292,7 +292,7 @@ function CompactCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: str
   if (!post.isValid) return null
 
   return (
-    <Link href={`/blog/${post.slug}`} className="block group">
+    <LocalizedLink href={`/blog/${post.slug}`} className="block group">
       <article className="flex gap-4 p-4 bg-white border-l-2 border-transparent hover:border-accent hover:bg-slate-50/50 transition-all duration-300">
         {/* Thumbnail */}
         <div className="relative w-24 h-24 md:w-28 md:h-28 shrink-0 overflow-hidden bg-slate-100">
@@ -329,7 +329,7 @@ function CompactCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: str
           </span>
         </div>
       </article>
-    </Link>
+    </LocalizedLink>
   )
 }
 

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { ArrowRight, Phone, Star } from "lucide-react"
 import { servicesData, type Language } from "./services-data"
 
@@ -29,9 +29,9 @@ export function ServicesHero({ lang }: ServicesHeroProps) {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/images/videos/hero-1.mp4" type="video/mp4" />
+          <source src="/videos/sections-hero.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-linear-to-b from-secondary/95 via-primary/85 to-primary/70" />
+        <div className="absolute inset-0 bg-linear-to-b from-primary/95 via-primary/90 to-primary/80" />
       </div>
       
       {/* Decorative elements */}
@@ -83,18 +83,18 @@ export function ServicesHero({ lang }: ServicesHeroProps) {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                <Link href="/contact">
+                <LocalizedLink href="/contact">
                   <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold text-base px-6 h-12 rounded-lg shadow-lg shadow-accent/30">
                     {t.hero.cta}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                </Link>
-                <Link href="/contact">
+                </LocalizedLink>
+                <LocalizedLink href="/contact">
                   <Button size="lg" variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 h-12 px-6 rounded-lg bg-white/5 backdrop-blur-sm">
                     <Phone className="mr-2 h-4 w-4" />
                     {t.hero.ctaSecondary}
                   </Button>
-                </Link>
+                </LocalizedLink>
               </div>
             </motion.div>
           ) : (
@@ -109,18 +109,18 @@ export function ServicesHero({ lang }: ServicesHeroProps) {
                 {t.hero.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                <Link href="/contact">
+                <LocalizedLink href="/contact">
                   <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold text-base px-6 h-12 rounded-lg shadow-lg shadow-accent/30">
                     {t.hero.cta}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                </Link>
-                <Link href="/contact">
+                </LocalizedLink>
+                <LocalizedLink href="/contact">
                   <Button size="lg" variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 h-12 px-6 rounded-lg bg-white/5 backdrop-blur-sm">
                     <Phone className="mr-2 h-4 w-4" />
                     {t.hero.ctaSecondary}
                   </Button>
-                </Link>
+                </LocalizedLink>
               </div>
             </div>
           )}

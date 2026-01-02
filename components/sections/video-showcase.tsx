@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { type Language } from "@/lib/content"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
@@ -91,7 +91,7 @@ export function VideoShowcase({ lang }: { lang: Language }) {
             <div className="w-24 h-1 bg-accent mx-auto"></div>
 
             <div className="mt-10">
-              <Link href="/contact">
+              <LocalizedLink href="/contact">
                 <Button
                   size="lg"
                   className="bg-accent hover:bg-accent/90 text-white font-semibold text-base px-8 py-6 rounded-lg transition-all duration-300 group shadow-xl hover:shadow-2xl"
@@ -99,7 +99,7 @@ export function VideoShowcase({ lang }: { lang: Language }) {
                   {t.cta}
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
-              </Link>
+              </LocalizedLink>
             </div>
           </motion.div>
         </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { type Language } from "@/lib/content"
 import { motion } from "framer-motion"
 import { HeroText } from "@/components/ui/hero-text"
@@ -135,7 +135,7 @@ function FeatureCard({ text, image }: FeatureItem) {
   const [imageError, setImageError] = useState(false)
 
   return (
-    <Link 
+    <LocalizedLink 
       href="/services"
       className="relative flex-shrink-0 w-[300px] h-[110px] group cursor-pointer overflow-hidden rounded-lg bg-white border border-slate-200/80 hover:border-accent/40 transition-all duration-300 hover:shadow-xl hover:shadow-accent/5 block"
     >
@@ -182,7 +182,7 @@ function FeatureCard({ text, image }: FeatureItem) {
 
       {/* Bottom accent line */}
       <div className="absolute bottom-0 left-0 w-full h-[2px] bg-accent scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500" />
-    </Link>
+    </LocalizedLink>
   )
 }
 

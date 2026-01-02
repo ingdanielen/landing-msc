@@ -8,7 +8,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 export function Footer() {
-  const { lang } = useLang()
+  const { lang, translatePath } = useLang()
   const t = content[lang].footer
 
   return (
@@ -61,27 +61,27 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
-                <Link href="/" className="hover:text-white transition-colors">
+                <Link href={translatePath("/")} className="hover:text-white transition-colors">
                   {content[lang].nav.home}
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
+                <Link href={translatePath("/about")} className="hover:text-white transition-colors">
                   {content[lang].nav.about}
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-white transition-colors">
+                <Link href={translatePath("/services")} className="hover:text-white transition-colors">
                   {content[lang].nav.services}
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="hover:text-white transition-colors">
+                <Link href={translatePath("/blog")} className="hover:text-white transition-colors">
                   {lang === "es" ? "Noticias e Insights" : lang === "zh" ? "新闻与见解" : "News & Insights"}
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
+                <Link href={translatePath("/contact")} className="hover:text-white transition-colors">
                   {content[lang].nav.contact}
                 </Link>
               </li>
@@ -94,12 +94,12 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
-                <Link href="/terms" className="hover:text-white transition-colors">
+                <Link href={translatePath("/terms")} className="hover:text-white transition-colors">
                   {lang === "es" ? "Términos y Condiciones" : lang === "zh" ? "条款与条件" : "Terms & Conditions"}
                 </Link>
               </li>
               <li>
-                <Link href="/cookies" className="hover:text-white transition-colors">
+                <Link href={translatePath("/cookies")} className="hover:text-white transition-colors">
                   {lang === "es" ? "Política de Cookies" : lang === "zh" ? "Cookie政策" : "Cookie Policy"}
                 </Link>
               </li>

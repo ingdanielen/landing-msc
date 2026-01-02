@@ -1,50 +1,70 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight, Phone, Shield } from "lucide-react"
 import { type Language, content } from "@/lib/content"
-import { memo, useEffect, useRef } from "react"
+import { memo, useEffect, useRef, useState, useCallback } from "react"
 import Link from "next/link"
+import { useLang } from "@/components/lang-provider"
 
-// Olas CSS puras - más performantes que SVG
+// Olas CSS puras - posicionadas exactamente en el bottom
 const AnimatedWaves = memo(function AnimatedWaves() {
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-32 md:h-40 overflow-hidden z-5 pointer-events-none">
-      <div 
+    <div 
+      className="absolute inset-x-0 bottom-0 z-20 pointer-events-none"
+      style={{ height: '120px' }}
+    >
+      {/* Wave 1 - más lenta y transparente */}
+      <svg 
         className="absolute bottom-0 left-0 w-[200%] h-full animate-wave-slow"
-        style={{
-          background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 2880 120\'%3E%3Cpath fill=\'rgba(255,255,255,0.15)\' d=\'M0,60 C360,40 720,80 1080,60 C1440,40 1800,80 2160,60 C2520,40 2880,80 2880,60 L2880,120 L0,120 Z\'/%3E%3C/svg%3E") repeat-x bottom/2880px 100%',
-          willChange: 'transform',
-        }}
-      />
-      <div 
+        viewBox="0 0 2880 120" 
+        preserveAspectRatio="none"
+      >
+        <path 
+          fill="rgba(255,255,255,0.15)" 
+          d="M0,40 C360,20 720,60 1080,40 C1440,20 1800,60 2160,40 C2520,20 2880,60 2880,40 L2880,120 L0,120 Z"
+        />
+      </svg>
+      
+      {/* Wave 2 - velocidad media */}
+      <svg 
         className="absolute bottom-0 left-0 w-[200%] h-full animate-wave-medium"
-        style={{
-          background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 2880 120\'%3E%3Cpath fill=\'rgba(255,255,255,0.3)\' d=\'M0,80 C360,60 720,100 1080,80 C1440,60 1800,100 2160,80 C2520,60 2880,100 2880,80 L2880,120 L0,120 Z\'/%3E%3C/svg%3E") repeat-x bottom/2880px 100%',
-          willChange: 'transform',
-        }}
-      />
-      <div 
+        viewBox="0 0 2880 120" 
+        preserveAspectRatio="none"
+      >
+        <path 
+          fill="rgba(255,255,255,0.3)" 
+          d="M0,60 C360,45 720,75 1080,60 C1440,45 1800,75 2160,60 C2520,45 2880,75 2880,60 L2880,120 L0,120 Z"
+        />
+      </svg>
+      
+      {/* Wave 3 - más rápida y opaca (la que está más al frente) */}
+      <svg 
         className="absolute bottom-0 left-0 w-[200%] h-full animate-wave-fast"
-        style={{
-          background: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 2880 120\'%3E%3Cpath fill=\'rgba(255,255,255,0.6)\' d=\'M0,95 C360,85 720,105 1080,95 C1440,85 1800,105 2160,95 C2520,85 2880,105 2880,95 L2880,120 L0,120 Z\'/%3E%3C/svg%3E") repeat-x bottom/2880px 100%',
-          willChange: 'transform',
-        }}
-      />
+        viewBox="0 0 2880 120" 
+        preserveAspectRatio="none"
+      >
+        <path 
+          fill="rgba(255,255,255,0.6)" 
+          d="M0,80 C360,70 720,90 1080,80 C1440,70 1800,90 2160,80 C2520,70 2880,90 2880,80 L2880,120 L0,120 Z"
+        />
+      </svg>
     </div>
   )
 })
 
 // Contenido memoizado para evitar re-renders
 const HeroContent = memo(function HeroContent({ 
-  t, 
+  t,
+  translatePath,
   fadeIn 
 }: { 
   t: { title: string; subtitle: string; description: string; ctaPrimary: string; ctaSecondary: string }
+  translatePath: (path: string) => string
   fadeIn: { initial: { opacity: number; y: number }; animate: { opacity: number; y: number } }
 }) {
   return (
-    <div className="container mx-auto relative z-10 px-4 md:px-6 pt-28 pb-40">
+    <div className="container mx-auto relative z-10 px-4 md:px-6 pt-28 pb-48">
       <div className="max-w-4xl">
         {/* Tagline */}
         <motion.div
@@ -90,7 +110,7 @@ const HeroContent = memo(function HeroContent({
           transition={{ duration: 0.3, delay: 0.2 }}
           className="flex flex-col sm:flex-row gap-3 mb-10"
         >
-          <Link href="/contact">
+          <Link href={translatePath("/contact")}>
             <button className="group relative inline-flex items-center justify-center px-8 py-4 text-sm font-semibold text-white bg-accent rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 hover:scale-[1.02]">
               <span className="relative z-10 flex items-center gap-2">
                 {t.ctaPrimary}
@@ -125,29 +145,65 @@ const HeroContent = memo(function HeroContent({
   )
 })
 
+// Hook para manejar el crossfade de videos
+function useVideoLoop() {
+  const videoARef = useRef<HTMLVideoElement>(null)
+  const videoBRef = useRef<HTMLVideoElement>(null)
+  const [activeVideo, setActiveVideo] = useState<'A' | 'B'>('A')
+  const [isTransitioning, setIsTransitioning] = useState(false)
+
+  const handleVideoEnd = useCallback(() => {
+    if (isTransitioning) return
+    
+    setIsTransitioning(true)
+    
+    // Preparar el siguiente video
+    const nextVideo = activeVideo === 'A' ? videoBRef.current : videoARef.current
+    if (nextVideo) {
+      nextVideo.currentTime = 0
+      nextVideo.play().catch(() => {})
+    }
+    
+    // Cambiar al siguiente video con crossfade
+    setTimeout(() => {
+      setActiveVideo(prev => prev === 'A' ? 'B' : 'A')
+      setIsTransitioning(false)
+    }, 50)
+  }, [activeVideo, isTransitioning])
+
+  useEffect(() => {
+    const videoA = videoARef.current
+    const videoB = videoBRef.current
+    
+    if (!videoA || !videoB) return
+
+    // Iniciar video A
+    videoA.play().catch(() => {
+      setTimeout(() => videoA.play().catch(() => {}), 100)
+    })
+
+    // Detectar cuando el video está por terminar para hacer crossfade
+    const checkTime = () => {
+      const currentVideo = activeVideo === 'A' ? videoA : videoB
+      if (!currentVideo.duration) return
+      
+      const timeLeft = currentVideo.duration - currentVideo.currentTime
+      if (timeLeft <= 0.6 && !isTransitioning) {
+        handleVideoEnd()
+      }
+    }
+
+    const interval = setInterval(checkTime, 100)
+    return () => clearInterval(interval)
+  }, [activeVideo, isTransitioning, handleVideoEnd])
+
+  return { videoARef, videoBRef, activeVideo }
+}
+
 export function Hero({ lang }: { lang: Language }) {
   const t = content[lang].hero
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  // Optimización: forzar reproducción inmediata
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-    
-    // Forzar inicio de reproducción
-    const playVideo = () => {
-      video.play().catch(() => {
-        // Retry silencioso si falla
-        setTimeout(() => video.play().catch(() => {}), 100)
-      })
-    }
-    
-    if (video.readyState >= 2) {
-      playVideo()
-    } else {
-      video.addEventListener('loadeddata', playVideo, { once: true })
-    }
-  }, [])
+  const { translatePath } = useLang()
+  const { videoARef, videoBRef, activeVideo } = useVideoLoop()
 
   const fadeIn = {
     initial: { opacity: 0, y: 10 },
@@ -157,45 +213,55 @@ export function Hero({ lang }: { lang: Language }) {
   return (
     <section
       id="hero"
-      className="relative min-h-dvh flex items-center overflow-hidden"
-      style={{ contain: 'layout style paint' }}
+      className="relative min-h-dvh flex items-center"
     >
-      {/* Background - Video ultra optimizado */}
-      <div 
-        className="absolute inset-0 z-0 bg-primary"
-        style={{ contain: 'strict' }}
-      >
+      {/* Background - Videos con crossfade seamless */}
+      <div className="absolute inset-0 z-0 bg-primary overflow-hidden">
+        {/* Video A */}
         <video
-          ref={videoRef}
-          autoPlay
-          loop
+          ref={videoARef}
           muted
           playsInline
           preload="auto"
           disablePictureInPicture
           disableRemotePlayback
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out"
           style={{ 
-            willChange: 'auto',
-            transform: 'translateZ(0)', // Force GPU
+            transform: 'translateZ(0)',
+            opacity: activeVideo === 'A' ? 1 : 0 
           }}
           aria-hidden="true"
         >
-          <source src="/images/videos/hero-1.mp4" type="video/mp4" />
+          <source src="/videos/right-hero.mp4" type="video/mp4" />
         </video>
         
-        {/* Overlay degradado - GPU optimizado */}
-        <div 
-          className="absolute inset-0 bg-linear-to-b from-primary/85 via-primary/70 to-primary/50"
-          style={{ willChange: 'auto' }}
-        />
+        {/* Video B (clon para crossfade) */}
+        <video
+          ref={videoBRef}
+          muted
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out"
+          style={{ 
+            transform: 'translateZ(0)',
+            opacity: activeVideo === 'B' ? 1 : 0 
+          }}
+          aria-hidden="true"
+        >
+          <source src="/videos/right-hero.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Overlay degradado */}
+        <div className="absolute inset-0 bg-linear-to-b from-primary/85 via-primary/70 to-primary/40" />
       </div>
 
-      {/* Animated Waves - CSS optimizado */}
+      {/* Animated Waves - exactamente en el bottom */}
       <AnimatedWaves />
 
-      {/* Content - Memoizado */}
-      <HeroContent t={t} fadeIn={fadeIn} />
+      {/* Content */}
+      <HeroContent t={t} translatePath={translatePath} fadeIn={fadeIn} />
     </section>
   )
 }

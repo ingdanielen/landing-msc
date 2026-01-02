@@ -12,11 +12,14 @@ import { useLang } from "@/components/lang-provider"
 import Image from "next/image"
 
 export function Navbar() {
-  const { lang, setLang } = useLang()
+  const { lang, setLang, translatePath, getBasePath } = useLang()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
+
+  // Get the base path for current URL (for comparison)
+  const currentBasePath = getBasePath(pathname)
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -47,18 +50,20 @@ export function Navbar() {
   const t = content[lang].nav
   const tFooter = content[lang].footer.links
 
+  // Base routes (English) - these will be translated automatically
   const navLinks = [
-    { name: tFooter.home, href: "/" },
-    { name: tFooter.about, href: "/about" },
-    { name: tFooter.services, href: "/services" },
-    { name: tFooter.quality, href: "/compliance" },
-    { name: tFooter.gallery, href: "/gallery" },
-    { name: tFooter.blog, href: "/blog" },
-    { name: tFooter.contact, href: "/contact" },
+    { name: tFooter.home, baseHref: "/" },
+    { name: tFooter.about, baseHref: "/about" },
+    { name: tFooter.services, baseHref: "/services" },
+    { name: tFooter.quality, baseHref: "/compliance" },
+    { name: tFooter.gallery, baseHref: "/gallery" },
+    { name: tFooter.blog, baseHref: "/blog" },
+    { name: tFooter.contact, baseHref: "/contact" },
   ]
 
+  // Pages with hero sections (base paths)
   const pagesWithHero = ["/", "/about", "/services", "/compliance", "/gallery", "/contact"]
-  const isOnPageWithHero = pagesWithHero.includes(pathname)
+  const isOnPageWithHero = pagesWithHero.includes(currentBasePath)
   const shouldBeTransparent = isOnPageWithHero && !isScrolled && !isMobileMenuOpen
 
   return (
@@ -83,7 +88,7 @@ export function Navbar() {
         }`}>
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
-            <Link href="/" className="shrink-0">
+            <Link href={translatePath("/")} className="shrink-0">
               <Image
                 src="/brand/logo-white.png"
                 alt="MSC Logo"
@@ -101,11 +106,12 @@ export function Navbar() {
             <div className="hidden lg:flex items-center justify-center flex-1 px-4">
               <div className="flex items-center gap-1">
                 {navLinks.map((link) => {
-                  const isActive = pathname === link.href
+                  const translatedHref = translatePath(link.baseHref)
+                  const isActive = currentBasePath === link.baseHref
                   return (
                     <Link
                       key={link.name}
-                      href={link.href}
+                      href={translatedHref}
                       className={`px-3 py-2 text-sm font-medium transition-all duration-200 rounded-md ${
                         isActive
                           ? "text-accent"
@@ -123,7 +129,7 @@ export function Navbar() {
             <div className="hidden lg:flex items-center gap-2 shrink-0">
               <SearchBar lang={lang} isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
               <LanguageToggle lang={lang} setLang={setLang} />
-              <Link href="/contact">
+              <Link href={translatePath("/contact")}>
                 <Button className="bg-accent hover:bg-accent/90 text-white font-semibold text-sm px-4 py-2 rounded-md transition-all ml-2">
                   {t.request}
                 </Button>
@@ -160,26 +166,30 @@ export function Navbar() {
           <div className="relative z-10 h-full overflow-y-auto">
             <div className="container mx-auto px-4 py-6">
               <nav className="space-y-2">
-                {navLinks.map((link, idx) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center justify-between py-4 px-5 transition-all ${
-                      pathname === link.href
-                        ? "bg-accent text-white"
-                        : "bg-white/5 text-white hover:bg-white/10"
-                    }`}
-                    style={{ animationDelay: `${idx * 50}ms` }}
-                  >
-                    <span className="text-lg font-medium">{link.name}</span>
-                    <ChevronRight className="w-5 h-5 opacity-50" />
-                  </Link>
-                ))}
+                {navLinks.map((link, idx) => {
+                  const translatedHref = translatePath(link.baseHref)
+                  const isActive = currentBasePath === link.baseHref
+                  return (
+                    <Link
+                      key={link.name}
+                      href={translatedHref}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center justify-between py-4 px-5 transition-all ${
+                        isActive
+                          ? "bg-accent text-white"
+                          : "bg-white/5 text-white hover:bg-white/10"
+                      }`}
+                      style={{ animationDelay: `${idx * 50}ms` }}
+                    >
+                      <span className="text-lg font-medium">{link.name}</span>
+                      <ChevronRight className="w-5 h-5 opacity-50" />
+                    </Link>
+                  )
+                })}
               </nav>
               
               <div className="mt-8 pt-6 border-t border-white/10">
-                <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link href={translatePath("/contact")} onClick={() => setIsMobileMenuOpen(false)}>
                   <Button className="w-full bg-accent hover:bg-accent/90 text-white font-bold py-5 text-base">
                     {t.request}
                   </Button>

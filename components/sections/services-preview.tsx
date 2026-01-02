@@ -1,7 +1,7 @@
 "use client"
 
 import { type Language, content } from "@/lib/content"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import Image from "next/image"
@@ -46,12 +46,12 @@ export function ServicesPreview({ lang }: { lang: Language }) {
             </div>
             <div className="lg:text-right">
               <p className="text-white/70 md:text-lg max-w-md mb-4 lg:mb-6">{t.subtitle}</p>
-              <Link href="/services" className="hidden lg:inline-block">
+              <LocalizedLink href="/services" className="hidden lg:inline-block">
                 <Button variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary font-bold group">
                   {lang === "es" ? "Explorar Todos" : lang === "zh" ? "探索全部" : "Explore All"}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
-              </Link>
+              </LocalizedLink>
             </div>
           </motion.div>
         </div>
@@ -72,7 +72,7 @@ export function ServicesPreview({ lang }: { lang: Language }) {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
             >
-              <Link href="/services" className="block relative overflow-hidden">
+              <LocalizedLink href="/services" className="block relative overflow-hidden">
                 {/* Image Container */}
                 <div className="relative h-[280px] md:h-[350px]">
                   <Image
@@ -120,19 +120,19 @@ export function ServicesPreview({ lang }: { lang: Language }) {
                 {!isLast && (
                   <div className="h-px bg-white/10" />
                 )}
-              </Link>
+              </LocalizedLink>
             </motion.div>
           )
         })}
 
         {/* Mobile CTA */}
         <div className="bg-primary px-5 py-8">
-          <Link href="/services" className="block">
+          <LocalizedLink href="/services" className="block">
             <Button className="w-full bg-accent hover:bg-accent/90 text-white font-bold py-6 text-base group">
               {lang === "es" ? "Ver Todos los Servicios" : lang === "zh" ? "查看所有服务" : "View All Services"}
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-          </Link>
+          </LocalizedLink>
         </div>
       </div>
 
@@ -150,7 +150,7 @@ export function ServicesPreview({ lang }: { lang: Language }) {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.15, duration: 0.6 }}
             >
-              <Link href="/services" className="group block relative h-[70vh] min-h-[500px] overflow-hidden">
+              <LocalizedLink href="/services" className="group block relative h-[70vh] min-h-[500px] overflow-hidden">
                 {/* Image */}
                 <Image
                   src={imageUrl}
@@ -209,7 +209,7 @@ export function ServicesPreview({ lang }: { lang: Language }) {
 
                 {/* Border Line */}
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-              </Link>
+              </LocalizedLink>
             </motion.div>
           )
         })}

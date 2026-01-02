@@ -41,9 +41,9 @@ export function BlogPageClient({ posts }: BlogPageClientProps) {
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="/images/videos/hero-1.mp4" type="video/mp4" />
+            <source src="/videos/hero-video.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/40" />
+          <div className="absolute inset-0 bg-linear-to-b from-primary/95 via-primary/90 to-primary/80" />
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center py-16">

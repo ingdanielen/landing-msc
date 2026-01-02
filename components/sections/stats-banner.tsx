@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { type Language, content } from "@/lib/content"
 import { ArrowRight, FileCheck, Users, RefreshCw, ThumbsUp } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { Button } from "@/components/ui/button"
 import { HeroText } from "@/components/ui/hero-text"
 
@@ -143,7 +143,7 @@ export function StatsBanner({ lang }: { lang: Language }) {
           transition={{ delay: 0.6 }}
           className="text-center"
         >
-          <Link href="/about">
+          <LocalizedLink href="/about">
             <Button
               size="lg"
               className="bg-accent hover:bg-accent/90 text-white font-bold text-base px-8 py-6 transition-all duration-300 group"
@@ -151,7 +151,7 @@ export function StatsBanner({ lang }: { lang: Language }) {
               {t.cta}
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-          </Link>
+          </LocalizedLink>
         </motion.div>
       </div>
     </section>

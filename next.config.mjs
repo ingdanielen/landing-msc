@@ -58,7 +58,7 @@ const nextConfig = {
       },
       {
         // Videos con caché largo
-        source: '/images/videos/:path*',
+        source: '/videos/:path*',
         headers: [
           {
             key: 'Cache-Control',
@@ -68,9 +68,34 @@ const nextConfig = {
       },
     ]
   },
-  // Redirecciones y rewrites si son necesarios
+  // Rewrites para rutas traducidas (sin prefijo de idioma)
   async rewrites() {
-    return []
+    return [
+      // Rutas en Español
+      { source: '/nosotros', destination: '/about' },
+      { source: '/servicios', destination: '/services' },
+      { source: '/cumplimiento', destination: '/compliance' },
+      { source: '/calidad', destination: '/quality' },
+      { source: '/galeria', destination: '/gallery' },
+      { source: '/noticias', destination: '/blog' },
+      { source: '/noticias/:slug', destination: '/blog/:slug' },
+      { source: '/contacto', destination: '/contact' },
+      { source: '/privacidad', destination: '/privacy' },
+      { source: '/terminos', destination: '/terms' },
+      
+      // Rutas en Chino (pinyin)
+      { source: '/guanyu', destination: '/about' },
+      { source: '/fuwu', destination: '/services' },
+      { source: '/heguixing', destination: '/compliance' },
+      { source: '/zhiliang', destination: '/quality' },
+      { source: '/tuku', destination: '/gallery' },
+      { source: '/xinwen', destination: '/blog' },
+      { source: '/xinwen/:slug', destination: '/blog/:slug' },
+      { source: '/lianxi', destination: '/contact' },
+      { source: '/yinsi', destination: '/privacy' },
+      { source: '/tiaokuan', destination: '/terms' },
+      { source: '/falv', destination: '/legal' },
+    ]
   },
 }
 

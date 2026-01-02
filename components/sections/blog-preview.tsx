@@ -1,7 +1,7 @@
 "use client"
 
 import { type Language } from "@/lib/content"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { ArrowRight, Calendar, Tag, FileText } from "lucide-react"
@@ -79,7 +79,7 @@ function FeaturedCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: La
   if (!post || !post.isValid) return null
 
   return (
-    <Link href={`/blog/${post.slug}`} className="block group h-full">
+    <LocalizedLink href={`/blog/${post.slug}`} className="block group h-full">
       <article className="relative h-[420px] overflow-hidden bg-primary">
         {/* Background Image */}
         <SafeBlogImage
@@ -121,7 +121,7 @@ function FeaturedCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: La
           </div>
         </div>
       </article>
-    </Link>
+    </LocalizedLink>
   )
 }
 
@@ -132,7 +132,7 @@ function SmallCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: Langu
   if (!post || !post.isValid) return null
 
   return (
-    <Link href={`/blog/${post.slug}`} className="block group">
+    <LocalizedLink href={`/blog/${post.slug}`} className="block group">
       <article className="flex gap-4 h-[120px] bg-white border border-slate-200 hover:border-accent/50 transition-all overflow-hidden">
         {/* Image */}
         <div className="relative w-[140px] shrink-0 overflow-hidden bg-slate-100">
@@ -168,7 +168,7 @@ function SmallCard({ post: rawPost, lang }: { post: BlogPostPreview; lang: Langu
           </span>
         </div>
       </article>
-    </Link>
+    </LocalizedLink>
   )
 }
 
@@ -250,12 +250,12 @@ export function BlogPreview({ lang, posts }: BlogPreviewProps) {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Link href="/blog">
+          <LocalizedLink href="/blog">
             <button className="text-accent hover:text-primary font-semibold text-sm uppercase tracking-wide flex items-center gap-2 mx-auto group">
               {lang === "es" ? "Ver todas las publicaciones" : lang === "zh" ? "查看所有出版物" : "View all publications"}
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </button>
-          </Link>
+          </LocalizedLink>
         </motion.div>
       </div>
     </section>

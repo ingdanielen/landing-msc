@@ -1,7 +1,7 @@
 "use client"
 
 import { type Language, content } from "@/lib/content"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { ArrowRight, Phone, Mail, Clock, MapPin } from "lucide-react"
@@ -114,7 +114,7 @@ export function CtaSection({ lang }: { lang: Language }) {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-            <Link href="/contact">
+            <LocalizedLink href="/contact">
               <Button 
                 size="lg" 
                 className="bg-accent hover:bg-accent/90 text-white font-bold text-base px-8 h-12 rounded-lg shadow-lg shadow-accent/40 hover:shadow-xl hover:shadow-accent/50 transition-all"
@@ -122,7 +122,7 @@ export function CtaSection({ lang }: { lang: Language }) {
                 {cta.primary}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-            </Link>
+            </LocalizedLink>
             <a href={`tel:+50765980679`}>
               <Button 
                 size="lg" 

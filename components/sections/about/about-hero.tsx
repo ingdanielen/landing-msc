@@ -56,9 +56,9 @@ export function AboutHero({ lang }: { lang: Language }) {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/images/videos/hero-1.mp4" type="video/mp4" />
+          <source src="/videos/sections-hero.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-linear-to-b from-primary/80 via-primary/60 to-primary/40" />
+        <div className="absolute inset-0 bg-linear-to-b from-primary/95 via-primary/90 to-primary/80" />
       </div>
       
       {/* Animated Waves */}

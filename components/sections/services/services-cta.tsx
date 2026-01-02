@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { ArrowRight, Phone, Mail } from "lucide-react"
 import { servicesData, type Language } from "./services-data"
 
@@ -52,12 +52,12 @@ export function ServicesCta({ lang }: ServicesCtaProps) {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-              <Link href="/contact">
+              <LocalizedLink href="/contact">
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold text-base px-8 h-12 rounded-lg shadow-lg shadow-accent/40">
                   {t.cta.primary}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-              </Link>
+              </LocalizedLink>
               <a href={`tel:${t.cta.phone.replace(/[^+\d]/g, "")}`}>
                 <Button size="lg" variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 h-12 px-8 rounded-lg bg-white/5 backdrop-blur-sm">
                   <Phone className="mr-2 h-4 w-4" />
@@ -91,12 +91,12 @@ export function ServicesCta({ lang }: ServicesCtaProps) {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-              <Link href="/contact">
+              <LocalizedLink href="/contact">
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold text-base px-8 h-12 rounded-lg shadow-lg shadow-accent/40">
                   {t.cta.primary}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-              </Link>
+              </LocalizedLink>
               <a href={`tel:${t.cta.phone.replace(/[^+\d]/g, "")}`}>
                 <Button size="lg" variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 h-12 px-8 rounded-lg bg-white/5 backdrop-blur-sm">
                   <Phone className="mr-2 h-4 w-4" />

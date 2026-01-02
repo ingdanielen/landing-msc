@@ -9,7 +9,7 @@ import {
   ArrowRight,
   ArrowUpRight
 } from "lucide-react"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { HeroText } from "@/components/ui/hero-text"
 
 type Language = "es" | "en" | "zh"
@@ -187,13 +187,13 @@ export function ServicesIntro({ lang }: { lang: Language }) {
               transition={{ delay: 0.3 }}
               className="flex flex-wrap items-center gap-6"
             >
-              <Link
+              <LocalizedLink
                 href="#services-catalog"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-white font-semibold transition-all group"
               >
                 {t.cta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </LocalizedLink>
               
               <div className="flex items-center gap-3 text-sm text-slate-500">
                 <div className="flex -space-x-2">

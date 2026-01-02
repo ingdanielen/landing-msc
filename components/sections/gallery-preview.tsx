@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { useRef, useState, useEffect, useCallback } from "react"
 import { ArrowRight, Camera, X, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react"
 import { type Language } from "@/lib/content"
@@ -175,13 +175,13 @@ export function GalleryPreview({ lang, items }: GalleryPreviewProps) {
               </div>
             </div>
 
-            <Link
+            <LocalizedLink
               href="/gallery"
               className="group inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-medium hover:bg-accent transition-colors"
             >
               {t.cta}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </LocalizedLink>
           </motion.div>
 
           {/* Main Carousel */}

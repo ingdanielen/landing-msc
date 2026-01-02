@@ -2,7 +2,7 @@
 
 import { type Language, content } from "@/lib/content"
 import { ArrowRight, Users, Shield, Anchor, Globe, CheckCircle } from "lucide-react"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import Image from "next/image"
@@ -243,13 +243,13 @@ export function AboutPreview({ lang }: { lang: Language }) {
             </div>
 
             {/* CTA */}
-            <Link 
+            <LocalizedLink 
               href="/about"
               className="inline-flex items-center gap-3 bg-accent hover:bg-accent/90 text-white px-6 py-3 font-semibold transition-all group"
             >
               {t.cta}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </LocalizedLink>
           </motion.div>
         </div>
       </div>

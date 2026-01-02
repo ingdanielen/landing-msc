@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import Link from "next/link"
+import { LocalizedLink } from "@/components/ui/localized-link"
 import { CheckCircle2, ArrowRight, ChevronDown, ChevronUp, Ship } from "lucide-react"
 import { servicesData, serviceIcons, type Language } from "./services-data"
 
@@ -168,12 +168,12 @@ export function ServicesCatalog({ lang }: ServicesCatalogProps) {
                             )}
                           </button>
                         )}
-                        <Link href="/contact">
+                        <LocalizedLink href="/contact">
                           <Button size="sm" className="bg-accent hover:bg-accent/90 text-white rounded-md text-xs h-8">
                             {lang === "es" ? "Solicitar" : lang === "zh" ? "请求" : "Request"}
                             <ArrowRight className="ml-1 h-3 w-3" />
                           </Button>
-                        </Link>
+                        </LocalizedLink>
                       </div>
                     </div>
                   </motion.div>
@@ -218,12 +218,12 @@ export function ServicesCatalog({ lang }: ServicesCatalogProps) {
                       ))}
                     </div>
                     <div className="flex items-center justify-end mt-4 pt-4 border-t border-slate-100">
-                      <Link href="/contact">
+                      <LocalizedLink href="/contact">
                         <Button size="sm" className="bg-accent hover:bg-accent/90 text-white rounded-md text-xs h-8">
                           {lang === "es" ? "Solicitar" : lang === "zh" ? "请求" : "Request"}
                           <ArrowRight className="ml-1 h-3 w-3" />
                         </Button>
-                      </Link>
+                      </LocalizedLink>
                     </div>
                   </div>
                 </div>
